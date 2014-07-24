@@ -23,6 +23,7 @@ xelatex prepare
 bibtex prepare
 xelatex prepare
 xelatex prepare
+prepare.pdf
 echo work down!
 pause
 goto start
