@@ -2,7 +2,7 @@
 title Monster XeLaTeX Template
 :start
 cls
-echo 欢迎使用老怪 XeLaTeX 学位论文模板，请指示您的需要~
+echo 欢迎使用 XeLaTeX 学位论文模板，请指示您的需要~
 echo ----------------
 echo 0. 清理冗余文件
 echo 1. 测试 prepare
