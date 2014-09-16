@@ -3,6 +3,19 @@
 
 \LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
 
+\makeatletter
+\let\OLDappendix\appendix
+\newif\if@appendixinbackmatter
+\renewenvironment{appendix}
+{
+  \if@mainmatter
+     \@appendixinbackmatterfalse\OLDappendix
+  \else
+      \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
+ \fi
+}
+\makeatother
+
 \RequirePackage[
 	left=2.4cm,
 	right=2.2cm,
@@ -38,3 +51,5 @@
 ]{subsection}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%参考文献样式
+\bibliographystyle{GBT7714-2005NLang-ZJU}
