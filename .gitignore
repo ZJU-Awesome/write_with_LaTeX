@@ -30,3 +30,7 @@
 *.vrb
 *.xdy
 *.tdo
+*.pdf
+!/zju_thesis/logo/**/*.pdf
+!/zju_thesis/figures/**/*.pdf
+!/zju_thesis/contents/**/*.pdf
