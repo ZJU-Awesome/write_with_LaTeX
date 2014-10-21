@@ -26,6 +26,10 @@
 	% footskip=0.79cm
 ]{geometry}
 
+\RequirePackage{amsmath}		%数学公式
+\RequirePackage{bm}				%公式中的粗体
+\RequirePackage{graphicx}		%插图包
+
 %%%%%%%%%% 本机字体设置 %%%%%%%%%%
 \RequirePackage{fontspec}
 \setmainfont{TeX Gyre Termes}	%相当于MS Word中的Times New Roman。
