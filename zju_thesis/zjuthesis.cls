@@ -28,6 +28,7 @@
 
 \RequirePackage{amsmath}		%数学公式
 \RequirePackage{bm}				%公式中的粗体
+\RequirePackage{cases}			%公式中的括号，例如subnumcases环境
 \RequirePackage{graphicx}		%插图包
 
 %%%%%%%%%% 本机字体设置 %%%%%%%%%%
