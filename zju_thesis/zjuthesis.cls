@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
+\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap,hyperref]{ctexbook}
 
 \makeatletter
 \let\OLDappendix\appendix
@@ -16,6 +16,7 @@
 }
 \makeatother
 
+%%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
 	left=2.4cm,
 	right=2.2cm,
@@ -31,41 +32,51 @@
 \RequirePackage{cases}			%公式中的括号，例如subnumcases环境
 \RequirePackage{graphicx}		%插图包
 \RequirePackage{paralist}		%列表宏包
+\RequirePackage{booktabs}		%三线表
 
 
 %%%%%%%%%% 本机字体设置 %%%%%%%%%%
 \RequirePackage{fontspec}
-\setmainfont{TeX Gyre Termes}	%相当于MS Word中的Times New Roman。
+\setmainfont{Times New Roman}	%MS Word中的Times New Roman。
 \setsansfont{TeX Gyre Heros}	%相当于MS Word中的Helvetica。
 \setmonofont{TeX Gyre Cursor}	%相当于MS Word中的Curier。
-
+\RequirePackage{xeCJK}
+\setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}		%设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
+% \setCJKsansfont{}				%中文无衬线字体，不知道怎么设置，待以后解决。
+\setCJKmonofont{YouYuan}		%由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以后更改。
 
 %%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
+\setcounter{secnumdepth}{4}		%设置为四级标题
 %%章标题格式设置----小三仿宋加黑
 \CTEXsetup[
 	name={,},
 	number={\arabic{chapter}},
 	format={\raggedright},
-	nameformat={\fangsong\zihao{-3}\bfseries},
+	nameformat={\zihao{-3}\bfseries},
 	titleformat={\fangsong\zihao{-3}\bfseries}
 ]{chapter}
 
 %%一级节标题格式设置----四号仿宋加黑
 \CTEXsetup[
 	format={\raggedright},
-	nameformat={\fangsong\zihao{4}\bfseries},
+	nameformat={\zihao{4}\bfseries},
 	titleformat={\fangsong\zihao{4}\bfseries}
 ]{section}
 
-%%二级节标题格式设置----小四号仿宋加黑
+%%二级节标题格式设置----小四号仿宋
 \CTEXsetup[
 	format={\raggedright},
-	nameformat={\fangsong\zihao{-4}\bfseries},
-	titleformat={\fangsong\zihao{-4}\bfseries}
+	nameformat={\zihao{-4}},
+	titleformat={\fangsong\zihao{-4}}
 ]{subsection}
 
+%%三级节标题格式设置----小四号仿宋
+\CTEXsetup[
+	format={\raggedright},
+	nameformat={\zihao{-4}},
+	titleformat={\fangsong\zihao{-4}}
+]{subsubsection}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%参考文献样式
+%%%%%%%%%% 参考文献样式 %%%%%%%%%%
 \bibliographystyle{GBT7714-2005NLang-ZJU}
 
