@@ -35,7 +35,16 @@
 \RequirePackage{booktabs}		%三线表
 
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
-\RequirePackage{fancyhdr}
+% \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
+\fancypagestyle{plain}{%
+  \fancyhf{}							% 先清除当前页面的页眉页脚定义，是fancyhdr包中的定义
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\zihao{-5} \thepage}	% 改变plain默认样式的页码字体大小
+  % 如果想在每章首页也有页眉，就将以下两段注释取消掉，并且修改上面的\headrulewidth（默认为0.4pt）！！
+  % \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
+  % \fancyhead[R]{\songti\zihao{-5}\leftmark}
+}
 \pagestyle{fancy}
 	\fancyhf{}
     \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
