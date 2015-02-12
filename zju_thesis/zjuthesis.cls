@@ -34,6 +34,13 @@
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
 
+%%%%%%%%%% 页眉页脚 %%%%%%%%%%
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+	\fancyhf{}
+    \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
+    \fancyhead[R]{\songti\zihao{-5}\leftmark}
+    \fancyfoot[C]{\zihao{-5} \thepage}
 
 %%%%%%%%%% 本机字体设置 %%%%%%%%%%
 \RequirePackage{fontspec}
