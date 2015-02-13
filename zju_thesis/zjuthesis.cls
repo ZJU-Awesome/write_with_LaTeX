@@ -33,7 +33,17 @@
 \RequirePackage{graphicx}		%插图包
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
-
+\RequirePackage[xetex, unicode,
+    pdfstartview=FitH,
+    CJKbookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    colorlinks=true,
+    citecolor=black,
+    linkcolor=black,
+    anchorcolor=black,
+    urlcolor=black,
+    breaklinks=true]{hyperref}	% 超链接宏包，用途广泛
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
 \fancypagestyle{plain}{%
