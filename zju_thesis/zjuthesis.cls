@@ -93,6 +93,38 @@
 	titleformat={\fangsong\zihao{-4}}
 ]{subsubsection}
 
+%%%%%%%%%% 目录（目次） %%%%%%%%%%
+\RequirePackage{tocloft}
+%% 章节目录
+\renewcommand{\contentsname}{目\hspace{1em}次}				% 重命名章节目录名，这里不用\CTEXoption{}。
+\renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
+\renewcommand{\cftaftertoctitle}{\hfill}
+% \renewcommand{\cftdot}{\ensuremath{\cdot}}					% 目录“点”的样式
+\renewcommand{\cftdotsep}{2.2}								% 修改点之间的距离（全局），已经调整完毕！
+\newlength{\mycontentsdotskip}								% 新建调整目录行距的长度命令
+\setlength{\mycontentsdotskip}{4.6pt}
+% chapter
+\renewcommand{\cftchapfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftchapdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchappagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforechapskip}{\mycontentsdotskip}
+% section
+\renewcommand{\cftsecfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+\renewcommand{\cftsecpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforesecskip}{\mycontentsdotskip}
+\setlength{\cftsecindent}{0pt}
+% subsection
+\renewcommand{\cftsubsecfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftsubsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftsubsecdotsep}}
+\renewcommand{\cftsubsecpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforesubsecskip}{\mycontentsdotskip}
+\setlength{\cftsubsecindent}{0pt}
+
+
 %%%%%%%%%% 参考文献样式 %%%%%%%%%%
 \bibliographystyle{GBT7714-2005NLang-ZJU}
 
