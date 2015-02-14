@@ -123,6 +123,15 @@
 \renewcommand{\cftsubsecpagefont}{\rmfamily\zihao{-4}}
 \setlength{\cftbeforesubsecskip}{\mycontentsdotskip}
 \setlength{\cftsubsecindent}{0pt}
+% 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
+\makeatletter
+\renewcommand{\numberline}[1]{%
+\settowidth\@tempdimb{#1\hspace{0.5em}}%
+\ifdim\@tempdima<\@tempdimb%
+  \@tempdima=\@tempdimb%
+\fi%
+\hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
+\makeatother
 
 %%%%%%%%%% hyperref %%%%%%%%%%
 \RequirePackage{hyperref}
