@@ -95,6 +95,8 @@
 
 %%%%%%%%%% 目录（目次） %%%%%%%%%%
 \RequirePackage{tocloft}
+% tocbibind宏包将参考文献、目录等放入目录中。
+\RequirePackage[chapter]{tocbibind}
 %% 章节目录
 \renewcommand{\contentsname}{目\hspace{1em}次}				% 重命名章节目录名，这里不用\CTEXoption{}。
 \renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
@@ -133,7 +135,7 @@
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
 \makeatother
 
-%%%%%%%%%% hyperref %%%%%%%%%%
+%%%%%%%%%% hyperref(放最后)%%%%%%%%%%
 \RequirePackage{hyperref}
 \hypersetup{
 	hidelinks,					% 隐藏超链接的颜色和边框。
