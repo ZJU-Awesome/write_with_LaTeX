@@ -9,10 +9,13 @@
 
 ## 2、编译方法
 
-__windows__:run make.bat，并按提示选择所需。
+__windows__:
+
+run make.bat，并按提示选择所需。
 
 __Linux__:
 
+	$ cd zju_thesis
 	$ make
 
 ## 3、完成情况
