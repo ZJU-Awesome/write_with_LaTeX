@@ -7,7 +7,15 @@
 \begin{document}
 \maketitle
 \frontmatter
+\pagenumbering{Roman}									% 前置页码改为大写罗马数字，默认为小写罗马数字。
+\clearpage
+\listoffigures											% 插图目录
+\clearpage
+\listoftables											% 表格目录
+\clearpage
+\addtocontents{toc}{\cftpagenumbersoff{chapter}}		% 将目次中的“目次”项的页码显示去除。
 \tableofcontents
+\addtocontents{toc}{\cftpagenumberson{chapter}}
 \mainmatter
 \include{contents/intro}
 \include{contents/structure}

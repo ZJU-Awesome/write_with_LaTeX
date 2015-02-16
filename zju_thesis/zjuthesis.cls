@@ -98,7 +98,8 @@
 % tocbibind宏包将参考文献、目录等放入目录中。
 \RequirePackage[chapter]{tocbibind}
 %% 章节目录
-\renewcommand{\contentsname}{目\hspace{1em}次}				% 重命名章节目录名，这里不用\CTEXoption{}。
+\renewcommand{\contentsname}{目\hspace{1em}次}				% 重命名章节目录名，这里不用\CTEXoptions{}。
+% \CTEXoptions[contentsname={目\hspace{1em}次}]
 \renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
 \renewcommand{\cftaftertoctitle}{\hfill}
 % \renewcommand{\cftdot}{\ensuremath{\cdot}}					% 目录“点”的样式。
@@ -134,6 +135,26 @@
 \fi%
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
 \makeatother
+
+%% 插图目录
+\renewcommand{\listfigurename}{插\hspace{1em}图}			% 重命名插图目录名。
+\renewcommand{\cftloftitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“插图”居中。
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftfigfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftfigdotsep}{\cftdotsep}					% 修改差图目录的点之间的距离。
+\renewcommand{\cftfigleader}{\cftdotfill{\cftfigdotsep}}
+\renewcommand{\cftfigpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforefigskip}{\mycontentsdotskip}
+
+%% 表格目录
+\renewcommand{\listtablename}{表\hspace{1em}格}				% 重命名表目录名。
+\renewcommand{\cftlottitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“表格”居中。
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cfttabfont}{\fangsong\zihao{-4}}
+\renewcommand{\cfttabdotsep}{\cftdotsep}					% 修改插图目录的点之间的距离。
+\renewcommand{\cfttableader}{\cftdotfill{\cfttabdotsep}}
+\renewcommand{\cfttabpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforetabskip}{\mycontentsdotskip}
 
 %%%%%%%%%% hyperref(放最后)%%%%%%%%%%
 \RequirePackage{hyperref}
