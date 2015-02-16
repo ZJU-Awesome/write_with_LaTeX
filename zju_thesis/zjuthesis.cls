@@ -16,6 +16,9 @@
 }
 \makeatother
 
+%%%%%%%%%% 全局命令定义 %%%%%%%%%%
+\newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
+
 %%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
 	left=2.4cm,
@@ -98,33 +101,33 @@
 % tocbibind宏包将参考文献、目录等放入目录中。
 \RequirePackage[chapter]{tocbibind}
 %% 章节目录
-\renewcommand{\contentsname}{目\hspace{1em}次}				% 重命名章节目录名，这里不用\CTEXoptions{}。
+\renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名，这里不用\CTEXoptions{}。
 % \CTEXoptions[contentsname={目\hspace{1em}次}]
 \renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
 \renewcommand{\cftaftertoctitle}{\hfill}
 % \renewcommand{\cftdot}{\ensuremath{\cdot}}					% 目录“点”的样式。
 \renewcommand{\cftdotsep}{2.2}								% 修改点之间的距离（全局），已经调整完毕！
-\newlength{\mycontentsdotskip}								% 新建调整目录行距的长度命令。
-\setlength{\mycontentsdotskip}{4.6pt}						% 距离已经按照模板示例调整完毕！
+\newlength{\ZJUcontentsdotskip}								% 新建调整目录行距的长度命令。
+\setlength{\ZJUcontentsdotskip}{4.6pt}						% 距离已经按照模板示例调整完毕！
 % chapter
 \renewcommand{\cftchapfont}{\fangsong\zihao{-4}}
 \renewcommand{\cftchapdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
 \renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftchappagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforechapskip}{\mycontentsdotskip}
+\setlength{\cftbeforechapskip}{\ZJUcontentsdotskip}
 % section
 \renewcommand{\cftsecfont}{\fangsong\zihao{-4}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsecpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforesecskip}{\mycontentsdotskip}
+\setlength{\cftbeforesecskip}{\ZJUcontentsdotskip}
 \setlength{\cftsecindent}{0pt}
 % subsection
 \renewcommand{\cftsubsecfont}{\fangsong\zihao{-4}}
 \renewcommand{\cftsubsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftsubsecdotsep}}
 \renewcommand{\cftsubsecpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforesubsecskip}{\mycontentsdotskip}
+\setlength{\cftbeforesubsecskip}{\ZJUcontentsdotskip}
 \setlength{\cftsubsecindent}{0pt}
 % 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
 \makeatletter
@@ -137,24 +140,26 @@
 \makeatother
 
 %% 插图目录
-\renewcommand{\listfigurename}{插\hspace{1em}图}			% 重命名插图目录名。
+\renewcommand{\listfigurename}{插\ZJUspace 图}			% 重命名插图目录名。
 \renewcommand{\cftloftitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“插图”居中。
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftfigfont}{\fangsong\zihao{-4}}
 \renewcommand{\cftfigdotsep}{\cftdotsep}					% 修改差图目录的点之间的距离。
 \renewcommand{\cftfigleader}{\cftdotfill{\cftfigdotsep}}
 \renewcommand{\cftfigpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforefigskip}{\mycontentsdotskip}
+\setlength{\cftbeforefigskip}{\ZJUcontentsdotskip}
 
 %% 表格目录
-\renewcommand{\listtablename}{表\hspace{1em}格}				% 重命名表目录名。
+\renewcommand{\listtablename}{表\ZJUspace 格}				% 重命名表目录名。
 \renewcommand{\cftlottitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“表格”居中。
 \renewcommand{\cftafterlottitle}{\hfill}
 \renewcommand{\cfttabfont}{\fangsong\zihao{-4}}
 \renewcommand{\cfttabdotsep}{\cftdotsep}					% 修改插图目录的点之间的距离。
 \renewcommand{\cfttableader}{\cftdotfill{\cfttabdotsep}}
 \renewcommand{\cfttabpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforetabskip}{\mycontentsdotskip}
+\setlength{\cftbeforetabskip}{\ZJUcontentsdotskip}
+
+\addtocontents{toc}{\let\string\CTEX@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
 
 %%%%%%%%%% hyperref(放最后)%%%%%%%%%%
 \RequirePackage{hyperref}
