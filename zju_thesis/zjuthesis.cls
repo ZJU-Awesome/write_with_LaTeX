@@ -3,6 +3,14 @@
 
 \LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
 
+%%%%%%%%%% Option %%%%%%%%%%
+% 博士、硕士可选参数，用于区别格式
+\newif\if@doctor
+\DeclareOption{doctor}{\@doctortrue}
+\DeclareOption{master}{\@doctorfalse}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions
+
 \makeatletter
 \let\OLDappendix\appendix
 \newif\if@appendixinbackmatter
@@ -36,6 +44,7 @@
 \RequirePackage{graphicx}		%插图包
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
+\RequirePackage{ulem}			%下划线
 
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
@@ -63,6 +72,77 @@
 \setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}		%设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
 % \setCJKsansfont{}				%中文无衬线字体，不知道怎么设置，待以后解决。
 \setCJKmonofont{YouYuan}		%由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以后更改。
+
+%%%%%%%%%%% 封面及中英标题页 %%%%%%%%%%
+% 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
+\renewcommand\ULthickness{0.7pt}			% 重新定义下划线的厚度
+\newcommand\ZJUunderline[2][90pt]{\hskip1pt\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
+% 重新定义\maketitle命令
+\renewcommand\maketitle{
+% \@mainmatterfalse
+	\ZJUmakecover
+	% \ZJUmakeCNtitlepage
+	% \if@doctor
+	% 	\ZJUmakeENtitlepage
+	% \else
+	% 	\relex
+	% \fi
+	% \global\let\maketitle\relax
+}
+% 封面
+\newcommand\ZJUmakecover{
+	\clearpage
+	\thispagestyle{empty}
+	分类号：\ZJUunderline[90pt]{TM863}
+	\hfill
+	单位代码：\ZJUunderline[60pt]{10335} \par
+	密\quad 级：\ZJUunderline[90pt]{公开}
+	\hfill
+	学\ZJUspace 号：\ZJUunderline[60pt]{12345678} \par
+	\vspace{10mm}
+	\begin{center}
+		\includegraphics[width=60mm]{./logo/ZJDX.eps}\par
+		\vspace{4mm}
+		{
+			\if@doctor
+				{\songti \zihao{-1}博士学位论文}
+			\else
+				{\songti \zihao{-1}硕士学位论文}
+			\fi
+		}\par
+		\vspace{4mm}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{2mm}
+	\begin{center}
+		\begin{tabular}[t]{rl}
+			{\zihao{3}\bfseries 中文论文题目:} &
+			{\begin{minipage}[t][61pt]{260pt}
+				\zihao{-2} \fangsong\bfseries
+				\uline{这个题目的下划线可以自动适应题目字数的变化\hfill}
+			\end{minipage}}\\%[20pt]
+			{\zihao{3}\bfseries 英文论文题目:} &
+			{\begin{minipage}[t][61pt]{260pt}
+				\fontsize{16}{23}\bfseries
+				\uline{This is a very long title which is used for testing \hfill}
+			\end{minipage}}
+		\end{tabular}
+		\vskip 15mm
+		\begin{tabular}{rl}
+			{\zihao{4}\songti 申请人姓名:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{倪和陈}}\\[3mm]
+			{\zihao{4}\songti 指导教师:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{陈和倪}}\\[3mm]
+			{\zihao{4}\songti 合作导师:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{倪陈}}\\[3mm]
+			{\zihao{4}\songti 专业名称:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{地球物理}}\\[3mm]
+			{\zihao{4}\songti 研究方向:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{和稀泥的艺术}}\\[3mm]
+			{\zihao{4}\songti 所在学院:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{这个学院}}\\
+		\end{tabular}
+	\end{center}
+	\vfill
+	\begin{center}
+		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{2017年3月3日}}
+	\end{center}
+}
+
 
 %%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
 \setcounter{secnumdepth}{4}		%设置为四级标题
@@ -140,7 +220,7 @@
 \makeatother
 
 %% 插图目录
-\renewcommand{\listfigurename}{插\ZJUspace 图}			% 重命名插图目录名。
+\renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
 \renewcommand{\cftloftitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“插图”居中。
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftfigfont}{\fangsong\zihao{-4}}
@@ -164,6 +244,8 @@
 %%%%%%%%%% hyperref(放最后)%%%%%%%%%%
 \RequirePackage{hyperref}
 \hypersetup{
+	% CJKbookmarks,
+	% unicode,
 	hidelinks,					% 隐藏超链接的颜色和边框。
 	% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
 	pdfinfo={					% 这是pdf中显示的信息，不要就注释掉好了o(^▽^)o。

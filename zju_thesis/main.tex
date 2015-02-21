@@ -1,11 +1,12 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program = xelatex
-\documentclass{zjuthesis}
+\documentclass[master]{zjuthesis}
 \title{浙江大学研究生学位论文编写规则\LaTeX 模板}
 \author{Monster,Hamburger}
 \makeatother
 \begin{document}
-\maketitle
+% \maketitle
+\ZJUmakecover
 \frontmatter
 \pagenumbering{Roman}									% 前置页码改为大写罗马数字，默认为小写罗马数字。
 \clearpage
@@ -17,14 +18,14 @@
 \tableofcontents
 \addtocontents{toc}{\cftpagenumberson{chapter}}
 \mainmatter
-\include{contents/intro}
-\include{contents/structure}
-\include{contents/specification}
+% \include{contents/intro}
+% \include{contents/structure}
+% \include{contents/specification}
 \backmatter
 \bibliography{reference_data_base/references}
-\nocite{*} % to show the entire references, annotate it if need.
+% \nocite{*} % to show the entire references, annotate it if need.
 \appendix
-\chapter{我是第一个附录}
-\section{我是第一个附录的第一节}
-\chapter{我是第二个附录}
+% \chapter{我是第一个附录}
+% \section{我是第一个附录的第一节}
+% \chapter{我是第二个附录}
 \end{document}
