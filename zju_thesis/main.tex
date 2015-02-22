@@ -1,12 +1,19 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program = xelatex
-\documentclass[master]{zjuthesis}
+\documentclass[doctor]{zjuthesis}
 \title{浙江大学研究生学位论文编写规则\LaTeX 模板}
+% 根据ulem的文档第五页说明，通过宏或者命令传递到uline命令中的英文句子是被盒子装起来的，
+% 如果不特殊处理，则句子无法断行，但是\\，\ ，和 \- 还是可以起作用，
+% 因此须在\englishtitle命令中的句子的适当位置添加"\"，使句子可以断行。
+% 中文不存在此问题。
+\englishtitle{This is a very long title which is used\  for testing}
 \author{Monster,Hamburger}
 \makeatother
 \begin{document}
-% \maketitle
-\ZJUmakecover
+\maketitle
+% \ZJUmakecover
+% \ZJUmakeCNtitlepage
+% \ZJUmakeENtitlepage
 \frontmatter
 \pagenumbering{Roman}									% 前置页码改为大写罗马数字，默认为小写罗马数字。
 \clearpage

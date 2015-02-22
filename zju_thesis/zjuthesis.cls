@@ -28,8 +28,9 @@
 
 %%%%%%%%%% 全局命令定义 %%%%%%%%%%
 \newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
-\renewcommand\title[1]{\def\ZJU@title{#1}}
-\renewcommand\author[1]{\def\ZJU@author{#1}}
+\renewcommand\title[1]{\gdef\ZJU@title{#1}}
+\newcommand\englishtitle[1]{\long\def\ZJU@englishtitle{#1}}
+\renewcommand\author[1]{\gdef\ZJU@author{#1}}
 
 %%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
@@ -86,12 +87,13 @@
 \renewcommand\maketitle{
 % \@mainmatterfalse
 	\ZJUmakecover
-	% \ZJUmakeCNtitlepage
-	% \if@doctor
-	% 	\ZJUmakeENtitlepage
-	% \else
-	% 	\relex
-	% \fi
+	\ZJUmakeCNtitlepage
+	% 判断是否显示英文题名页，博士显示，硕士不显示。
+	\if@doctor
+		\ZJUmakeENtitlepage
+	\else
+		\relex
+	\fi
 	% \global\let\maketitle\relax
 }
 % 封面
@@ -128,8 +130,8 @@
 			\end{minipage}} \\%[20pt]
 			英文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
-				\zihao{-2} \fangsong\bfseries
-				\uline{This is a very long title which is used for testing\hfill}
+				\fontsize{16}{23}\bfseries
+				\uline{\ZJU@englishtitle\hfill}
 			\end{minipage}}
 		\end{tabular}
 		\vskip 15mm
@@ -139,7 +141,7 @@
 			合作导师: & \ZJUunderline[200pt]{倪陈} \\[3mm]
 			专业名称: & \ZJUunderline[200pt]{地球物理} \\[3mm]
 			研究方向: & \ZJUunderline[200pt]{和稀泥的艺术} \\[3mm]
-			所在学院: & \ZJUunderline[200pt]{这个学院} \\
+			所在学院: & \ZJUunderline[200pt]{这个学院}
 		\end{tabular}
 	\end{center}
 	\vfill
@@ -151,6 +153,8 @@
 \newcommand\ZJUmakeCNtitlepage{
 	\clearpage
 	\thispagestyle{empty}
+	{
+	\linespread{1.3}
 	\begin{center}
 		\zihao{-2}\fangsong\bfseries\ZJUunderline[400pt]{\ZJU@title}
 	\end{center}
@@ -163,27 +167,77 @@
 		{\zihao{3}\songti\bfseries 论文作者签名:\ZJUunderline[120pt]{\hfill}}\\[10mm]
 		{\zihao{3}\songti\bfseries 指导教师签名:\ZJUunderline[120pt]{\hfill}}
 	\end{center}
-	\vspace{15mm}
+	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
 			论文评阅人1: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
 			评阅人2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
 			评阅人3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
 			评阅人4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
-			评阅人5: & \ZJUunderline[260pt]{和稀泥的艺术}\\
+			评阅人5: & \ZJUunderline[260pt]{和稀泥的艺术}
 		\end{tabular}
-		\vskip 10mm
+		\vskip 12mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
 			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
 			委员1: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
 			委员2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
 			委员3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
 			委员4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
-			委员5: & \ZJUunderline[260pt]{和稀泥的艺术}\\
+			委员5: & \ZJUunderline[260pt]{和稀泥的艺术}
 		\end{tabular}
 	\end{center}
-\vfill
-\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\hfill}}
+	\vfill
+	\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\hfill}}
+	}
+}
+
+% 英文题名页
+\newcommand\ZJUmakeENtitlepage{
+	\cleardoublepage
+	\thispagestyle{empty}
+	{
+	\linespread{1.3}
+	\begin{center}
+		\fontsize{16}{23}\bfseries\ZJUunderline[400pt]{\ZJU@englishtitle}
+	\end{center}
+	\vspace{12mm}
+	\begin{center}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{5mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{3}\bfseries}rl}
+			Author's signature: & \ZJUunderline[120pt]{\hfill}\\[10mm]
+			Supervisor's signature: & \ZJUunderline[120pt]{\hfill}
+		\end{tabular}
+	\end{center}
+	\vspace{8mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{4}}r>{\zihao{4}}l}
+			External Reviewers: & \ZJUunderline[260pt]{\ZJU@author}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}
+		\end{tabular}
+	\end{center}
+	\vspace{8mm}
+	% 以下水平间距的命令用于跟上面对齐
+	% 第一个水平间距命令采用LaTeX的\hspace命令
+	% 若采用之后的TeX原始间距命令则水平间距无法产生，原因未知
+	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2.5mm]
+	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
+	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\
+	\vfill
+	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{\hfill}}
+	}
 }
 
 %%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
