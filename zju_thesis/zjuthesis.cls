@@ -1,3 +1,5 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
@@ -26,6 +28,8 @@
 
 %%%%%%%%%% 全局命令定义 %%%%%%%%%%
 \newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
+\renewcommand\title[1]{\def\ZJU@title{#1}}
+\renewcommand\author[1]{\def\ZJU@author{#1}}
 
 %%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
@@ -45,6 +49,7 @@
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
 \RequirePackage{ulem}			%下划线
+\RequirePackage{array}			%
 
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
@@ -115,26 +120,26 @@
 	\end{center}
 	\vspace{2mm}
 	\begin{center}
-		\begin{tabular}[t]{rl}
-			{\zihao{3}\bfseries 中文论文题目:} &
+		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
+			中文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
 				\zihao{-2} \fangsong\bfseries
-				\uline{这个题目的下划线可以自动适应题目字数的变化\hfill}
-			\end{minipage}}\\%[20pt]
-			{\zihao{3}\bfseries 英文论文题目:} &
+				\uline{\ZJU@title\hfill}
+			\end{minipage}} \\%[20pt]
+			英文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
-				\fontsize{16}{23}\bfseries
-				\uline{This is a very long title which is used for testing \hfill}
+				\zihao{-2} \fangsong\bfseries
+				\uline{This is a very long title which is used for testing\hfill}
 			\end{minipage}}
 		\end{tabular}
 		\vskip 15mm
-		\begin{tabular}{rl}
-			{\zihao{4}\songti 申请人姓名:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{倪和陈}}\\[3mm]
-			{\zihao{4}\songti 指导教师:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{陈和倪}}\\[3mm]
-			{\zihao{4}\songti 合作导师:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{倪陈}}\\[3mm]
-			{\zihao{4}\songti 专业名称:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{地球物理}}\\[3mm]
-			{\zihao{4}\songti 研究方向:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{和稀泥的艺术}}\\[3mm]
-			{\zihao{4}\songti 所在学院:} & {\zihao{4}\fangsong \ZJUunderline[200pt]{这个学院}}\\
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
+			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
+			指导教师: & \ZJUunderline[200pt]{陈和倪} \\[3mm]
+			合作导师: & \ZJUunderline[200pt]{倪陈} \\[3mm]
+			专业名称: & \ZJUunderline[200pt]{地球物理} \\[3mm]
+			研究方向: & \ZJUunderline[200pt]{和稀泥的艺术} \\[3mm]
+			所在学院: & \ZJUunderline[200pt]{这个学院} \\
 		\end{tabular}
 	\end{center}
 	\vfill
@@ -142,7 +147,44 @@
 		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{2017年3月3日}}
 	\end{center}
 }
-
+% 中文题名页
+\newcommand\ZJUmakeCNtitlepage{
+	\clearpage
+	\thispagestyle{empty}
+	\begin{center}
+		\zihao{-2}\fangsong\bfseries\ZJUunderline[400pt]{\ZJU@title}
+	\end{center}
+	\vspace{12mm}
+	\begin{center}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{8mm}
+	\begin{center}
+		{\zihao{3}\songti\bfseries 论文作者签名:\ZJUunderline[120pt]{\hfill}}\\[10mm]
+		{\zihao{3}\songti\bfseries 指导教师签名:\ZJUunderline[120pt]{\hfill}}
+	\end{center}
+	\vspace{15mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
+			论文评阅人1: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
+			评阅人2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			评阅人3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
+			评阅人4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
+			评阅人5: & \ZJUunderline[260pt]{和稀泥的艺术}\\
+		\end{tabular}
+		\vskip 10mm
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
+			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
+			委员1: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			委员2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			委员3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
+			委员4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
+			委员5: & \ZJUunderline[260pt]{和稀泥的艺术}\\
+		\end{tabular}
+	\end{center}
+\vfill
+\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\hfill}}
+}
 
 %%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
 \setcounter{secnumdepth}{4}		%设置为四级标题
