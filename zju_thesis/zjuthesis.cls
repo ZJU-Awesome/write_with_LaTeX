@@ -1,4 +1,4 @@
-% !Mode:: "TeX:UTF-8"
+﻿% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
@@ -82,7 +82,7 @@
 %%%%%%%%%%% 封面及中英标题页 %%%%%%%%%%
 % 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
 \renewcommand\ULthickness{0.7pt}			% 重新定义下划线的厚度
-\newcommand\ZJUunderline[2][90pt]{\hskip1pt\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
+\newcommand\ZJUunderline[2][90pt]{\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
 % 重新定义\maketitle命令
 \renewcommand\maketitle{
 % \@mainmatterfalse
@@ -132,7 +132,10 @@
 			{\begin{minipage}[t][61pt]{260pt}
 				\fontsize{16}{23}\bfseries
 				\uline{\ZJU@englishtitle\hfill}
-			\end{minipage}}
+			\end{minipage}}\\
+			% 下面这条命令主要为弥补\uline命令强制换行产生的第一行下划线右边空隙。
+			% 方法简单粗暴，若有时间再改进。
+			& \raisebox{62.45pt}[0pt]{\ZJUunderline[260pt]{\hfill}}
 		\end{tabular}
 		\vskip 15mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
@@ -164,8 +167,8 @@
 	\end{center}
 	\vspace{8mm}
 	\begin{center}
-		{\zihao{3}\songti\bfseries 论文作者签名:\ZJUunderline[120pt]{\hfill}}\\[10mm]
-		{\zihao{3}\songti\bfseries 指导教师签名:\ZJUunderline[120pt]{\hfill}}
+		{\zihao{3}\songti\bfseries 论文作者签名：\ZJUunderline[120pt]{\hfill}}\\[10mm]
+		{\zihao{3}\songti\bfseries 指导教师签名：\ZJUunderline[120pt]{\hfill}}
 	\end{center}
 	\vspace{8mm}
 	\begin{center}
