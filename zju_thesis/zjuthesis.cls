@@ -65,7 +65,11 @@
 }
 \pagestyle{fancy}
 	\fancyhf{}
-    \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
+	\if@doctor
+		\fancyhead[L]{\songti\zihao{-5}浙江大学博士学位论文}
+	\else
+		\fancyhead[L]{\songti\zihao{-5}浙江大学硕士学位论文}
+	\fi
     \fancyhead[R]{\songti\zihao{-5}\leftmark}
     \fancyfoot[C]{\zihao{-5} \thepage}
 
