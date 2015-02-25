@@ -50,7 +50,7 @@
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
 \RequirePackage{ulem}			%下划线
-\RequirePackage{array}			%
+\RequirePackage{array}			%表格处理必备宏包
 
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
@@ -124,7 +124,7 @@
 		\vspace{4mm}
 		\includegraphics[width=22.8mm]{./logo/QSY.eps}
 	\end{center}
-	\vspace{2mm}
+	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
@@ -141,7 +141,7 @@
 			% 方法简单粗暴，若有时间再改进。
 			& \raisebox{62.45pt}[0pt]{\ZJUunderline[260pt]{\hfill}}
 		\end{tabular}
-		\vskip 15mm
+		\vskip 6mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
 			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
 			指导教师: & \ZJUunderline[200pt]{陈和倪} \\[3mm]
@@ -291,7 +291,7 @@
 	name={,},
 	number={\arabic{chapter}},
 	format={\raggedright},
-	nameformat={\zihao{-3}\bfseries},
+	nameformat={\fangsong\zihao{-3}\bfseries},
 	titleformat={\fangsong\zihao{-3}\bfseries}
 ]{chapter}
 
