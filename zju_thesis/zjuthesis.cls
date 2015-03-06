@@ -1,7 +1,17 @@
+﻿% !Mode:: "TeX:UTF-8"
+% !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap,hyperref]{ctexbook}
+\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
+
+%%%%%%%%%% Option %%%%%%%%%%
+% 博士、硕士可选参数，用于区别格式
+\newif\if@doctor
+\DeclareOption{doctor}{\@doctortrue}
+\DeclareOption{master}{\@doctorfalse}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions
 
 \makeatletter
 \let\OLDappendix\appendix
@@ -15,6 +25,12 @@
  \fi
 }
 \makeatother
+
+%%%%%%%%%% 全局命令定义 %%%%%%%%%%
+\newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
+\renewcommand\title[1]{\gdef\ZJU@title{#1}}
+\newcommand\englishtitle[1]{\long\def\ZJU@englishtitle{#1}}
+\renewcommand\author[1]{\gdef\ZJU@author{#1}}
 
 %%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
@@ -33,17 +49,9 @@
 \RequirePackage{graphicx}		%插图包
 \RequirePackage{paralist}		%列表宏包
 \RequirePackage{booktabs}		%三线表
-\RequirePackage[xetex, unicode,
-    pdfstartview=FitH,
-    CJKbookmarks=true,
-    bookmarksnumbered=true,
-    bookmarksopen=true,
-    colorlinks=true,
-    citecolor=black,
-    linkcolor=black,
-    anchorcolor=black,
-    urlcolor=black,
-    breaklinks=true]{hyperref}	% 超链接宏包，用途广泛
+\RequirePackage{ulem}			%下划线
+\RequirePackage{array}			%
+
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
 \fancypagestyle{plain}{%
@@ -57,7 +65,11 @@
 }
 \pagestyle{fancy}
 	\fancyhf{}
-    \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
+	\if@doctor
+		\fancyhead[L]{\songti\zihao{-5}浙江大学博士学位论文}
+	\else
+		\fancyhead[L]{\songti\zihao{-5}浙江大学硕士学位论文}
+	\fi
     \fancyhead[R]{\songti\zihao{-5}\leftmark}
     \fancyfoot[C]{\zihao{-5} \thepage}
 
@@ -70,6 +82,207 @@
 \setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}		%设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
 % \setCJKsansfont{}				%中文无衬线字体，不知道怎么设置，待以后解决。
 \setCJKmonofont{YouYuan}		%由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以后更改。
+
+%%%%%%%%%%% 封面及中英标题页 %%%%%%%%%%
+% 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
+\renewcommand\ULthickness{0.7pt}			% 重新定义下划线的厚度
+\newcommand\ZJUunderline[2][90pt]{\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
+% 重新定义\maketitle命令
+\renewcommand\maketitle{
+% \@mainmatterfalse
+	\ZJUmakecover
+	\ZJUmakeCNtitlepage
+	% 判断是否显示英文题名页，博士显示，硕士不显示。
+	\if@doctor
+		\ZJUmakeENtitlepage
+	\else
+		\relex
+	\fi
+	\makeOSpage
+}
+% 封面
+\newcommand\ZJUmakecover{
+	\clearpage
+	\thispagestyle{empty}
+	分类号：\ZJUunderline[90pt]{TM863}
+	\hfill
+	单位代码：\ZJUunderline[60pt]{10335} \par
+	密\quad 级：\ZJUunderline[90pt]{公开}
+	\hfill
+	学\ZJUspace 号：\ZJUunderline[60pt]{12345678} \par
+	\vspace{10mm}
+	\begin{center}
+		\includegraphics[width=60mm]{./logo/ZJDX.eps}\par
+		\vspace{4mm}
+		{
+			\if@doctor
+				{\songti \zihao{-1}博士学位论文}
+			\else
+				{\songti \zihao{-1}硕士学位论文}
+			\fi
+		}\par
+		\vspace{4mm}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{2mm}
+	\begin{center}
+		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
+			中文论文题目: &
+			{\begin{minipage}[t][61pt]{260pt}
+				\zihao{-2} \fangsong\bfseries
+				\uline{\ZJU@title\hfill}
+			\end{minipage}} \\%[20pt]
+			英文论文题目: &
+			{\begin{minipage}[t][61pt]{260pt}
+				\fontsize{16}{23}\bfseries
+				\uline{\ZJU@englishtitle\hfill}
+			\end{minipage}}\\
+			% 下面这条命令主要为弥补\uline命令强制换行产生的第一行下划线右边空隙。
+			% 方法简单粗暴，若有时间再改进。
+			& \raisebox{62.45pt}[0pt]{\ZJUunderline[260pt]{\hfill}}
+		\end{tabular}
+		\vskip 15mm
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
+			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
+			指导教师: & \ZJUunderline[200pt]{陈和倪} \\[3mm]
+			合作导师: & \ZJUunderline[200pt]{倪陈} \\[3mm]
+			专业名称: & \ZJUunderline[200pt]{地球物理} \\[3mm]
+			研究方向: & \ZJUunderline[200pt]{和稀泥的艺术} \\[3mm]
+			所在学院: & \ZJUunderline[200pt]{这个学院}
+		\end{tabular}
+	\end{center}
+	\vfill
+	\begin{center}
+		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{2017年3月3日}}
+	\end{center}
+}
+% 中文题名页
+\newcommand\ZJUmakeCNtitlepage{
+	\clearpage
+	\thispagestyle{empty}
+	{
+	\linespread{1.3}
+	\begin{center}
+		\zihao{-2}\fangsong\bfseries\ZJUunderline[400pt]{\ZJU@title}
+	\end{center}
+	\vspace{12mm}
+	\begin{center}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{8mm}
+	\begin{center}
+		{\zihao{3}\songti\bfseries 论文作者签名：\ZJUunderline[120pt]{\hfill}}\\[10mm]
+		{\zihao{3}\songti\bfseries 指导教师签名：\ZJUunderline[120pt]{\hfill}}
+	\end{center}
+	\vspace{8mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
+			论文评阅人1: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
+			评阅人2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			评阅人3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
+			评阅人4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
+			评阅人5: & \ZJUunderline[260pt]{和稀泥的艺术}
+		\end{tabular}
+		\vskip 12mm
+		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
+			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
+			委员1: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			委员2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
+			委员3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
+			委员4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
+			委员5: & \ZJUunderline[260pt]{和稀泥的艺术}
+		\end{tabular}
+	\end{center}
+	\vfill
+	\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\hfill}}
+	}
+}
+
+% 英文题名页
+\newcommand\ZJUmakeENtitlepage{
+	\clearpage
+	\thispagestyle{empty}
+	{
+	\linespread{1.3}
+	\begin{center}
+		\fontsize{16}{23}\bfseries\ZJUunderline[400pt]{\ZJU@englishtitle}
+	\end{center}
+	\vspace{12mm}
+	\begin{center}
+		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+	\end{center}
+	\vspace{5mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{3}\bfseries}rl}
+			Author's signature: & \ZJUunderline[120pt]{\hfill}\\[10mm]
+			Supervisor's signature: & \ZJUunderline[120pt]{\hfill}
+		\end{tabular}
+	\end{center}
+	\vspace{8mm}
+	\begin{center}
+		\begin{tabular}{>{\zihao{4}}r>{\zihao{4}}l}
+			External Reviewers: & \ZJUunderline[260pt]{\ZJU@author}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
+								& \ZJUunderline[260pt]{\hfill}
+		\end{tabular}
+	\end{center}
+	\vspace{8mm}
+	% 以下水平间距的命令用于跟上面对齐
+	% 第一个水平间距命令采用LaTeX的\hspace命令
+	% 若采用之后的TeX原始间距命令则水平间距无法产生，原因未知
+	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2.5mm]
+	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
+	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\
+	\vfill
+	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{\hfill}}
+	}
+}
+
+% 独创声明与版权协议转让页
+\newcommand\makeOSpage{%
+	\clearpage
+	\thispagestyle{empty}
+	{
+		\newcommand\signature@date{签字日期：\hspace{8ex}年\hspace{4ex}月\hspace{4ex}日}
+		\linespread{1.7}			% 相当于word中的1.5倍行距。
+		\songti\zihao{-4}
+		\vspace*{1ex}
+		\begin{center}
+			\zihao{-2}浙江大学研究生学位论文独创性声明
+		\end{center}
+		\vspace{20pt}
+
+		本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为获得{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。
+
+		\vspace{62pt}
+
+		学位论文作者签名：\hspace{13ex} \signature@date
+
+		\vspace{70pt}
+		\begin{center}
+			\zihao{-2} 学位论文版权使用授权书
+		\end{center}
+		\vspace{20pt}
+
+		本学位论文作者完全了解{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}有权保留并向国家有关部门或机构送交本论文的复印件和磁盘，允许论文被查阅和借阅。本人授权{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}可以将学位论文的全部或部分内容编入有关数据库进行检索和传播，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。
+
+		（保密的学位论文在解密后适用本授权书）\\[20pt]
+		\begin{tabular}{p{0.5\textwidth}p{0.4\textwidth}}
+			\CTEXindent 学位论文作者签名：	&  导师签名：\\[20pt]
+			\CTEXindent \signature@date 	&  \signature@date
+		\end{tabular}
+
+	}
+}
 
 %%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
 \setcounter{secnumdepth}{4}		%设置为四级标题
@@ -102,6 +315,94 @@
 	nameformat={\zihao{-4}},
 	titleformat={\fangsong\zihao{-4}}
 ]{subsubsection}
+
+%%%%%%%%%% 目录（目次） %%%%%%%%%%
+\RequirePackage{tocloft}
+% tocbibind宏包将参考文献、目录等放入目录中。
+\RequirePackage[chapter]{tocbibind}
+%% 章节目录
+\renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名，这里不用\CTEXoptions{}。
+% \CTEXoptions[contentsname={目\hspace{1em}次}]
+\renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
+\renewcommand{\cftaftertoctitle}{\hfill}
+% \renewcommand{\cftdot}{\ensuremath{\cdot}}					% 目录“点”的样式。
+\renewcommand{\cftdotsep}{2.2}								% 修改点之间的距离（全局），已经调整完毕！
+\newlength{\ZJUcontentsdotskip}								% 新建调整目录行距的长度命令。
+\setlength{\ZJUcontentsdotskip}{4.6pt}						% 距离已经按照模板示例调整完毕！
+% chapter
+\renewcommand{\cftchapfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftchapdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchappagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforechapskip}{\ZJUcontentsdotskip}
+% section
+\renewcommand{\cftsecfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+\renewcommand{\cftsecpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforesecskip}{\ZJUcontentsdotskip}
+\setlength{\cftsecindent}{0pt}
+% subsection
+\renewcommand{\cftsubsecfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftsubsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftsubsecdotsep}}
+\renewcommand{\cftsubsecpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforesubsecskip}{\ZJUcontentsdotskip}
+\setlength{\cftsubsecindent}{0pt}
+% 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
+\makeatletter
+\renewcommand{\numberline}[1]{%
+\settowidth\@tempdimb{#1\hspace{0.5em}}%
+\ifdim\@tempdima<\@tempdimb%
+  \@tempdima=\@tempdimb%
+\fi%
+\hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
+\makeatother
+
+%% 插图目录
+\renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
+\renewcommand{\cftloftitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“插图”居中。
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftfigfont}{\fangsong\zihao{-4}}
+\renewcommand{\cftfigdotsep}{\cftdotsep}					% 修改差图目录的点之间的距离。
+\renewcommand{\cftfigleader}{\cftdotfill{\cftfigdotsep}}
+\renewcommand{\cftfigpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforefigskip}{\ZJUcontentsdotskip}
+
+%% 表格目录
+\renewcommand{\listtablename}{表\ZJUspace 格}				% 重命名表目录名。
+\renewcommand{\cftlottitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“表格”居中。
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cfttabfont}{\fangsong\zihao{-4}}
+\renewcommand{\cfttabdotsep}{\cftdotsep}					% 修改插图目录的点之间的距离。
+\renewcommand{\cfttableader}{\cftdotfill{\cfttabdotsep}}
+\renewcommand{\cfttabpagefont}{\rmfamily\zihao{-4}}
+\setlength{\cftbeforetabskip}{\ZJUcontentsdotskip}
+
+\addtocontents{toc}{\let\string\CTEX@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
+
+%%%%%%%%%% hyperref(放最后)%%%%%%%%%%
+\RequirePackage{hyperref}
+\hypersetup{
+	xetex,
+	unicode,
+    pdfstartview=FitH,
+    CJKbookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    colorlinks=true,
+    citecolor=black,
+    linkcolor=black,
+    anchorcolor=black,
+    urlcolor=black,
+    breaklinks=true
+	hidelinks,					% 隐藏超链接的颜色和边框。
+	% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
+	pdfinfo={					% 这是pdf中显示的信息，不要就注释掉好了o(^▽^)o。
+		Title={这是一个伟大的模板},
+		Author={Bruce,Sky}
+		}
+	}
 
 %%%%%%%%%% 参考文献样式 %%%%%%%%%%
 \bibliographystyle{GBT7714-2005NLang-ZJU}
