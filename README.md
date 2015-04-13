@@ -1,5 +1,5 @@
 ## 浙江大学机械学院硕士(博士)学位论文LaTeX模板
-作者: 
+作者:
 [Monster](http://github.com/diufanshu)、
 [Hamburger](https://github.com/githamburger)
 
@@ -26,9 +26,10 @@ __Linux__:
 - [ ] 定理环境
 - [ ] 抄录环境
 - [ ] 参考文献样式设计
-- [ ] 封面设置
-- [ ] 题目页面
+- [x] 封面设置
+- [x] 题目页面
 - [ ] 勘误页面
+- [ ] 单双页设置
 
 ## 4、欢迎参与
 
