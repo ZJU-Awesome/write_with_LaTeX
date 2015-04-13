@@ -407,3 +407,21 @@
 %%%%%%%%%% 参考文献样式 %%%%%%%%%%
 \bibliographystyle{GBT7714-2005NLang-ZJU}
 
+%Superscript reference
+\newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
+
+\newenvironment{denotation}[1][2.5cm]{
+  \chapter{主要符号对照表}
+  \noindent\begin{list}{}%
+    {\vskip-30bp%\xiaosihao[1.6]
+     \renewcommand\makelabel[1]{##1\hfil}
+     \setlength{\labelwidth}{#1} % 标签盒子宽度
+     \setlength{\labelsep}{0.5cm} % 标签与列表文本距离
+     \setlength{\itemindent}{0cm} % 标签缩进量
+     \setlength{\leftmargin}{\dimexpr\labelwidth+\labelsep} % 左边界，zym@USTC说\dimexpr在texlive2011/12上不正常，替代方法是使用calc宏包
+     \setlength{\rightmargin}{0cm}
+     \setlength{\parsep}{0cm} % 段落间距
+     \setlength{\itemsep}{0cm} % 标签间距
+    \setlength{\listparindent}{0cm} % 段落缩进量
+    \setlength{\topsep}{0pt} % 标签与上文的间距
+   }}{\end{list}}
