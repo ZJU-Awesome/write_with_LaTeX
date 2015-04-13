@@ -1,4 +1,5 @@
 % !Mode:: "TeX:UTF-8"
+% !TEX builder = SIMPLE
 % !TEX program = xelatex
 \documentclass[doctor]{zjuthesis}
 \title{浙江大学研究生学位论文编写规则\LaTeX 模板}
@@ -20,6 +21,8 @@
 \listoffigures											% 插图目录
 \clearpage
 \listoftables											% 表格目录
+\clearpage
+\include{contents/denotation}
 \clearpage
 \addtocontents{toc}{\cftpagenumbersoff{chapter}}		% 将目次中的“目次”项的页码显示去除。
 \tableofcontents
