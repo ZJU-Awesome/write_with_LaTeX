@@ -135,11 +135,11 @@
 			英文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
 				\fontsize{16}{23}\bfseries
+				% 下面这条命令通过产生一个0宽度内容为下划线左对齐的盒子
+				% 来弥补\uline命令强制换行产生的第一行下划线右边空隙。原来\raisebox方法放弃。
+				\makebox[0pt][l]{\ZJUunderline[260pt]{\hfill}}
 				\uline{\ZJU@englishtitle\hfill}
 			\end{minipage}}\\
-			% 下面这条命令主要为弥补\uline命令强制换行产生的第一行下划线右边空隙。
-			% 方法简单粗暴，若有时间再改进。
-			& \raisebox{62.45pt}[0pt]{\ZJUunderline[260pt]{\hfill}}
 		\end{tabular}
 		\vskip 15mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
