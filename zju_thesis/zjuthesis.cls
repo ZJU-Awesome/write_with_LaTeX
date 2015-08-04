@@ -3,7 +3,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
+\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}[2011/03/11]
 
 %%%%%%%%%% Option %%%%%%%%%%
 % 博士、硕士可选参数，用于区别格式
@@ -13,7 +13,6 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 
-\makeatletter
 \let\OLDappendix\appendix
 \newif\if@appendixinbackmatter
 \renewenvironment{appendix}
@@ -24,13 +23,12 @@
       \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
  \fi
 }
-\makeatother
 
 %%%%%%%%%% 全局命令定义 %%%%%%%%%%
 \newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
-\renewcommand\title[1]{\gdef\ZJU@title{#1}}
-\newcommand\englishtitle[1]{\long\def\ZJU@englishtitle{#1}}
-\renewcommand\author[1]{\gdef\ZJU@author{#1}}
+\renewcommand*\title[1]{\gdef\ZJU@title{#1}}
+\newcommand*\englishtitle[1]{\long\gdef\ZJU@englishtitle{#1}}
+\renewcommand*\author[1]{\gdef\ZJU@author{#1}}
 
 %%%%%%%%%% 页面设置 %%%%%%%%%%
 \RequirePackage[
@@ -350,14 +348,12 @@
 \setlength{\cftbeforesubsecskip}{\ZJUcontentsdotskip}
 \setlength{\cftsubsecindent}{0pt}
 % 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
-\makeatletter
 \renewcommand{\numberline}[1]{%
 \settowidth\@tempdimb{#1\hspace{0.5em}}%
 \ifdim\@tempdima<\@tempdimb%
   \@tempdima=\@tempdimb%
 \fi%
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
-\makeatother
 
 %% 插图目录
 \renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
@@ -383,26 +379,28 @@
 
 %%%%%%%%%% hyperref(放最后)%%%%%%%%%%
 \RequirePackage{hyperref}
-\hypersetup{
-	xetex,
-	unicode,
-    pdfstartview=FitH,
-    CJKbookmarks=true,
-    bookmarksnumbered=true,
-    bookmarksopen=true,
-    colorlinks=true,
-    citecolor=black,
-    linkcolor=black,
-    anchorcolor=black,
-    urlcolor=black,
-    breaklinks=true
-	hidelinks,					% 隐藏超链接的颜色和边框。
-	% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
-	pdfinfo={					% 这是pdf中显示的信息，不要就注释掉好了o(^▽^)o。
-		Title={这是一个伟大的模板},
-		Author={Bruce,Sky}
+\AtEndOfClass{
+	\hypersetup{
+		unicode,
+	    pdfstartview=FitH,
+	    CJKbookmarks=true,
+	    bookmarksnumbered=true,
+	    bookmarksopen=true,
+	    colorlinks=true,
+	    citecolor=black,
+	    linkcolor=black,
+	    anchorcolor=black,
+	    urlcolor=black,
+	    breaklinks=true
+		hidelinks,					% 隐藏超链接的颜色和边框。
+		% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
+		pdfinfo={					% 这是pdf中显示的信息，不要就注释掉好了o(^▽^)o。
+			Title={\ZJU@title},
+			Author={\ZJU@author}
 		}
 	}
+}
+
 
 %%%%%%%%%% 参考文献样式 %%%%%%%%%%
 \bibliographystyle{GBT7714-2005NLang-ZJU}
