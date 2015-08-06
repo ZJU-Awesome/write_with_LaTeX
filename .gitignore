@@ -25,7 +25,7 @@
 *.pdfsync
 *.ps
 *.snm
-*.synctex.gz
+*.synctex.gz*
 *.toc
 *.vrb
 *.xdy
@@ -34,3 +34,4 @@
 !/zju_thesis/logo/**/*.pdf
 !/zju_thesis/figures/**/*.pdf
 !/zju_thesis/contents/**/*.pdf
+*.fls
