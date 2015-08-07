@@ -134,7 +134,7 @@
 	\if@doctor
 		\ZJUmakeENtitlepage
 	\else
-		\relex
+		\clearpage
 	\fi
 	\makeOSpage
 }
@@ -494,7 +494,7 @@
 
 \addtocontents{toc}{\let\string\CTEX@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
 
-%---------- hyperref(放最后)%---------
+%---------- hyperref(放最后) ----------
 \RequirePackage{hyperref}
 \AtEndOfClass{
 	\hypersetup{
