@@ -3,9 +3,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}
+\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}[2011/03/11]
 
-%%%%%%%%%% Option %%%%%%%%%%
+%---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
 \newif\if@doctor
 \DeclareOption{doctor}{\@doctortrue}
@@ -13,7 +13,6 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 
-\makeatletter
 \let\OLDappendix\appendix
 \newif\if@appendixinbackmatter
 \renewenvironment{appendix}
@@ -24,15 +23,54 @@
       \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
  \fi
 }
-\makeatother
 
-%%%%%%%%%% 全局命令定义 %%%%%%%%%%
+%---------- 全局命令定义 ----------
 \newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
-\renewcommand\title[1]{\gdef\ZJU@title{#1}}
-\newcommand\englishtitle[1]{\long\def\ZJU@englishtitle{#1}}
-\renewcommand\author[1]{\gdef\ZJU@author{#1}}
 
-%%%%%%%%%% 页面设置 %%%%%%%%%%
+% 封面
+\renewcommand*\title[1]{\gdef\ZJU@title{#1}}							% 论文中文标题
+\newcommand*\englishtitle[1]{\long\gdef\ZJU@englishtitle{#1}}			% 论文英文标题
+\renewcommand*\author[1]{\gdef\ZJU@author{#1}}							% 作者姓名，也就是你的名字
+\newcommand*\classification[1]{\gdef\ZJU@classification{#1}}			% 分类号
+\newcommand*\serialnumber[1]{\gdef\ZJU@serialnumber{#1}}				% 单位代码
+\newcommand*\secretlevel[1]{\gdef\ZJU@secretlevel{#1}}					% 密级
+\newcommand*\studentnumber[1]{\gdef\ZJU@studentnumber{#1}}				% 学号
+\newcommand*\supervisor[1]{\gdef\ZJU@supervisor{#1}}					% 指导教师
+\newcommand*\cpsupervisor[1]{\gdef\ZJU@cpsupervisor{#1}}				% 合作导师
+\newcommand*\major[1]{\gdef\ZJU@major{#1}}								% 专业名称
+\newcommand*\research[1]{\gdef\ZJU@research{#1}}						% 研究方向
+\newcommand*\institute[1]{\gdef\ZJU@institute{#1}}						% 所在学院
+\newcommand*\submitdate[1]{\gdef\ZJU@submitdate{#1}}					% 提交日期
+
+% 中文题名页
+\newcommand*\reviewerA[1]{\gdef\ZJU@reviewerA{#1}}						% 论文评阅人1
+\newcommand*\reviewerB[1]{\gdef\ZJU@reviewerB{#1}}						% 论文评阅人2
+\newcommand*\reviewerC[1]{\gdef\ZJU@reviewerC{#1}}						% 论文评阅人3
+\newcommand*\reviewerD[1]{\gdef\ZJU@reviewerD{#1}}						% 论文评阅人4
+\newcommand*\reviewerE[1]{\gdef\ZJU@reviewerE{#1}}						% 论文评阅人5
+\newcommand*\chairperson[1]{\gdef\ZJU@chairperson{#1}}					% 答辩委员会主席
+\newcommand*\commissionerA[1]{\gdef\ZJU@commissionerA{#1}}				% 委员1
+\newcommand*\commissionerB[1]{\gdef\ZJU@commissionerB{#1}}				% 委员2
+\newcommand*\commissionerC[1]{\gdef\ZJU@commissionerC{#1}}				% 委员3
+\newcommand*\commissionerD[1]{\gdef\ZJU@commissionerD{#1}}				% 委员4
+\newcommand*\commissionerE[1]{\gdef\ZJU@commissionerE{#1}}				% 委员5
+\newcommand*\defencedate[1]{\gdef\ZJU@defencedate{#1}}					% 答辩日期
+
+% 英文题名页
+\newcommand*\enreviewerA[1]{\gdef\ZJU@enreviewerA{#1}}					% 论文评阅人1英文名
+\newcommand*\enreviewerB[1]{\gdef\ZJU@enreviewerB{#1}}					% 论文评阅人2英文名
+\newcommand*\enreviewerC[1]{\gdef\ZJU@enreviewerC{#1}}					% 论文评阅人3英文名
+\newcommand*\enreviewerD[1]{\gdef\ZJU@enreviewerD{#1}}					% 论文评阅人4英文名
+\newcommand*\enreviewerE[1]{\gdef\ZJU@enreviewerE{#1}}					% 论文评阅人5英文名
+\newcommand*\enchairperson[1]{\gdef\ZJU@enchairperson{#1}}				% 答辩委员会主席英文名
+\newcommand*\encommissionerA[1]{\gdef\ZJU@encommissionerA{#1}}			% 委员1英文名
+\newcommand*\encommissionerB[1]{\gdef\ZJU@encommissionerB{#1}}			% 委员2英文名
+\newcommand*\encommissionerC[1]{\gdef\ZJU@encommissionerC{#1}}			% 委员3英文名
+\newcommand*\encommissionerD[1]{\gdef\ZJU@encommissionerD{#1}}			% 委员4英文名
+\newcommand*\encommissionerE[1]{\gdef\ZJU@encommissionerE{#1}}			% 委员5英文名
+\newcommand*\eendefencedate[1]{\gdef\ZJU@eendefencedate{#1}}			% 答辩日期英文版
+
+%---------- 页面设置 ----------
 \RequirePackage[
 	left=2.4cm,
 	right=2.2cm,
@@ -52,7 +90,7 @@
 \RequirePackage{ulem}			%下划线
 \RequirePackage{array}			%表格处理必备宏包
 
-%%%%%%%%%% 页眉页脚 %%%%%%%%%%
+%---------- 页眉页脚 ----------
 % \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
 \fancypagestyle{plain}{%
   \fancyhf{}							% 先清除当前页面的页眉页脚定义，是fancyhdr包中的定义
@@ -73,7 +111,7 @@
     \fancyhead[R]{\songti\zihao{-5}\leftmark}
     \fancyfoot[C]{\zihao{-5} \thepage}
 
-%%%%%%%%%% 本机字体设置 %%%%%%%%%%
+%---------- 本机字体设置 ----------
 \RequirePackage{fontspec}
 \setmainfont{Times New Roman}	%MS Word中的Times New Roman。
 \setsansfont{TeX Gyre Heros}	%相当于MS Word中的Helvetica。
@@ -83,7 +121,7 @@
 % \setCJKsansfont{}				%中文无衬线字体，不知道怎么设置，待以后解决。
 \setCJKmonofont{YouYuan}		%由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以后更改。
 
-%%%%%%%%%%% 封面及中英标题页 %%%%%%%%%%
+%---------% 封面及中英标题页 ----------
 % 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
 \renewcommand\ULthickness{0.7pt}			% 重新定义下划线的厚度
 \newcommand\ZJUunderline[2][90pt]{\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
@@ -96,7 +134,7 @@
 	\if@doctor
 		\ZJUmakeENtitlepage
 	\else
-		\relex
+		\clearpage
 	\fi
 	\makeOSpage
 }
@@ -104,12 +142,12 @@
 \newcommand\ZJUmakecover{
 	\clearpage
 	\thispagestyle{empty}
-	分类号：\ZJUunderline[90pt]{TM863}
+	分类号：\ZJUunderline[90pt]{\ZJU@classification}
 	\hfill
-	单位代码：\ZJUunderline[60pt]{10335} \par
-	密\quad 级：\ZJUunderline[90pt]{公开}
+	单位代码：\ZJUunderline[60pt]{\ZJU@serialnumber} \par
+	密\quad 级：\ZJUunderline[90pt]{\ZJU@secretlevel}
 	\hfill
-	学\ZJUspace 号：\ZJUunderline[60pt]{12345678} \par
+	学\ZJUspace 号：\ZJUunderline[60pt]{\ZJU@studentnumber} \par
 	\vspace{10mm}
 	\begin{center}
 		\includegraphics[width=60mm]{./logo/ZJDX.eps}\par
@@ -135,26 +173,49 @@
 			英文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
 				\fontsize{16}{23}\bfseries
+				% 下面这条命令通过产生一个0宽度内容为下划线左对齐的盒子
+				% 来弥补\uline命令强制换行产生的第一行下划线右边空隙。原来\raisebox方法放弃。
+				\makebox[0pt][l]{\ZJUunderline[260pt]{\hfill}}
 				\uline{\ZJU@englishtitle\hfill}
 			\end{minipage}}\\
-			% 下面这条命令主要为弥补\uline命令强制换行产生的第一行下划线右边空隙。
-			% 方法简单粗暴，若有时间再改进。
-			& \raisebox{62.45pt}[0pt]{\ZJUunderline[260pt]{\hfill}}
 		\end{tabular}
 		\vskip 6mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
 			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
-			指导教师: & \ZJUunderline[200pt]{陈和倪} \\[3mm]
-			合作导师: & \ZJUunderline[200pt]{倪陈} \\[3mm]
-			专业名称: & \ZJUunderline[200pt]{地球物理} \\[3mm]
-			研究方向: & \ZJUunderline[200pt]{和稀泥的艺术} \\[3mm]
-			所在学院: & \ZJUunderline[200pt]{这个学院}
+			指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor} \\[3mm]
+			合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor} \\[3mm]
+			专业名称: & \ZJUunderline[200pt]{\ZJU@major} \\[3mm]
+			研究方向: & \ZJUunderline[200pt]{\ZJU@research} \\[3mm]
+			所在学院: & \ZJUunderline[200pt]{\ZJU@institute}
 		\end{tabular}
 	\end{center}
 	\vfill
 	\begin{center}
-		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{2017年3月3日}}
+		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{\ZJU@submitdate}}
 	\end{center}
+	%清空变量节省空间
+	\global\let\ZJU@classification\@empty
+	\global\let\ZJU@serialnumber\@empty
+	\global\let\ZJU@secretlevel\@empty
+	\global\let\ZJU@studentnumber\@empty
+	\global\let\ZJU@author\@empty
+	\global\let\ZJU@supervisor\@empty
+	\global\let\ZJU@cpsupervisor\@empty
+	\global\let\ZJU@major\@empty
+	\global\let\ZJU@research\@empty
+	\global\let\ZJU@institute\@empty
+	\global\let\ZJU@submitdate\@empty
+	\global\let\classification\relax
+	\global\let\serialnumber\relax
+	\global\let\secretlevel\relax
+	\global\let\studentnumber\relax
+	\global\let\author\relax
+	\global\let\supervisor\relax
+	\global\let\cpsupervisor\relax
+	\global\let\major\relax
+	\global\let\research\relax
+	\global\let\institute\relax
+	\global\let\submitdate\relax
 }
 % 中文题名页
 \newcommand\ZJUmakeCNtitlepage{
@@ -177,25 +238,52 @@
 	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
-			论文评阅人1: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
-			评阅人2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
-			评阅人3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
-			评阅人4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
-			评阅人5: & \ZJUunderline[260pt]{和稀泥的艺术}
+			论文评阅人1: & \ZJUunderline[260pt]{\ZJU@reviewerA}\\[3mm]
+			评阅人2: & \ZJUunderline[260pt]{\ZJU@reviewerB}\\[3mm]
+			评阅人3: & \ZJUunderline[260pt]{\ZJU@reviewerC}\\[3mm]
+			评阅人4: & \ZJUunderline[260pt]{\ZJU@reviewerD}\\[3mm]
+			评阅人5: & \ZJUunderline[260pt]{\ZJU@reviewerE}
 		\end{tabular}
 		\vskip 12mm
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
-			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@author}\\[3mm]
-			委员1: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
-			委员2: & \ZJUunderline[260pt]{陈和倪}\\[3mm]
-			委员3: & \ZJUunderline[260pt]{倪陈}\\[3mm]
-			委员4: & \ZJUunderline[260pt]{地球物理}\\[3mm]
-			委员5: & \ZJUunderline[260pt]{和稀泥的艺术}
+			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@chairperson}\\[3mm]
+			委员1: & \ZJUunderline[260pt]{\ZJU@commissionerA}\\[3mm]
+			委员2: & \ZJUunderline[260pt]{\ZJU@commissionerB}\\[3mm]
+			委员3: & \ZJUunderline[260pt]{\ZJU@commissionerC}\\[3mm]
+			委员4: & \ZJUunderline[260pt]{\ZJU@commissionerD}\\[3mm]
+			委员5: & \ZJUunderline[260pt]{\ZJU@commissionerE}
 		\end{tabular}
 	\end{center}
 	\vfill
-	\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\hfill}}
+	\hfill{\zihao{4}\songti 答辩日期: \ZJUunderline[150pt]{\ZJU@defencedate}}
 	}
+	%清空变量节省空间
+	\global\let\ZJU@reviewerA\@empty
+	\global\let\ZJU@reviewerB\@empty
+	\global\let\ZJU@reviewerC\@empty
+	\global\let\ZJU@reviewerD\@empty
+	\global\let\ZJU@reviewerE\@empty
+	\global\let\ZJU@chairperson\@empty
+	\global\let\ZJU@commissionerA\@empty
+	\global\let\ZJU@commissionerB\@empty
+	\global\let\ZJU@commissionerC\@empty
+	\global\let\ZJU@commissionerD\@empty
+	\global\let\ZJU@commissionerE\@empty
+	\global\let\ZJU@defencedate\@empty
+	\global\let\ZJU@title\@empty			% 中文标题变量清空
+	\global\let\title\relax
+	\global\let\reviewerA\relax
+	\global\let\reviewerB\relax
+	\global\let\reviewerC\relax
+	\global\let\reviewerD\relax
+	\global\let\reviewerE\relax
+	\global\let\chairperson\relax
+	\global\let\commissionerA\relax
+	\global\let\commissionerB\relax
+	\global\let\commissionerC\relax
+	\global\let\commissionerD\relax
+	\global\let\commissionerE\relax
+	\global\let\defencedate\relax
 }
 
 % 英文题名页
@@ -221,11 +309,11 @@
 	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{4}}r>{\zihao{4}}l}
-			External Reviewers: & \ZJUunderline[260pt]{\ZJU@author}\\[2.5mm]
-								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
-								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
-								& \ZJUunderline[260pt]{\hfill}\\[2.5mm]
-								& \ZJUunderline[260pt]{\hfill}
+			External Reviewers: & \ZJUunderline[260pt]{\ZJU@enreviewerA}\\[2.5mm]
+								& \ZJUunderline[260pt]{\ZJU@enreviewerB}\\[2.5mm]
+								& \ZJUunderline[260pt]{\ZJU@enreviewerC}\\[2.5mm]
+								& \ZJUunderline[260pt]{\ZJU@enreviewerD}\\[2.5mm]
+								& \ZJUunderline[260pt]{\ZJU@enreviewerE}
 		\end{tabular}
 	\end{center}
 	\vspace{8mm}
@@ -235,16 +323,43 @@
 	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2.5mm]
 	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
 	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2.5mm]
 	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\hfill}\\
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerB}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerC}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerE}\\
 	\vfill
-	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{\hfill}}
+	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{\ZJU@eendefencedate}}
 	}
+		%清空变量节省空间
+	\global\let\ZJU@enreviewerA\@empty
+	\global\let\ZJU@enreviewerB\@empty
+	\global\let\ZJU@enreviewerC\@empty
+	\global\let\ZJU@enreviewerD\@empty
+	\global\let\ZJU@enreviewerE\@empty
+	\global\let\ZJU@enchairperson\@empty
+	\global\let\ZJU@encommissionerA\@empty
+	\global\let\ZJU@encommissionerB\@empty
+	\global\let\ZJU@encommissionerC\@empty
+	\global\let\ZJU@encommissionerD\@empty
+	\global\let\ZJU@encommissionerE\@empty
+	\global\let\ZJU@eendefencedate\@empty
+	\global\let\ZJU@englishtitle\@empty			% 英文标题变量清空
+	\global\let\englishtitle\relax
+	\global\let\enreviewerA\relax
+	\global\let\enreviewerB\relax
+	\global\let\enreviewerC\relax
+	\global\let\enreviewerD\relax
+	\global\let\enreviewerE\relax
+	\global\let\enchairperson\relax
+	\global\let\encommissionerA\relax
+	\global\let\encommissionerB\relax
+	\global\let\encommissionerC\relax
+	\global\let\encommissionerD\relax
+	\global\let\encommissionerE\relax
+	\global\let\eendefencedate\relax
 }
 
 % 独创声明与版权协议转让页
@@ -284,7 +399,7 @@
 	}
 }
 
-%%%%%%%%%% 层次标题格式设置 %%%%%%%%%%
+%---------- 层次标题格式设置 ----------
 \setcounter{secnumdepth}{4}		%设置为四级标题
 %%章标题格式设置----小三仿宋加黑
 \CTEXsetup[
@@ -316,7 +431,7 @@
 	titleformat={\fangsong\zihao{-4}}
 ]{subsubsection}
 
-%%%%%%%%%% 目录（目次） %%%%%%%%%%
+%---------- 目录（目次） ----------
 \RequirePackage{tocloft}
 % tocbibind宏包将参考文献、目录等放入目录中。
 \RequirePackage[chapter]{tocbibind}
@@ -350,14 +465,12 @@
 \setlength{\cftbeforesubsecskip}{\ZJUcontentsdotskip}
 \setlength{\cftsubsecindent}{0pt}
 % 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
-\makeatletter
 \renewcommand{\numberline}[1]{%
 \settowidth\@tempdimb{#1\hspace{0.5em}}%
 \ifdim\@tempdima<\@tempdimb%
   \@tempdima=\@tempdimb%
 \fi%
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
-\makeatother
 
 %% 插图目录
 \renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
@@ -381,19 +494,45 @@
 
 \addtocontents{toc}{\let\string\CTEX@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
 
-%%%%%%%%%% hyperref(放最后)%%%%%%%%%%
+%---------- hyperref(放最后) ----------
 \RequirePackage{hyperref}
-\hypersetup{
-	% CJKbookmarks,
-	% unicode,
-	hidelinks,					% 隐藏超链接的颜色和边框。
-	% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
-	pdfinfo={					% 这是pdf中显示的信息，不要就注释掉好了o(^▽^)o。
-		Title={这是一个伟大的模板},
-		Author={Bruce,Sky}
-		}
+\AtEndOfClass{
+	\hypersetup{
+		unicode,
+	    pdfstartview=FitH,
+	    CJKbookmarks=true,
+	    bookmarksnumbered=true,
+	    bookmarksopen=true,
+	    colorlinks=true,
+	    citecolor=black,
+	    linkcolor=black,
+	    anchorcolor=black,
+	    urlcolor=black,
+	    breaklinks=true，
+		% hidelinks,					% 隐藏超链接的颜色和边框。
+		% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
 	}
+}
 
-%%%%%%%%%% 参考文献样式 %%%%%%%%%%
+
+%---------- 参考文献样式 ----------
 \bibliographystyle{GBT7714-2005NLang-ZJU}
 
+%Superscript reference
+\newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
+
+\newenvironment{denotation}[1][2.5cm]{
+  \chapter{主要符号对照表}
+  \noindent\begin{list}{}%
+    {\vskip-30bp%\xiaosihao[1.6]
+     \renewcommand\makelabel[1]{##1\hfil}
+     \setlength{\labelwidth}{#1} % 标签盒子宽度
+     \setlength{\labelsep}{0.5cm} % 标签与列表文本距离
+     \setlength{\itemindent}{0cm} % 标签缩进量
+     \setlength{\leftmargin}{\dimexpr\labelwidth+\labelsep} % 左边界，zym@USTC说\dimexpr在texlive2011/12上不正常，替代方法是使用calc宏包
+     \setlength{\rightmargin}{0cm}
+     \setlength{\parsep}{0cm} % 段落间距
+     \setlength{\itemsep}{0cm} % 标签间距
+    \setlength{\listparindent}{0cm} % 段落缩进量
+    \setlength{\topsep}{0pt} % 标签与上文的间距
+   }}{\end{list}}

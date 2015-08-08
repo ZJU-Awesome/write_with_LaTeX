@@ -1,4 +1,5 @@
 % !Mode:: "TeX:UTF-8"
+% !TEX builder = SIMPLE
 % !TEX program = xelatex
 \documentclass[doctor]{zjuthesis}
 \title{浙江大学研究生学位论文编写规则\LaTeX 模板}
@@ -8,7 +9,55 @@
 % 中文不存在此问题。
 \englishtitle{This is a very long title which is used\  for testing}
 \author{Monster,Hamburger}
-\makeatother
+% 分类号
+\classification{TM863}
+% 单位代码
+\serialnumber{10335}
+% 密级
+\secretlevel{公开}
+% 学号
+\studentnumber{12312345}
+% 指导教师
+\supervisor{诸葛亮}
+% 合作导师
+\cpsupervisor{庞统}
+% 专业名称
+\major{武器制造}
+% 研究方向
+\research{木牛流马研究}
+% 所在学院
+\institute{机械工程学院}
+% 提交日期
+\submitdate{225年1月1日}
+
+% 中文题名页
+\reviewerA{关羽\hspace{1.5em}五虎上将\hspace{1.5em}蜀汉}
+\reviewerB{张飞\hspace{1.5em}五虎上将\hspace{1.5em}蜀汉}
+\reviewerC{马超\hspace{1.5em}五虎上将\hspace{1.5em}蜀汉}
+\reviewerD{黄忠\hspace{1.5em}五虎上将\hspace{1.5em}蜀汉}
+\reviewerE{赵云\hspace{1.5em}五虎上将\hspace{1.5em}蜀汉}
+\chairperson{许攸\hspace{1.5em}文臣谋士\hspace{1.5em}曹魏}
+\commissionerA{法正\hspace{1.5em}文臣谋士\hspace{1.5em}蜀汉}
+\commissionerB{简雍\hspace{1.5em}文臣谋士\hspace{1.5em}蜀汉}
+\commissionerC{麋竺\hspace{1.5em}文臣谋士\hspace{1.5em}蜀汉}
+\commissionerD{孙乾\hspace{1.5em}文臣谋士\hspace{1.5em}蜀汉}
+\commissionerE{伊籍\hspace{1.5em}文臣谋士\hspace{1.5em}蜀汉}
+\defencedate{225年3月5日}
+
+% 英文题名页
+\enreviewerA{Guan Yu\hspace{1.5em} general \hspace{1.5em} Shu-Han}
+\enreviewerB{Zhang Fei\hspace{1.5em} general \hspace{1.5em} Shu-Han}
+\enreviewerC{Ma Chao\hspace{1.5em} general \hspace{1.5em} Shu-Han}
+\enreviewerD{Huang Zhong\hspace{1.5em} general \hspace{1.5em} Shu-Han}
+\enreviewerE{Zhao Yun\hspace{1.5em} general \hspace{1.5em} Shu-Han}
+\enchairperson{Xu You \hspace{1.5em} counsellor \hspace{1.5em} Cao Wei}
+\encommissionerA{Fa Zheng \hspace{1.5em} counsellor \hspace{1.5em} Shu-Han}
+\encommissionerB{Jian Yong \hspace{1.5em} counsellor \hspace{1.5em} Shu-Han}
+\encommissionerC{Mi Zhu \hspace{1.5em} counsellor \hspace{1.5em} Shu-Han}
+\encommissionerD{Sun Gan \hspace{1.5em} counsellor \hspace{1.5em} Shu-Han}
+\encommissionerE{Yi Ji \hspace{1.5em} counsellor \hspace{1.5em} Shu-Han}
+\eendefencedate{March 5, 225}
+
 \begin{document}
 \maketitle
 % \ZJUmakecover
@@ -21,18 +70,20 @@
 \clearpage
 \listoftables											% 表格目录
 \clearpage
+\include{contents/denotation}
+\clearpage
 \addtocontents{toc}{\cftpagenumbersoff{chapter}}		% 将目次中的“目次”项的页码显示去除。
 \tableofcontents
 \addtocontents{toc}{\cftpagenumberson{chapter}}
 \mainmatter
-% \include{contents/intro}
-% \include{contents/structure}
-% \include{contents/specification}
+\include{contents/intro}
+\include{contents/structure}
+\include{contents/specification}
 \backmatter
 \bibliography{reference_data_base/references}
 % \nocite{*} % to show the entire references, annotate it if need.
 \appendix
-% \chapter{我是第一个附录}
-% \section{我是第一个附录的第一节}
-% \chapter{我是第二个附录}
+\chapter{我是第一个附录}
+\section{我是第一个附录的第一节}
+\chapter{我是第二个附录}
 \end{document}
