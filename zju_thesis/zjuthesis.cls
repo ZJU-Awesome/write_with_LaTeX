@@ -25,7 +25,9 @@
 }
 
 %---------- 全局命令定义 ----------
-\newcommand\ZJUspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}	% 用以产生2个字符空格。
+\expandafter\def\csname ZJU@spaceChar\endcsname{\hspace{1em}}			% 修改原来CTEX@spaceChar
+																		% 为ZJU@spcaeChar
+\newcommand\ZJUspace{\protect\ZJU@spaceChar\protect\ZJU@spaceChar}		% 用以产生2个字符空格。
 
 % 封面
 \renewcommand*\title[1]{\gdef\ZJU@title{#1}}							% 论文中文标题
@@ -492,7 +494,7 @@
 \renewcommand{\cfttabpagefont}{\rmfamily\zihao{-4}}
 \setlength{\cftbeforetabskip}{\ZJUcontentsdotskip}
 
-\addtocontents{toc}{\let\string\CTEX@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
+\addtocontents{toc}{\let\string\ZJU@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
 
 %---------- hyperref(放最后) ----------
 \RequirePackage{hyperref}
