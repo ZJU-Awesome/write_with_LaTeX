@@ -25,8 +25,8 @@
 }
 
 %---------- 全局命令定义 ----------
-\expandafter\def\csname ZJU@spaceChar\endcsname{\hspace{1em}}			% 修改原来CTEX@spaceChar
-																		% 为ZJU@spcaeChar
+\@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
+
 \newcommand\ZJUspace{\protect\ZJU@spaceChar\protect\ZJU@spaceChar}		% 用以产生2个字符空格。
 
 % 封面
