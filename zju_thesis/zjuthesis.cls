@@ -1,9 +1,9 @@
-﻿% !Mode:: "TeX:UTF-8"
+% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-\LoadClass[cs4size,a4paper,fancyhdr,fntef,oneside,openany,cap]{ctexbook}[2011/03/11]
+\LoadClass[cs4size,fancyhdr,fntef,twoside,openright,cap]{ctexbook}[2011/03/11]
 
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
@@ -74,14 +74,49 @@
 
 %---------- 页面设置 ----------
 \RequirePackage[
-	left=2.4cm,
-	right=2.2cm,
-	top=2.8cm,
-	bottom=2.2cm,
-	% headsep=0.25cm,
-	% headheight=1.5cm,
-	% footskip=0.79cm
+	% left=2.4cm,
+	% right=2.2cm,
+	% top=2.8cm,
+	% bottom=2.2cm,
+	xetex,
+	showframe,
 ]{geometry}
+% 纸张大小a4paper
+\setlength\paperheight{297mm}
+\setlength\paperwidth {210mm}	%  \paperwidth = h + \oddsidemargin+\textwidth+\evensidemargin + h
+% 页面布局
+\setlength\headheight{12\p@}	% 页眉高度
+\setlength\headsep{12\p@}		% 页眉与正文间距
+\setlength\topskip{16\p@}		% 每页第一行的行间距
+\setlength\footskip{30\p@}		% 页脚基线与每一页最后一行文本基线的距离
+\setlength\maxdepth{.5\topskip}	% \maxdepth + \topskip = typesize × 1.5
+\setlength\textwidth{16.4cm}	% book.cls文档对texthight和textwidth的
+\setlength\textheight{24.7cm}	% 定义比较复杂，但是比较合理
+\setlength\marginparsep{10\p@}	% 边注与正文区域的间距
+%\setlength\marginparpush{7\p@}	% 两个边注之间的距离，感觉设不设置无所谓
+% 单双页面边栏设置
+\if@twoside
+	\setlength\oddsidemargin{2.6cm}
+	\addtolength\oddsidemargin {-1in}
+	\setlength\evensidemargin{2cm}
+	\addtolength\evensidemargin {-1in}
+	\setlength\marginparwidth{45\p@}
+\else
+	\setlength\oddsidemargin{2.4cm}		% 根据要求，默认单面打印左边距为2.4cm。
+	\addtolength\oddsidemargin {-1in}	% 发现latex2e默认在页面四周各留出1in的空白，
+	\setlength\evensidemargin{2.4cm}	% 所以要减去这1in。
+	\addtolength\evensidemargin {-1in}	% oneside下奇偶页侧边空白相同。
+	\setlength\marginparwidth{50\p@}
+\fi
+% 设置topmargin的尺寸
+\setlength\topmargin{\paperheight}
+\addtolength\topmargin{-2in}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\addtolength\topmargin{-\textheight}
+\addtolength\topmargin{-\footskip}
+\addtolength\topmargin{-.5\topmargin}
+
 
 \RequirePackage{amsmath}		%数学公式
 \RequirePackage{bm}				%公式中的粗体
@@ -136,13 +171,13 @@
 	\if@doctor
 		\ZJUmakeENtitlepage
 	\else
-		\clearpage
+		\relax
 	\fi
-	\makeOSpage
+	% \makeOSpage
 }
 % 封面
 \newcommand\ZJUmakecover{
-	\clearpage
+	\cleardoublepage
 	\thispagestyle{empty}
 	分类号：\ZJUunderline[90pt]{\ZJU@classification}
 	\hfill
@@ -221,7 +256,7 @@
 }
 % 中文题名页
 \newcommand\ZJUmakeCNtitlepage{
-	\clearpage
+	\cleardoublepage
 	\thispagestyle{empty}
 	{
 	\linespread{1.3}
@@ -290,7 +325,7 @@
 
 % 英文题名页
 \newcommand\ZJUmakeENtitlepage{
-	\clearpage
+	\cleardoublepage
 	\thispagestyle{empty}
 	{
 	\linespread{1.3}
@@ -366,7 +401,7 @@
 
 % 独创声明与版权协议转让页
 \newcommand\makeOSpage{%
-	\clearpage
+	\cleardoublepage
 	\thispagestyle{empty}
 	{
 		\newcommand\signature@date{签字日期：\hspace{8ex}年\hspace{4ex}月\hspace{4ex}日}
