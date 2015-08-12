@@ -117,6 +117,21 @@
 \addtolength\topmargin{-\footskip}
 \addtolength\topmargin{-.5\topmargin}
 
+% 重新定义cleardouble，其原始定义在
+\def\cleardoublepage{%
+  \clearpage
+  \if@twoside
+    \ifodd
+      \c@page
+    \else
+      \thispagestyle{empty}%
+      \hbox{}\newpage
+      \if@twocolumn
+        \hbox{}\newpage
+      \fi
+    \fi
+  \fi
+}
 
 \RequirePackage{amsmath}		%数学公式
 \RequirePackage{bm}				%公式中的粗体
