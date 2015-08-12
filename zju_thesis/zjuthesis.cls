@@ -1,4 +1,4 @@
-% !Mode:: "TeX:UTF-8"
+﻿% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
@@ -185,10 +185,8 @@
 	% 判断是否显示英文题名页，博士显示，硕士不显示。
 	\if@doctor
 		\ZJUmakeENtitlepage
-	\else
-		\relax
 	\fi
-	% \makeOSpage
+	\makeOSpage
 }
 % 封面
 \newcommand\ZJUmakecover{
