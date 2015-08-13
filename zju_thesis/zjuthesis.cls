@@ -603,7 +603,7 @@
 	\begin{list}{}{
 		\renewcommand\makelabel[1]{##1\hfil}
 		\setlength{\itemindent}{0cm} 				% 标签缩进量
-		\setlength{\labelsep}{0cm} 					% 标签与列表文本距离
+		\setlength{\labelsep}{1cm} 					% 标签与列表文本距离
 		\setlength{\labelwidth}{#1} 				% 标签盒子宽度，如有需要可以自行修改
 		\setlength{\listparindent}{0pt} 			% 同一\item 第二及以后段落缩进量
 		\setlength{\rightmargin}{0cm}
