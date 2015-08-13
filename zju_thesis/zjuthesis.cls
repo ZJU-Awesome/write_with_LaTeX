@@ -588,24 +588,29 @@
 }
 
 
-%---------- 参考文献样式 ----------
+% ---------- 参考文献样式 ----------
 \bibliographystyle{GBT7714-2005NLang-ZJU}
 
 %Superscript reference
+% 这个命令是什么时候加进来的？？？
 \newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
 
-\newenvironment{denotation}[1][2.5cm]{
-  \chapter{主要符号对照表}
-  \noindent\begin{list}{}%
-    {\vskip-30bp%\xiaosihao[1.6]
-     \renewcommand\makelabel[1]{##1\hfil}
-     \setlength{\labelwidth}{#1} % 标签盒子宽度
-     \setlength{\labelsep}{0.5cm} % 标签与列表文本距离
-     \setlength{\itemindent}{0cm} % 标签缩进量
-     \setlength{\leftmargin}{\dimexpr\labelwidth+\labelsep} % 左边界，zym@USTC说\dimexpr在texlive2011/12上不正常，替代方法是使用calc宏包
-     \setlength{\rightmargin}{0cm}
-     \setlength{\parsep}{0cm} % 段落间距
-     \setlength{\itemsep}{0cm} % 标签间距
-    \setlength{\listparindent}{0cm} % 段落缩进量
-    \setlength{\topsep}{0pt} % 标签与上文的间距
-   }}{\end{list}}
+% ---------- 缩写、符号清单、术语表 ----------
+% 以下尺寸详细说明见P33/112
+\newenvironment*{denotation}[1][2.5cm]{
+	\chapter{缩写、符号清单、术语表}
+	\noindent
+	\begin{list}{}{
+		\renewcommand\makelabel[1]{##1\hfil}
+		\setlength{\itemindent}{0cm} 				% 标签缩进量
+		\setlength{\labelsep}{0cm} 					% 标签与列表文本距离
+		\setlength{\labelwidth}{#1} 				% 标签盒子宽度，如有需要可以自行修改
+		\setlength{\listparindent}{0pt} 			% 同一\item 第二及以后段落缩进量
+		\setlength{\rightmargin}{0cm}
+		\setlength{\leftmargin}{\labelwidth}		% list环境整体向右推
+		\addtolength{\leftmargin}{\labelsep}		% \labelwidth + \labelsep 的距离
+		\setlength{\itemsep}{0pt plus2pt minus1pt}	% 标签间距
+		\setlength{\parsep}{\itemsep} 				% 段落间距
+		\setlength{\topsep}{0pt} 					% 标签与上文的间距
+		\setlength{\partopsep}{3pt plus2pt minus2pt}
+	}}{\end{list}}
