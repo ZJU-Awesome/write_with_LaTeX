@@ -69,6 +69,9 @@
 \newcommand*\encommissionerE[1]{\gdef\ZJU@encommissionerE{#1}}			% 委员5英文名
 \newcommand*\eendefencedate[1]{\gdef\ZJU@eendefencedate{#1}}			% 答辩日期英文版
 
+% 正文部分文字的行距设置
+\renewcommand\baselinestretch{1.56}
+
 %---------- 页面设置 ----------
 \RequirePackage[
 	% left=2.4cm,
