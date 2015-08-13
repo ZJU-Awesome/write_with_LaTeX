@@ -13,17 +13,6 @@
 % \LoadClassWithOptions{ctexbook}[2011/03/11]
 \LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}[2011/03/11]
 
-\let\OLDappendix\appendix
-\newif\if@appendixinbackmatter
-\renewenvironment{appendix}
-{
-  \if@mainmatter
-     \@appendixinbackmatterfalse\OLDappendix
-  \else
-      \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
- \fi
-}
-
 %---------- 全局命令定义 ----------
 \@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
 
@@ -486,6 +475,34 @@
 	nameformat={\zihao{-4}},
 	titleformat={\fangsong\zihao{-4}}
 ]{subsubsection}
+
+% \frontmatter,\mainmatter,\backmatter重定义。
+\renewcommand\frontmatter{%
+    \cleardoublepage
+  \@mainmatterfalse
+  \pagenumbering{Roman}}
+\renewcommand\mainmatter{%
+    \cleardoublepage
+  \@mainmattertrue
+  \pagenumbering{arabic}}
+\renewcommand\backmatter{%
+  \if@openright
+    \cleardoublepage
+  \else
+    \clearpage
+  \fi
+  \@mainmatterfalse}
+
+\let\OLDappendix\appendix
+\newif\if@appendixinbackmatter
+\renewenvironment{appendix}
+{
+  \if@mainmatter
+     \@appendixinbackmatterfalse\OLDappendix
+  \else
+      \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
+ \fi
+}
 
 %---------- 目录（目次） ----------
 \RequirePackage{tocloft}

@@ -1,7 +1,7 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX builder = LATEXMK
 % !TEX program = xelatex
-\documentclass[doctor,twoside]{zjuthesis}
+\documentclass[doctor,oneside]{zjuthesis}
 \title{浙江大学研究生学位论文编写规则\LaTeX 模板}
 % 根据ulem的文档第五页说明，通过宏或者命令传递到uline命令中的英文句子是被盒子装起来的，
 % 如果不特殊处理，则句子无法断行，但是\\，\ ，和 \- 还是可以起作用，
@@ -64,14 +64,13 @@
 % \ZJUmakeCNtitlepage
 % \ZJUmakeENtitlepage
 \frontmatter
-\pagenumbering{Roman}									% 前置页码改为大写罗马数字，默认为小写罗马数字。
-\clearpage
+\cleardoublepage
 \listoffigures											% 插图目录
-\clearpage
+\cleardoublepage
 \listoftables											% 表格目录
-\clearpage
+\cleardoublepage
 \include{contents/denotation}
-\clearpage
+\cleardoublepage
 \addtocontents{toc}{\cftpagenumbersoff{chapter}}		% 将目次中的“目次”项的页码显示去除。
 \tableofcontents
 \addtocontents{toc}{\cftpagenumberson{chapter}}
