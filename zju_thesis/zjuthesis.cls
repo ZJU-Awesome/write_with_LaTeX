@@ -1,9 +1,7 @@
-﻿% !Mode:: "TeX:UTF-8"
+% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
-
-\LoadClass[cs4size,fancyhdr,fntef,twoside,openright,cap]{ctexbook}[2011/03/11]
 
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
@@ -11,7 +9,9 @@
 \DeclareOption{doctor}{\@doctortrue}
 \DeclareOption{master}{\@doctorfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessOptions
+\ProcessOptions\relax
+% \LoadClassWithOptions{ctexbook}[2011/03/11]
+\LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}[2011/03/11]
 
 \let\OLDappendix\appendix
 \newif\if@appendixinbackmatter
@@ -143,7 +143,13 @@
 \RequirePackage{array}			%表格处理必备宏包
 
 %---------- 页眉页脚 ----------
-% \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
+\RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
+\if@doctor
+	\def\ZJU@D@M@thesis{浙江大学博士学位论文}
+\else
+	\def\ZJU@D@M@thesis{浙江大学硕士学位论文}
+\fi
+
 \fancypagestyle{plain}{%
   \fancyhf{}							% 先清除当前页面的页眉页脚定义，是fancyhdr包中的定义
   \renewcommand{\headrulewidth}{0pt}
@@ -153,15 +159,18 @@
   % \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
   % \fancyhead[R]{\songti\zihao{-5}\leftmark}
 }
+
 \pagestyle{fancy}
 	\fancyhf{}
-	\if@doctor
-		\fancyhead[L]{\songti\zihao{-5}浙江大学博士学位论文}
+	\if@twoside
+	\fancyhead[RE,LO]{\songti\zihao{-5}\ZJU@D@M@thesis}
+	\fancyhead[LE,RO]{\songti\zihao{-5}\leftmark}
+	\fancyfoot[C]{\zihao{-5} \thepage}
 	\else
-		\fancyhead[L]{\songti\zihao{-5}浙江大学硕士学位论文}
-	\fi
+	\fancyhead[L]{\songti\zihao{-5}\ZJU@D@M@thesis}
     \fancyhead[R]{\songti\zihao{-5}\leftmark}
     \fancyfoot[C]{\zihao{-5} \thepage}
+    \fi
 
 %---------- 本机字体设置 ----------
 \RequirePackage{fontspec}
