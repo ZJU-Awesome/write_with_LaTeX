@@ -301,10 +301,7 @@
 			评阅人2: & \ZJUunderline[260pt]{\ZJU@reviewerB}\\[3mm]
 			评阅人3: & \ZJUunderline[260pt]{\ZJU@reviewerC}\\[3mm]
 			评阅人4: & \ZJUunderline[260pt]{\ZJU@reviewerD}\\[3mm]
-			评阅人5: & \ZJUunderline[260pt]{\ZJU@reviewerE}
-		\end{tabular}
-		\vskip 12mm
-		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\songti}l}
+			评阅人5: & \ZJUunderline[260pt]{\ZJU@reviewerE}\\[12mm]
 			答辩委员会主席: & \ZJUunderline[260pt]{\ZJU@chairperson}\\[3mm]
 			委员1: & \ZJUunderline[260pt]{\ZJU@commissionerA}\\[3mm]
 			委员2: & \ZJUunderline[260pt]{\ZJU@commissionerB}\\[3mm]
