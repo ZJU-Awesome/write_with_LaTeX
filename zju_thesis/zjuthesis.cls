@@ -10,12 +10,20 @@
 \DeclareOption{master}{\@doctorfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
-% \LoadClassWithOptions{ctexbook}[2011/03/11]
 \LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}[2011/03/11]
+
+%---------- 加载宏包 ----------
+\RequirePackage{amsmath}		%数学公式
+\RequirePackage{bm}				%公式中的粗体
+\RequirePackage{cases}			%公式中的括号，例如subnumcases环境
+\RequirePackage{graphicx}		%插图包
+\RequirePackage{paralist}		%列表宏包
+\RequirePackage{booktabs}		%三线表
+\RequirePackage{ulem}			%下划线
+\RequirePackage{array}			%表格处理必备宏包
 
 %---------- 全局命令定义 ----------
 \@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
-
 \newcommand\ZJUspace{\protect\ZJU@spaceChar\protect\ZJU@spaceChar}		% 用以产生2个字符空格。
 
 % 封面
@@ -122,15 +130,6 @@
   \fi
 }
 
-\RequirePackage{amsmath}		%数学公式
-\RequirePackage{bm}				%公式中的粗体
-\RequirePackage{cases}			%公式中的括号，例如subnumcases环境
-\RequirePackage{graphicx}		%插图包
-\RequirePackage{paralist}		%列表宏包
-\RequirePackage{booktabs}		%三线表
-\RequirePackage{ulem}			%下划线
-\RequirePackage{array}			%表格处理必备宏包
-
 %---------- 页眉页脚 ----------
 \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
 \if@doctor
@@ -141,25 +140,26 @@
 
 \fancypagestyle{plain}{%
   \fancyhf{}							% 先清除当前页面的页眉页脚定义，是fancyhdr包中的定义
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
   \fancyfoot[C]{\zihao{-5} \thepage}	% 改变plain默认样式的页码字体大小
   % 如果想在每章首页也有页眉，就将以下两段注释取消掉，并且修改上面的\headrulewidth（默认为0.4pt）！！
-  % \fancyhead[L]{\songti\zihao{-5}浙江大学博（硕）士学位论文}
-  % \fancyhead[R]{\songti\zihao{-5}\leftmark}
+  % 反之亦然。
+  \fancyhead[L]{\songti\zihao{-5}\ZJU@D@M@thesis}
+  \fancyhead[R]{\songti\zihao{-5}\leftmark}
 }
 
 \pagestyle{fancy}
-	\fancyhf{}
-	\if@twoside
+\fancyhf{}
+\if@twoside
 	\fancyhead[RE,LO]{\songti\zihao{-5}\ZJU@D@M@thesis}
 	\fancyhead[LE,RO]{\songti\zihao{-5}\leftmark}
 	\fancyfoot[C]{\zihao{-5} \thepage}
-	\else
+\else
 	\fancyhead[L]{\songti\zihao{-5}\ZJU@D@M@thesis}
-    \fancyhead[R]{\songti\zihao{-5}\leftmark}
-    \fancyfoot[C]{\zihao{-5} \thepage}
-    \fi
+	\fancyhead[R]{\songti\zihao{-5}\leftmark}
+	\fancyfoot[C]{\zihao{-5} \thepage}
+\fi
 
 %---------- 本机字体设置 ----------
 \RequirePackage{fontspec}
