@@ -589,7 +589,14 @@
 		% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
 	}
 }
-
+\AtBeginDocument{
+	\hypersetup{%
+		pdftitle={\ZJU@title},%
+		pdfauthor={\ZJU@author},%
+		pdfkeywords={},%
+		pdfcreator={LaTeX with hyperref package, using ZJU LaTeX Thesis Template for Master and Doctor}
+	}
+}
 
 % ---------- 参考文献样式 ----------
 \bibliographystyle{GBT7714-2005NLang-ZJU}
