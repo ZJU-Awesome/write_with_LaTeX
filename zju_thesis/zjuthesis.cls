@@ -642,7 +642,7 @@
 \newcommand*\ekeywords[1]{%
 	\@ekeywords{#1}
 	\vspace{5ex}
-	\noindent\textbf{Abstract:}\ \ZJU@ekeywords}
+	\noindent\textbf{Keywords:}\ \ZJU@ekeywords}
 
 % ---------- 缩写、符号清单、术语表 ----------
 % 以下尺寸详细说明见P33/112
