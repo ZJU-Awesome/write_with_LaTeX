@@ -605,6 +605,45 @@
 % 这个命令是什么时候加进来的？？？
 \newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
 
+% ---------- 中英文摘要及关键词 ----------
+% 中文摘要环境
+\newenvironment{cabstract}{%
+	\chapter{摘要}}{}
+\newenvironment{eabstract}{%
+	\chapter{Abstract}}{}
+
+% 中英文关键词命令及其格式的自动定义；
+% 参照thuthesis，薛瑞尼，P37/66，v4.8.1 (2014/12/09)。
+% 这段宏定义搞了我一个下午才看懂，哎…… 这个 \@for 命令挺有用的。
+\def\ZJU@parse@keywords#1{
+	\expandafter\gdef\csname ZJU@#1\endcsname{} % todo: need or not?
+	\expandafter\gdef\csname @#1\endcsname##1{
+	\@for\reserved@a:=##1\do{
+		\expandafter\ifx\csname ZJU@#1\endcsname\@empty\else
+	    	\expandafter\g@addto@macro\csname ZJU@#1\endcsname{\ignorespaces\csname ZJU@#1@separator\endcsname}
+	  	\fi
+	  	\expandafter\expandafter\expandafter\g@addto@macro%
+	    \expandafter\csname ZJU@#1\expandafter\endcsname\expandafter{\reserved@a}}}}
+
+% 根据以上宏定义，以下命令分别产生\@ckeywords{} 和 \@ekeywords{} 两个读取关
+% 键词的宏，和加工后保存关键词的 \ZJU@ckeywords 和 \ZJU@ckeywords 的宏定义。
+\ZJU@parse@keywords{ckeywords}
+\ZJU@parse@keywords{ekeywords}
+
+% 以下分别是中英文关键词的分隔符
+\def\ZJU@ckeywords@separator{；}
+\def\ZJU@ekeywords@separator{;}
+
+% 用户界面命令，读取和排版关键词
+\newcommand*\ckeywords[1]{%
+	\@ckeywords{#1}
+	\vspace{5ex}
+	\noindent\textbf{关键词：}\ZJU@ckeywords}
+\newcommand*\ekeywords[1]{%
+	\@ekeywords{#1}
+	\vspace{5ex}
+	\noindent\textbf{Abstract:}\ \ZJU@ekeywords}
+
 % ---------- 缩写、符号清单、术语表 ----------
 % 以下尺寸详细说明见P33/112
 \newenvironment*{denotation}[1][2.5cm]{
