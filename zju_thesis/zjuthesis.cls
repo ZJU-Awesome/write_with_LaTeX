@@ -10,7 +10,7 @@
 \DeclareOption{master}{\@doctorfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
-\LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}[2011/03/11]
+\LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}
 
 %---------- 加载宏包 ----------
 \RequirePackage{amsmath}		%数学公式
@@ -124,7 +124,7 @@
     \ifodd
       \c@page
     \else
-      \thispagestyle{empty}%
+      \thispagestyle{ZJU@empty}%
       \hbox{}\newpage
       \if@twocolumn
         \hbox{}\newpage
@@ -134,6 +134,13 @@
 }
 
 %---------- 页眉页脚 ----------
+% 空白页：没有页眉页脚和页码
+\def\ps@ZJU@empty{%
+	\let\@oddhead\@empty%
+	\let\@evenhead\@empty%
+	\let\@oddfoot\@empty%
+	\let\@evenfoot\@empty}
+
 \RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
 \if@doctor
 	\def\ZJU@D@M@thesis{浙江大学博士学位论文}
@@ -192,7 +199,7 @@
 % 封面
 \newcommand\ZJUmakecover{
 	\cleardoublepage
-	\thispagestyle{empty}
+	\thispagestyle{ZJU@empty}
 	分类号：\ZJUunderline[90pt]{\ZJU@classification}
 	\hfill
 	单位代码：\ZJUunderline[60pt]{\ZJU@serialnumber} \par
@@ -271,7 +278,7 @@
 % 中文题名页
 \newcommand\ZJUmakeCNtitlepage{
 	\cleardoublepage
-	\thispagestyle{empty}
+	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
 	\begin{center}
@@ -337,7 +344,7 @@
 % 英文题名页
 \newcommand\ZJUmakeENtitlepage{
 	\cleardoublepage
-	\thispagestyle{empty}
+	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
 	\begin{center}
@@ -413,7 +420,7 @@
 % 独创声明与版权协议转让页
 \newcommand\makeOSpage{%
 	\cleardoublepage
-	\thispagestyle{empty}
+	\thispagestyle{ZJU@empty}
 	{
 		\newcommand\signature@date{签字日期：\hspace{8ex}年\hspace{4ex}月\hspace{4ex}日}
 		\linespread{1.7}			% 相当于word中的1.5倍行距。
