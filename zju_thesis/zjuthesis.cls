@@ -449,35 +449,86 @@
 
 %---------- 层次标题格式设置 ----------
 \setcounter{secnumdepth}{4}		%设置为四级标题
-%%章标题格式设置----小三仿宋加黑
-\CTEXsetup[
-	name={,},
-	number={\arabic{chapter}},
-	format={\raggedright},
-	nameformat={\fangsong\zihao{-3}\bfseries},
-	titleformat={\fangsong\zihao{-3}\bfseries}
-]{chapter}
+% %%章标题格式设置----小三仿宋加黑
+% \CTEXsetup[
+% 	name={,},
+% 	number={\arabic{chapter}},
+% 	format={\raggedright},
+% 	nameformat={\fangsong\zihao{-3}\bfseries},
+% 	titleformat={\fangsong\zihao{-3}\bfseries}
+% ]{chapter}
 
-%%一级节标题格式设置----四号仿宋加黑
-\CTEXsetup[
-	format={\raggedright},
-	nameformat={\zihao{4}\bfseries},
-	titleformat={\fangsong\zihao{4}\bfseries}
-]{section}
+% %%一级节标题格式设置----四号仿宋加黑
+% \CTEXsetup[
+% 	format={\raggedright},
+% 	nameformat={\zihao{4}\bfseries},
+% 	titleformat={\fangsong\zihao{4}\bfseries}
+% ]{section}
 
-%%二级节标题格式设置----小四号仿宋
-\CTEXsetup[
-	format={\raggedright},
-	nameformat={\zihao{-4}},
-	titleformat={\fangsong\zihao{-4}}
-]{subsection}
+% %%二级节标题格式设置----小四号仿宋
+% \CTEXsetup[
+% 	format={\raggedright},
+% 	nameformat={\zihao{-4}},
+% 	titleformat={\fangsong\zihao{-4}}
+% ]{subsection}
 
-%%三级节标题格式设置----小四号仿宋
-\CTEXsetup[
-	format={\raggedright},
-	nameformat={\zihao{-4}},
-	titleformat={\fangsong\zihao{-4}}
-]{subsubsection}
+% %%三级节标题格式设置----小四号仿宋
+% \CTEXsetup[
+% 	format={\raggedright},
+% 	nameformat={\zihao{-4}},
+% 	titleformat={\fangsong\zihao{-4}}
+% ]{subsubsection}
+
+% 以下对标题格式采用laTeX2e底层命令主要是为了防止ctex宏包升级改变导致的命令不兼
+% 容性，假如2.0之后宏包对1.02宏包命令不再支持，以后又要修改，不如一鼓作气。
+% 现在以下命令可以正常工作，调整参数则慢慢来吧。
+%% 章标题格式设置----小三仿宋加黑
+\renewcommand\chapter{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\phantomsection			% hyperref宏包的命令，超链接用。
+	\thispagestyle{plain}%
+	\global\@topnum\z@%
+	\@afterindenttrue%
+	\secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{%
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\refstepcounter{chapter}%
+			\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+		\else
+			\addcontentsline{toc}{chapter}{#1}%
+		\fi
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+	\chaptermark{#1}%
+	% 在图目录和表目录中相应章节位置加垂直10pt的空白。
+	\addtocontents{lof}{\protect\addvspace{10\p@}}%
+	\addtocontents{lot}{\protect\addvspace{10\p@}}%
+	\@makechapterhead{#2}
+	\@afterheading}		% 不知道这个\@afterheading有什么用，先放着。
+\def\@makechapterhead#1{%
+	\vspace*{20bp}%
+	{\parindent \z@ \raggedright
+	\fangsong\zihao{-3} \bfseries
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\@chapapp\space \textrm{\thechapter} \hskip1em%
+		\fi
+	\fi
+	\interlinepenalty\@M
+	 #1\par\nobreak
+	\vskip 24\p@}}
+\def\@schapter#1{%
+	\@makeschapterhead{#1}
+	\@afterheading}
+\def\@makeschapterhead#1{%
+	\vspace*{20bp}%
+	{\parindent \z@ \raggedright
+	\fangsong \zihao{-3} \bfseries
+	\interlinepenalty\@M
+	#1\par\nobreak
+    \vskip 24\p@}}
 
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
