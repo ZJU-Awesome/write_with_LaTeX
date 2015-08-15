@@ -449,35 +449,6 @@
 
 %---------- 层次标题格式设置 ----------
 \setcounter{secnumdepth}{4}		%设置为四级标题
-% %%章标题格式设置----小三仿宋加黑
-% \CTEXsetup[
-% 	name={,},
-% 	number={\arabic{chapter}},
-% 	format={\raggedright},
-% 	nameformat={\fangsong\zihao{-3}\bfseries},
-% 	titleformat={\fangsong\zihao{-3}\bfseries}
-% ]{chapter}
-
-% %%一级节标题格式设置----四号仿宋加黑
-% \CTEXsetup[
-% 	format={\raggedright},
-% 	nameformat={\zihao{4}\bfseries},
-% 	titleformat={\fangsong\zihao{4}\bfseries}
-% ]{section}
-
-% %%二级节标题格式设置----小四号仿宋
-% \CTEXsetup[
-% 	format={\raggedright},
-% 	nameformat={\zihao{-4}},
-% 	titleformat={\fangsong\zihao{-4}}
-% ]{subsection}
-
-% %%三级节标题格式设置----小四号仿宋
-% \CTEXsetup[
-% 	format={\raggedright},
-% 	nameformat={\zihao{-4}},
-% 	titleformat={\fangsong\zihao{-4}}
-% ]{subsubsection}
 
 % 以下对标题格式采用laTeX2e底层命令主要是为了防止ctex宏包升级改变导致的命令不兼
 % 容性，假如2.0之后宏包对1.02宏包命令不再支持，以后又要修改，不如一鼓作气。
