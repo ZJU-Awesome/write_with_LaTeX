@@ -540,16 +540,15 @@
   \fi
   \@mainmatterfalse}
 
-\let\OLDappendix\appendix
-\newif\if@appendixinbackmatter
-\renewenvironment{appendix}
-{
-  \if@mainmatter
-     \@appendixinbackmatterfalse\OLDappendix
-  \else
-      \@appendixinbackmattertrue\@mainmattertrue\OLDappendix
- \fi
-}
+% 原来的命令不好，对mainmatter的判断对以及新加了个\if@appendixinbackmatter感觉多
+% 余。因为附录在这个文类里是最后一部分，所以还不如直接在原来的\appendix上增加个
+% \@mainmattertrue来的简单。
+\renewcommand\appendix{\par
+	\@mainmattertrue
+	\setcounter{chapter}{0}%
+	\setcounter{section}{0}%
+	\gdef\@chapapp{附录}%
+	\gdef\thechapter{\@Alph\c@chapter}}
 
 %---------- 目录（目次） ----------
 \RequirePackage{tocloft}
