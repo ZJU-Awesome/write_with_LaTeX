@@ -134,6 +134,14 @@
 }
 
 %---------- 页眉页脚 ----------
+% 采用latex2e的底层代码，不用fancyhdr宏包。
+% 页眉标记
+\if@doctor
+	\def\ZJU@D@M@thesis{浙江大学博士学位论文}
+\else
+	\def\ZJU@D@M@thesis{浙江大学硕士学位论文}
+\fi
+
 % 空白页：没有页眉页脚和页码
 \def\ps@ZJU@empty{%
 	\let\@oddhead\@empty%
@@ -141,35 +149,42 @@
 	\let\@oddfoot\@empty%
 	\let\@evenfoot\@empty}
 
-\RequirePackage{fancyhdr}				% ctexbook中已经有fancyhdr选项，因此此宏包不用再次添加
-\if@doctor
-	\def\ZJU@D@M@thesis{浙江大学博士学位论文}
-\else
-	\def\ZJU@D@M@thesis{浙江大学硕士学位论文}
-\fi
+% plain样式：只有页脚居中页码
+\def\ps@ZJU@plain{%
+	\let\@oddhead\@empty%
+	\let\@evenhead\@empty%
+	\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}%
+	\let\@evenfoot=\@oddfoot}
 
-\fancypagestyle{plain}{%
-  \fancyhf{}							% 先清除当前页面的页眉页脚定义，是fancyhdr包中的定义
-  \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0.4pt}
-  \fancyfoot[C]{\zihao{-5} \thepage}	% 改变plain默认样式的页码字体大小
-  % 如果想在每章首页也有页眉，就将以下两段注释取消掉，并且修改上面的\headrulewidth（默认为0.4pt）！！
-  % 反之亦然。
-  \fancyhead[L]{\songti\zihao{-5}\ZJU@D@M@thesis}
-  \fancyhead[R]{\songti\zihao{-5}\leftmark}
-}
-
-\pagestyle{fancy}
-\fancyhf{}
+% 文章主样式：分单双面打印样式
 \if@twoside
-	\fancyhead[RE,LO]{\songti\zihao{-5}\ZJU@D@M@thesis}
-	\fancyhead[LE,RO]{\songti\zihao{-5}\leftmark}
-	\fancyfoot[C]{\zihao{-5} \thepage}
+	\def\ps@ZJU@headings{%
+		\def\@oddhead{\vbox to\headheight{%
+			\hb@xt@\textwidth{\zihao{-5}\songti\ZJU@D@M@thesis\hfill\leftmark}%
+			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
+		\def\@evenhead{\vbox to\headheight{%
+			\hb@xt@\textwidth{\zihao{-5}\songti\leftmark\hfill\ZJU@D@M@thesis}%
+			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
+		\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
+		\let\@evenfoot=\@oddfoot}
 \else
-	\fancyhead[L]{\songti\zihao{-5}\ZJU@D@M@thesis}
-	\fancyhead[R]{\songti\zihao{-5}\leftmark}
-	\fancyfoot[C]{\zihao{-5} \thepage}
+	\def\ps@ZJU@headings{%
+		\def\@oddhead{\vbox to\headheight{%
+			\hb@xt@\textwidth{\zihao{-5}\songti\ZJU@D@M@thesis\hfill\leftmark}%
+			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
+		\let\@evenhead=\@oddhead
+		\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
+		\let\@evenfoot=\@oddfoot}
 \fi
+% 重新定义\chaptermark，使其为\leftmark引用。
+\renewcommand\chaptermark[1]{%
+\markboth{\MakeUppercase{%
+\ifnum \c@secnumdepth >\m@ne
+	\if@mainmatter
+		\@chapapp\ \thechapter. \ %
+	\fi
+\fi
+#1}}{}}
 
 %---------- 本机字体设置 ----------
 \RequirePackage{fontspec}
@@ -464,7 +479,7 @@
 \renewcommand\chapter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
 	\phantomsection			% hyperref宏包的命令，超链接用。
-	\thispagestyle{plain}%
+	\thispagestyle{ZJU@headings}%
 	\global\@topnum\z@%
 	\@afterindenttrue%
 	\secdef\@chapter\@schapter}
@@ -532,20 +547,20 @@
 
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
-    \cleardoublepage
-  \@mainmatterfalse
-  \pagenumbering{Roman}}
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\cleardoublepage
+	\@mainmatterfalse
+	\pagenumbering{Roman}
+	\pagestyle{ZJU@headings}}
 \renewcommand\mainmatter{%
-    \cleardoublepage
-  \@mainmattertrue
-  \pagenumbering{arabic}}
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\cleardoublepage
+	\@mainmattertrue
+	\pagenumbering{arabic}
+	\pagestyle{ZJU@headings}}
 \renewcommand\backmatter{%
-  \if@openright
-    \cleardoublepage
-  \else
-    \clearpage
-  \fi
-  \@mainmatterfalse}
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\@mainmatterfalse}
 
 % 原来的命令不好，对mainmatter的判断对以及新加了个\if@appendixinbackmatter感觉多
 % 余。因为附录在这个文类里是最后一部分，所以还不如直接在原来的\appendix上增加个
