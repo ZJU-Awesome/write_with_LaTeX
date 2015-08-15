@@ -530,6 +530,25 @@
 	#1\par\nobreak
     \vskip 24\p@}}
 
+%%一级节标题格式设置----四号仿宋加黑
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+									{3.5ex \@plus 1ex \@minus .2ex}%
+									{2.3ex \@plus.2ex}%
+									{\fangsong\zihao{4}\bfseries}}
+
+%%二级节标题格式设置----小四号仿宋
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+									{3.25ex \@plus 1ex \@minus .2ex}%
+									{1.5ex \@plus.2ex}%
+									{\fangsong\zihao{-4}}
+
+
+%%三级节标题格式设置----小四号仿宋
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+									{3.25ex \@plus 1ex \@minus .2ex}%
+									{1.5ex \@plus.2ex}%
+									{\fangsong\zihao{-4}}}
+
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
     \cleardoublepage
