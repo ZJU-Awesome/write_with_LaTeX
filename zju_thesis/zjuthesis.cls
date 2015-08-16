@@ -166,7 +166,8 @@
 			\hb@xt@\textwidth{\zihao{-5}\songti\leftmark\hfill\ZJU@D@M@thesis}%
 			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
 		\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
-		\let\@evenfoot=\@oddfoot}
+		\let\@evenfoot=\@oddfoot
+		\let\@mkboth\markboth}
 \else
 	\def\ps@ZJU@headings{%
 		\def\@oddhead{\vbox to\headheight{%
@@ -174,7 +175,8 @@
 			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
 		\let\@evenhead=\@oddhead
 		\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
-		\let\@evenfoot=\@oddfoot}
+		\let\@evenfoot=\@oddfoot
+		\let\@mkboth\markboth}
 \fi
 % 重新定义\chaptermark，使其为\leftmark引用。
 \renewcommand\chaptermark[1]{%
@@ -471,6 +473,7 @@
 
 %---------- 层次标题格式设置 ----------
 \setcounter{secnumdepth}{4}		%设置为四级标题
+\renewcommand\@chapapp{\thechapter}%
 
 % 以下对标题格式采用laTeX2e底层命令主要是为了防止ctex宏包升级改变导致的命令不兼
 % 容性，假如2.0之后宏包对1.02宏包命令不再支持，以后又要修改，不如一鼓作气。
@@ -487,7 +490,7 @@
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
 			\refstepcounter{chapter}%
-			\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+			\addcontentsline{toc}{chapter}{\protect\numberline{\@chapapp}#1}
 		\else
 			\addcontentsline{toc}{chapter}{#1}%
 		\fi
@@ -501,7 +504,7 @@
 	\@makechapterhead{#2}
 	\@afterheading}		% 不知道这个\@afterheading有什么用，先放着。
 \def\@makechapterhead#1{%
-	\vspace*{20bp}%
+	\vspace*{20\p@}%
 	{\parindent \z@ \raggedright
 	\fangsong\zihao{-3} \bfseries
 	\ifnum \c@secnumdepth >\m@ne
@@ -516,7 +519,7 @@
 	\@makeschapterhead{#1}
 	\@afterheading}
 \def\@makeschapterhead#1{%
-	\vspace*{20bp}%
+	\vspace*{20\p@}%
 	{\parindent \z@ \raggedright
 	\fangsong \zihao{-3} \bfseries
 	\interlinepenalty\@M
@@ -569,71 +572,111 @@
 	\@mainmattertrue
 	\setcounter{chapter}{0}%
 	\setcounter{section}{0}%
-	\gdef\@chapapp{附录}%
+	\renewcommand\@chapapp{附录~\thechapter}%
 	\gdef\thechapter{\@Alph\c@chapter}}
 
 %---------- 目录（目次） ----------
-\RequirePackage{tocloft}
-% tocbibind宏包将参考文献、目录等放入目录中。
-\RequirePackage[chapter]{tocbibind}
-%% 章节目录
-\renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名，这里不用\CTEXoptions{}。
-% \CTEXoptions[contentsname={目\hspace{1em}次}]
-\renewcommand{\cfttoctitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“目次”居中。
-\renewcommand{\cftaftertoctitle}{\hfill}
-% \renewcommand{\cftdot}{\ensuremath{\cdot}}					% 目录“点”的样式。
-\renewcommand{\cftdotsep}{2.2}								% 修改点之间的距离（全局），已经调整完毕！
-\newlength{\ZJUcontentsdotskip}								% 新建调整目录行距的长度命令。
-\setlength{\ZJUcontentsdotskip}{4.6pt}						% 距离已经按照模板示例调整完毕！
-% chapter
-\renewcommand{\cftchapfont}{\fangsong\zihao{-4}}
-\renewcommand{\cftchapdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
-\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
-\renewcommand{\cftchappagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforechapskip}{\ZJUcontentsdotskip}
-% section
-\renewcommand{\cftsecfont}{\fangsong\zihao{-4}}
-\renewcommand{\cftsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
-\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
-\renewcommand{\cftsecpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforesecskip}{\ZJUcontentsdotskip}
-\setlength{\cftsecindent}{0pt}
-% subsection
-\renewcommand{\cftsubsecfont}{\fangsong\zihao{-4}}
-\renewcommand{\cftsubsecdotsep}{\cftdotsep}					% 修改章节目录的点之间的距离。
-\renewcommand{\cftsubsecleader}{\cftdotfill{\cftsubsecdotsep}}
-\renewcommand{\cftsubsecpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforesubsecskip}{\ZJUcontentsdotskip}
-\setlength{\cftsubsecindent}{0pt}
-% 以下代码是为解决CTEX包或类文件与tocloft包产生冲突导致在目录中标题项重叠的问题。
-\renewcommand{\numberline}[1]{%
-\settowidth\@tempdimb{#1\hspace{0.5em}}%
-\ifdim\@tempdima<\@tempdimb%
-  \@tempdima=\@tempdimb%
-\fi%
-\hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
-
-%% 插图目录
+\renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名。
 \renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
-\renewcommand{\cftloftitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“插图”居中。
-\renewcommand{\cftafterloftitle}{\hfill}
-\renewcommand{\cftfigfont}{\fangsong\zihao{-4}}
-\renewcommand{\cftfigdotsep}{\cftdotsep}					% 修改差图目录的点之间的距离。
-\renewcommand{\cftfigleader}{\cftdotfill{\cftfigdotsep}}
-\renewcommand{\cftfigpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforefigskip}{\ZJUcontentsdotskip}
-
-%% 表格目录
 \renewcommand{\listtablename}{表\ZJUspace 格}				% 重命名表目录名。
-\renewcommand{\cftlottitlefont}{\hfill\fangsong\zihao{3}}	% 与下面一句命令搭配使“表格”居中。
-\renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\cfttabfont}{\fangsong\zihao{-4}}
-\renewcommand{\cfttabdotsep}{\cftdotsep}					% 修改插图目录的点之间的距离。
-\renewcommand{\cfttableader}{\cftdotfill{\cfttabdotsep}}
-\renewcommand{\cfttabpagefont}{\rmfamily\zihao{-4}}
-\setlength{\cftbeforetabskip}{\ZJUcontentsdotskip}
 
-\addtocontents{toc}{\let\string\ZJU@spaceChar\relax}		% 在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目录中的空格字符，其空格字符由\CTEX@spaceChar定义。
+% 下一条命令作用：在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目
+% 录中的空格字符，其空格字符由\CTEX@spaceChar定义。
+\addtocontents{toc}{\let\string\ZJU@spaceChar\relax}
+
+% 目录位置尺寸设置
+\renewcommand\@pnumwidth{1.55em}		% 放页码page这个盒子的宽度
+\renewcommand\@tocrmarg{2.55em}			% 这个参数怎么没用，改动后看不到效果
+\renewcommand\@dotsep{2.2} 				% 目录点间的距离
+\setcounter{tocdepth}{2}				% 目录深度，到subsection。
+
+% % 根据\contentsline 的原理，我自己写一个\ZJU@l@***的命令。
+% % 嗯，发现这个命令并没有什么卵用。待以后在开发。
+% \def\contentsline#1{\csname ZJU@l@#1\endcsname}
+
+%% 章节目录
+\renewcommand\tableofcontents{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\phantomsection
+	\thispagestyle{ZJU@headings}%
+	{\vspace*{20\p@}
+	\parindent \z@ \raggedright
+	\fangsong \zihao{-3} \bfseries\contentsname
+	\par\nobreak
+	\vskip 24\p@}
+	\addcontentsline{toc}{nopagechapter}{\contentsname}
+	\markboth{\contentsname}{}
+	\@starttoc{toc}}
+
+% 发现latex2e源码中有这么一行：\def\contentsline#1{\csname l@#1\endcsname}这样一
+% 下子就明白了，以\l@*** 开头的命令的两个参数就是\contentsline使用说明的三个参数
+% 中的后面两个参数，虽然定义的时候\contentsline只有一个参数。
+% #1为目录内容，可以加上章节号title，\chapter中有定义；#2为页码page。
+\renewcommand*\l@chapter[2]{%
+	\ifnum \c@tocdepth >\m@ne
+		\addpenalty{-\@highpenalty}%
+		% 下一行增加新一章章节标题在目录中与前面部分的间距
+		% \vskip 2\p@ \@plus\p@
+		% 下一行是章节序号所在box的宽度
+		\setlength\@tempdima{1.5em}%
+		\begingroup
+			\parindent \z@ \rightskip \@pnumwidth
+			\parfillskip -\@pnumwidth
+			\leavevmode
+			\advance\leftskip\@tempdima
+			\hskip -\leftskip
+			\fangsong\zihao{-4} #1\nobreak
+			% 下两行是增加章节标题项的中间点
+			\leaders\hbox{$\m@th
+				\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+			\nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+			\penalty\@highpenalty
+    	\endgroup
+	\fi}
+
+% 这个样式主要是为“目录”这个标题在目录页中的样式服务的，模板中要求“目录”没有页码
+% 和中间点连接线，所以弄了这么个nopagechapter目录格式。你说我为什么不用其他方法，
+% 这也是没办法，hyperref 宏包把\addcontentsline和\contentsline改了，主要是为了超
+% 链接用，如果我把他们重新定义，超链接就会失效。
+\newcommand*\l@nopagechapter[2]{%
+	\ifnum \c@tocdepth >\m@ne
+		\addpenalty{-\@highpenalty}%
+		\setlength\@tempdima{1.5em}%
+		\begingroup
+			\parindent \z@ \rightskip \@pnumwidth
+			\parfillskip -\@pnumwidth
+			\leavevmode
+			\advance\leftskip\@tempdima
+			\hskip -\leftskip
+			\fangsong\zihao{-4} #1\nobreak\hfill
+			\nobreak\hb@xt@\@pnumwidth{\hss}\par
+			\penalty\@highpenalty
+    	\endgroup
+	\fi}
+
+% \@dottedtocline定义了5个参数，但是一下命令里只使用了两个，后面两个其实原理跟上
+% 面介绍的一样，\contentsline带有3个参数，第一个参数展开后形成\l@***的命令，然后
+% \l@***再展开，形成带有3个参数的\@dottedtocline{}{}{}，\@dottedtocline还需title
+% 和page两个参数，而\contentsline剩下的两个参数刚好是title和page。
+\renewcommand*\l@section{\@dottedtocline{1}{0\p@}{2.1em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{0\p@}{3em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{0\p@}{3.8em}}
+
+%% 图目录
+\renewcommand\listoffigures{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\chapter{\listfigurename}
+	\@starttoc{lof}}
+
+\renewcommand*\l@figure{\@dottedtocline{1}{0\p@}{2.3em}}
+
+%% 表目录
+\renewcommand\listoftables{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\chapter{\listtablename}
+	\@starttoc{lot}}
+
+\let\l@table\l@figure
 
 %---------- hyperref(放最后) ----------
 \RequirePackage{hyperref}
