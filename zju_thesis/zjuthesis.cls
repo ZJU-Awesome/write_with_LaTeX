@@ -21,6 +21,7 @@
 \RequirePackage{booktabs}		%三线表
 \RequirePackage{ulem}			%下划线
 \RequirePackage{array}			%表格处理必备宏包
+% \RequirePackage{natbib}			%参考文献
 
 %---------- 全局命令定义 ----------
 \@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
@@ -707,7 +708,7 @@
 }
 
 % ---------- 参考文献样式 ----------
-\bibliographystyle{GBT7714-2005NLang-ZJU}
+\bibliographystyle{gbt7714-2005}
 
 %Superscript reference
 % 这个命令是什么时候加进来的？？？
