@@ -183,7 +183,7 @@
 \markboth{\MakeUppercase{%
 \ifnum \c@secnumdepth >\m@ne
 	\if@mainmatter
-		\@chapapp\ \thechapter. \ %
+		\@chapapp. \ %
 	\fi
 \fi
 #1}}{}}
