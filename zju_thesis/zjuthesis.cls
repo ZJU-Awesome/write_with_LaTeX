@@ -509,7 +509,7 @@
 	\fangsong\zihao{-3} \bfseries
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
-			\@chapapp\space \textrm{\thechapter} \hskip1em%
+			\@chapapp \hskip1em%
 		\fi
 	\fi
 	\interlinepenalty\@M
