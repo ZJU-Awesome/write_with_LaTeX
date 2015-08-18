@@ -1,6 +1,6 @@
 ## 浙江大学机械学院硕士(博士)学位论文LaTeX模板
 作者:
-[Monster](http://github.com/diufanshu)、
+[Monster](http://github.com/skychan)、
 [Hamburger](https://github.com/githamburger)
 
 ## 1、简介
