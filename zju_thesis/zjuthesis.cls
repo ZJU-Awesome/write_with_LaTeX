@@ -527,6 +527,34 @@
 	#1\par\nobreak
     \vskip 24\p@}}
 
+% 新建一个章节标题宏，用法跟\chapter一样，只不过在无星号时，标题插入目录，但是没
+% 有页码和中间点线。加星号功能跟\chapter一样，主要为了兼容。\mainmatter中chapter
+% 编号计数器不变\npchapter和\chapter都为chapter计数器。
+\newcommand\npchapter{
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\phantomsection			% hyperref宏包的命令，超链接用。
+	\thispagestyle{ZJU@headings}%
+	\global\@topnum\z@%
+	\@afterindenttrue%
+	\secdef\@npchapter\@schapter}
+\def\@npchapter[#1]#2{%
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\refstepcounter{chapter}%计数器不变
+			\addcontentsline{toc}{nopagechapter}{\protect\numberline{\@chapapp}#1}
+		\else
+			\addcontentsline{toc}{nopagechapter}{#1}%
+		\fi
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+	\chaptermark{#1}%
+	% 在图目录和表目录中相应章节位置加垂直10pt的空白。
+	\addtocontents{lof}{\protect\addvspace{10\p@}}%
+	\addtocontents{lot}{\protect\addvspace{10\p@}}%
+	\@makechapterhead{#2}
+	\@afterheading}
+
 %%一级节标题格式设置----四号仿宋加黑
 \renewcommand\section{\@startsection{section}{1}{\z@}%
 									{3.5ex \@plus 1ex \@minus .2ex}%
@@ -552,13 +580,11 @@
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
-	\cleardoublepage
 	\@mainmatterfalse
 	\pagenumbering{Roman}
 	\pagestyle{ZJU@headings}}
 \renewcommand\mainmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
-	\cleardoublepage
 	\@mainmattertrue
 	\pagenumbering{arabic}
 	\pagestyle{ZJU@headings}}
@@ -597,15 +623,8 @@
 
 %% 章节目录
 \renewcommand\tableofcontents{%
-	\if@openright\cleardoublepage\else\clearpage\fi%
-	\phantomsection
-	\thispagestyle{ZJU@headings}%
-	{\vspace*{20\p@}
-	\parindent \z@ \raggedright
-	\fangsong \zihao{-3} \bfseries\contentsname
-	\par\nobreak
-	\vskip 24\p@}
-	\addcontentsline{toc}{nopagechapter}{\contentsname}
+	% 使用\npchapter，将标题插入目录，但是不产生页码和中间点线。
+	\npchapter{\contentsname}
 	\markboth{\contentsname}{}
 	\@starttoc{toc}}
 
