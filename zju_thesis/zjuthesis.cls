@@ -226,7 +226,7 @@
 	学\ZJUspace 号：\ZJUunderline[60pt]{\ZJU@studentnumber} \par
 	\vspace{10mm}
 	\begin{center}
-		\includegraphics[width=60mm]{./logo/ZJDX.eps}\par
+		\includegraphics[width=60mm]{./logo/ZJDX.pdf}\par
 		\vspace{4mm}
 		{
 			\if@doctor
@@ -236,7 +236,7 @@
 			\fi
 		}\par
 		\vspace{4mm}
-		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
 	\vspace{8mm}
 	\begin{center}
@@ -304,7 +304,7 @@
 	\end{center}
 	\vspace{12mm}
 	\begin{center}
-		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
 	\vspace{8mm}
 	\begin{center}
@@ -370,7 +370,7 @@
 	\end{center}
 	\vspace{12mm}
 	\begin{center}
-		\includegraphics[width=22.8mm]{./logo/QSY.eps}
+		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
 	\vspace{5mm}
 	\begin{center}
