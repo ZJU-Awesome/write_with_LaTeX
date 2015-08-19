@@ -1,4 +1,4 @@
-% !Mode:: "TeX:UTF-8"
+﻿% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
@@ -74,14 +74,14 @@
 \renewcommand\baselinestretch{1.56}
 
 %---------- 页面设置 ----------
-\RequirePackage[
-	% left=2.4cm,
-	% right=2.2cm,
-	% top=2.8cm,
-	% bottom=2.2cm,
-	xetex,
-	showframe,
-]{geometry}
+% \RequirePackage[
+% 	% left=2.4cm,
+% 	% right=2.2cm,
+% 	% top=2.8cm,
+% 	% bottom=2.2cm,
+% 	xetex,
+% 	showframe,
+% ]{geometry}
 % 纸张大小a4paper
 \setlength\paperheight{297mm}
 \setlength\paperwidth {210mm}	%  \paperwidth = h + \oddsidemargin+\textwidth+\evensidemargin + h
@@ -628,7 +628,7 @@
 			\hskip -\leftskip
 			\fangsong\zihao{-4} #1\nobreak
 			% 下两行是增加章节标题项的中间点
-			\leaders\hbox{$\m@th
+			\leaders\hbox{$\m@th%
 				\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
 			\nobreak\hb@xt@\@pnumwidth{\hss #2}\par
 			\penalty\@highpenalty
@@ -708,6 +708,27 @@
 }
 
 % ---------- 参考文献样式 ----------
+% 修改thebibliography 环境用于在目次中加入参考文献页。
+\renewenvironment{thebibliography}[1]
+     {\chapter{\bibname}%
+      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
 \bibliographystyle{gbt7714-2005}
 
 %Superscript reference
