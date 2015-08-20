@@ -793,6 +793,62 @@
 	\vspace{5ex}
 	\noindent\textbf{Keywords:}\ \ZJU@ekeywords}
 
+% ---------- 通用列表环境的重新定义 ----------
+% 以下列表参数的修改主要是模仿book.cls，整体样式改动不大，只是修改了参数，但是去
+% 掉了对twocolumn的支持。
+
+%% 各级列表的缩进没有改变，所以注释掉了，如需改变，自己改。
+% \setlength\leftmargini  {2.5em}
+% \leftmargin  \leftmargini
+% \setlength\leftmarginii  {2.2em}
+% \setlength\leftmarginiii {1.87em}
+% \setlength\leftmarginiv  {1.7em}
+% \setlength\leftmarginv  {1em}
+% \setlength\leftmarginvi {1em}
+
+%% 标签与列表正文的间距和标签的宽度，因为参数没改，所以注释掉了。
+% \setlength  \labelsep  {.5em}
+% \setlength  \labelwidth{\leftmargini}
+% \addtolength\labelwidth{-\labelsep}
+
+% 鼓励在list前、后和item间分页。
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+
+% 各级列表的参数结构参数设置
+\def\@listi{\leftmargin\leftmargini
+            \parsep\parskip
+            \topsep\z@
+            \itemsep\z@}
+\let\@listI\@listi
+\@listi
+\def\@listii {\leftmargin\leftmarginii
+              \labelwidth\leftmarginii
+              \advance\labelwidth-\labelsep
+              \topsep \z@
+              \parsep \z@
+              \itemsep \parsep}
+\def\@listiii{\leftmargin\leftmarginiii
+              \labelwidth\leftmarginiii
+              \advance\labelwidth-\labelsep
+              \topsep \z@
+              \parsep \z@
+              \partopsep \p@ \@plus\z@ \@minus\p@
+              \itemsep \topsep}
+\def\@listiv {\leftmargin\leftmarginiv
+              \labelwidth\leftmarginiv
+              \advance\labelwidth-\labelsep}
+\def\@listv  {\leftmargin\leftmarginv
+              \labelwidth\leftmarginv
+              \advance\labelwidth-\labelsep}
+\def\@listvi {\leftmargin\leftmarginvi
+              \labelwidth\leftmarginvi
+              \advance\labelwidth-\labelsep}
+
+% ---------- 打算重新定义Enumerate，Itemize，先挖个坑 ----------
+
+
 % ---------- 缩写、符号清单、术语表 ----------
 % 以下尺寸详细说明见P33/112
 \newenvironment*{denotation}[1][2.5cm]{
