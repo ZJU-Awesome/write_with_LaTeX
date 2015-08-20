@@ -13,15 +13,59 @@
 \LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}
 
 %---------- 加载宏包 ----------
-\RequirePackage{amsmath}		%数学公式
-\RequirePackage{bm}				%公式中的粗体
-\RequirePackage{cases}			%公式中的括号，例如subnumcases环境
-\RequirePackage{graphicx}		%插图包
-\RequirePackage{paralist}		%列表宏包
-\RequirePackage{booktabs}		%三线表
-\RequirePackage{ulem}			%下划线
-\RequirePackage{array}			%表格处理必备宏包
-% \RequirePackage{natbib}			%参考文献
+% 数学公式
+\RequirePackage{amsmath}
+% 公式中的粗体
+\RequirePackage{bm}
+% 公式中的括号，例如subnumcases环境
+\RequirePackage{cases}
+%  pifont 宏包提供带圈的数字符号，这里用作脚注的标号，根据GB/T 7713.1-2006要求。
+\RequirePackage{pifont}
+% 插图包
+\RequirePackage{graphicx}
+% 三线表
+\RequirePackage{booktabs}
+% 下划线
+\RequirePackage{ulem}
+% 表格处理必备宏包
+\RequirePackage{array}
+% hyperref 宏包可根据交叉引用生成超链接，同时生成 PDF 文档的书签。
+\RequirePackage{hyperref}
+\AtEndOfClass{
+	\hypersetup{
+		unicode,
+		hyperfootnotes=false,
+	    pdfstartview=FitH,
+	    CJKbookmarks=true,
+	    bookmarksnumbered=true,
+	    bookmarksopen=true,
+	    colorlinks=true,
+	    citecolor=black,
+	    linkcolor=black,
+	    anchorcolor=black,
+	    urlcolor=black,
+	    % breaklinks=true，
+		% hidelinks,			% 隐藏超链接的颜色和边框。
+		% draft,				% 草稿模式，提高编译速度，需要时注释掉就可以了。
+	}
+}
+\AtBeginDocument{
+	\hypersetup{%
+		pdftitle={\ZJU@title},%
+		pdfauthor={\ZJU@author},%
+		pdfkeywords={},%
+		pdfcreator={LaTeX with hyperref package, using ZJU LaTeX Thesis Template for Master and Doctor}
+	}
+}
+\urlstyle{same}
+% 参考文献正文上标样式设置
+\RequirePackage[sort&compress,numbers]{natbib}
+% hypernat 可以让hyperref 和natbib 混合使用，但它需要放在这两者之后。
+\RequirePackage{hypernat}
+% footmisc 宏包提供了对脚注样式的控制功能。
+% stable参数主要使脚注\footnote可以用在章节命令中；
+% perpage
+\RequirePackage[stable,perpage,symbol*]{footmisc}
 
 %---------- 全局命令定义 ----------
 \@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
@@ -698,34 +742,6 @@
 
 \let\l@table\l@figure
 
-%---------- hyperref(放最后) ----------
-\RequirePackage{hyperref}
-\AtEndOfClass{
-	\hypersetup{
-		unicode,
-	    pdfstartview=FitH,
-	    CJKbookmarks=true,
-	    bookmarksnumbered=true,
-	    bookmarksopen=true,
-	    colorlinks=true,
-	    citecolor=black,
-	    linkcolor=black,
-	    anchorcolor=black,
-	    urlcolor=black,
-	    % breaklinks=true，
-		% hidelinks,					% 隐藏超链接的颜色和边框。
-		% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
-	}
-}
-\AtBeginDocument{
-	\hypersetup{%
-		pdftitle={\ZJU@title},%
-		pdfauthor={\ZJU@author},%
-		pdfkeywords={},%
-		pdfcreator={LaTeX with hyperref package, using ZJU LaTeX Thesis Template for Master and Doctor}
-	}
-}
-
 % ---------- 参考文献样式 ----------
 % 修改thebibliography 环境用于在目次中加入参考文献页。
 \renewenvironment{thebibliography}[1]
@@ -868,3 +884,21 @@
 		\setlength{\topsep}{0pt} 					% 标签与上文的间距
 		\setlength{\partopsep}{3pt plus2pt minus2pt}
 	}}{\end{list}}
+
+% ---------- 脚注样式 ----------
+% 使用footmisc宏包和pifont宏包设置符合 GB/T 7713.1-2006 规范的脚注样式。注意，由
+% 于pifont宏包提供的特殊符号的限制，一页之中最多只能有10个脚注。
+% 这些命令设置跟脚注设置方法思路全都引用自南京大学计算机科学与技术系胡海星编写的
+% 《NJU-Thesis:南京大学学位论文XeLaTeX模板》v1.1.18 (2015/7/16)版本。
+\DefineFNsymbols*{circlednumber}[text]{%
+	{\ding{192}} %
+	{\ding{193}} %
+	{\ding{194}} %
+	{\ding{195}} %
+	{\ding{196}} %
+	{\ding{197}} %
+	{\ding{198}} %
+	{\ding{199}} %
+	{\ding{200}} %
+	{\ding{201}}}
+\setfnsymbol{circlednumber}
