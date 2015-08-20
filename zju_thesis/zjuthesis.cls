@@ -712,7 +712,7 @@
 	    linkcolor=black,
 	    anchorcolor=black,
 	    urlcolor=black,
-	    breaklinks=true，
+	    % breaklinks=true，
 		% hidelinks,					% 隐藏超链接的颜色和边框。
 		% draft,						% 草稿模式，提高编译速度，需要时注释掉就可以了。
 	}
