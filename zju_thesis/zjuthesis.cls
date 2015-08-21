@@ -61,6 +61,8 @@
 \RequirePackage[sort&compress,numbers]{natbib}
 % hypernat 可以让hyperref 和natbib 混合使用，但它需要放在这两者之后。
 \RequirePackage{hypernat}
+% 修复图表超链接不准的问题
+\RequirePackage[all]{hypcap}
 % footmisc 宏包提供了对脚注样式的控制功能。
 % stable参数主要使脚注\footnote可以用在章节命令中；
 % perpage
