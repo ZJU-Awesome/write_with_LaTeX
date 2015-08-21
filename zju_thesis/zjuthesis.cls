@@ -34,18 +34,17 @@
 \AtEndOfClass{
 	\hypersetup{
 		unicode,
-		hyperfootnotes=false,
+		% hyperfootnotes=false,
 	    pdfstartview=FitH,
 	    CJKbookmarks=true,
 	    bookmarksnumbered=true,
 	    bookmarksopen=true,
-	    colorlinks=true,
-	    citecolor=black,
-	    linkcolor=black,
-	    anchorcolor=black,
-	    urlcolor=black,
-	    % breaklinks=true，
-		% hidelinks,			% 隐藏超链接的颜色和边框。
+	    % colorlinks=true,		% 链接颜色默认关闭，hidelink打开。
+	    % citecolor=blue,
+	    % linkcolor=blue,
+	    % anchorcolor=blue,
+	    % urlcolor=blue,
+		hidelinks,			% 隐藏超链接的颜色和边框。
 		% draft,				% 草稿模式，提高编译速度，需要时注释掉就可以了。
 	}
 }
