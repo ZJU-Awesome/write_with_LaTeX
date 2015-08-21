@@ -13,12 +13,29 @@
 
 __windows__:
 
-run make.bat，并按提示选择所需。
+运行 make.bat，并按提示选择所需。
 
 __Linux__:
 
+首先添加或修改 .latexmkrc，请做好备份。
+
+    $ cp latexmkrc_linux ~/.latexmkrc
+
+然后使用latexmk 命令进行编译。
+
 	$ cd zju_thesis
-	$ make
+	$ latexmk main
+
+__Mac__:
+
+首先添加或修改 .latexmkrc，请做好备份。
+
+    $ cp latexmkrc_mac ~/.latexmkrc
+
+然后使用latexmk 命令进行编译。
+
+	$ cd zju_thesis
+	$ latexmk main
 
 ## 3、完成情况
 - [x] 主题框架
