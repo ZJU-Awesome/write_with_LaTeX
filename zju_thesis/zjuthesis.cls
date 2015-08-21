@@ -751,6 +751,7 @@
            {\settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
             \advance\leftmargin\labelsep
+            \itemsep \z@ \@plus\p@ \@minus\p@
             \@openbib@code
             \usecounter{enumiv}%
             \let\p@enumiv\@empty
@@ -764,11 +765,12 @@
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
 
+% 采用gbt7714-2005参考文献样式，
+% 参考自https://github.com/githamburger/GBT7714-2005-BibTeX-Style
 \bibliographystyle{gbt7714-2005}
 
-%Superscript reference
-% 这个命令是什么时候加进来的？？？
-\newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
+% natbib宏包命令，参考文献上标设置。
+\setcitestyle{super,square,comma}
 
 % ---------- 中英文摘要及关键词 ----------
 % 中文摘要环境
