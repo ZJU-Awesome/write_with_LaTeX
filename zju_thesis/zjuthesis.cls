@@ -23,6 +23,8 @@
 \RequirePackage{pifont}
 % 插图包
 \RequirePackage{graphicx}
+% 设置图片，表格头字体选项
+\RequirePackage{caption}
 % 三线表
 \RequirePackage{booktabs}
 % 长表格宏包，tabu宏包longtabu环境需要。
@@ -616,7 +618,6 @@
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{-4}}}
 
-
 %%三级节标题格式设置----小四号仿宋
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
 									{3.25ex \@plus 1ex \@minus .2ex}%
@@ -774,6 +775,57 @@
 
 % natbib宏包命令，参考文献上标设置。
 \setcitestyle{super,square,comma}
+
+% ---------- 浮动体相关定义 ----------
+% 设置浮动环境标题的字体大小。根据学位论文格式要求，插图和表格标题字体需要比正文
+% 字体略小。
+\captionsetup{%
+	format=hang,
+	labelsep=quad,		% 去掉图表号后的冒号。图序与图名文字之间空一个汉字宽度。
+	skip=10pt,			% 标题与图标之间空10pt距离。
+	font=small,			% 标题字体比正文小一号，这里取small。
+	width=.75\textwidth}% 标题最大宽度为0.75倍正文宽度。
+
+% 根据学位论文格式要求，表格的标题必须位于表格上方，插图的标题必须位于插图下方。
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
+
+%% 以下为设置浮动对象和文字之间的距离。
+% 版心顶部或者版心底部浮动体之间的垂直距离，默认为12pt plus 2pt minus 2pt。
+\setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
+
+% 文本行之间浮动体（使用h位置选项）与上下文之间的距离，默认为12pt plus 2pt minus
+% 2pt。
+\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+
+% 版心顶部或底部的浮动体与文本之间的距离，默认为12pt plus 2pt minus 2pt。
+\setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
+
+% 浮动页中，版心顶部的浮动体与版心顶边之间的距离，默认为0pt plus 1fil。
+\setlength{\@fptop}{0bp \@plus1.0fil}
+
+% 浮动页中浮动体直接的距离，默认为8pt plus 2fil。
+\setlength{\@fpsep}{12bp \@plus2.0fil}
+
+% 浮动页中，版心底部的浮动体与版心底边之间的距离，默认为0pt plus 1fil。
+\setlength{\@fpbot}{0bp \@plus1.0fil}
+
+%% 下面这组命令使浮动对象的缺省值稍微宽松一点，从而防止幅度对象占据过多的文本页
+%% 面，也可以防止在很大空白的浮动页上放置很小的图形。
+% 默认情况下，LaTeX要求每页的文字至少占据 20%，否则该页就只单独放置一个浮动环境。
+% 而这通常不是我们想要的。我们将这个要求降低到 5%。
+\renewcommand{\textfraction}{0.05}
+
+% 在一文本页中，被置于版心顶部的所有浮动体的高度与版心高度的最大比值，默认为0.7，
+% 这里修改为0.9，任何造成高度超过版心高度90% 的浮动体都被将阻止置于当前版心顶部。
+\renewcommand{\topfraction}{0.9}
+
+% 同上，只不过变成了版心底部，默认为0.3.
+\renewcommand{\bottomfraction}{0.8}
+
+% 在任意一个“浮动页”中，所有的浮动体高度与版心的高度的最小比值，默认为 0.5，这里
+% 设置成0.85。因此，浮动页中空白与版心的比值不会超过1-\floatpagefraction。
+\renewcommand{\floatpagefraction}{0.85}
 
 % ---------- 中英文摘要及关键词 ----------
 % 中文摘要环境
