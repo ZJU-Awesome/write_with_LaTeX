@@ -959,3 +959,4 @@
 	{\ding{200}} %
 	{\ding{201}}}
 \setfnsymbol{circlednumber}
+% 脚注部分需要修改，段落部分单倍行距。
