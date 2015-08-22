@@ -97,3 +97,107 @@
 
 作为插图，首要的一点就是贴切，然后是有趣。在TeX社区里面，have fun是一个很重要的词组，也有人说Happy TeXing。我知道有不少人不喜欢TeX，但是能有什么理由呢？如果你用不到它，那么浅尝辄止即可。如果你会用到很频繁，最好慢慢修炼做到精通。如果你只是偶尔用到，那么可以搬个模版什么的，甚至也可以找人帮你（不要指望别人会用足够的空闲时间来帮你，他没有这个义务，请支付报酬，最少也得请吃个红烧肉吧）。下面的插图，是TeX TeXbook中的，我也希望这个新年的假期，能有人有空来看看这本书。即使不能把所有的东西都看懂，那么也会对TeX的设计有了一定的了解，拿到扳手就好。
 
+\subsection{表格测试}
+在这里推荐制表采用功能强大的tabu宏包以取代其它制表宏包。具体tabu宏包的使用说明参见tabu宏包的说明文档。
+
+以下节分别用来测试各种表格环境如，tabular，tabu，longtabu等，还有对caption格式的修改和测试。以下表格样式全部采用三线表。
+
+\subsubsection{array宏包tabular表格环境测试}
+如表\ref{tab:first_table_test}是对array宏包的tabular表格环境测试。
+\begin{table}[htbp]
+	\centering
+	\caption{这是一个用tabular环境的测试用的表格}\label{tab:first_table_test}
+    \begin{tabular}{lrr}
+    \toprule
+    \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
+    \midrule
+    水星     & 2.439  & 87.9 \\
+    金星     & 6.1    & 224.682 \\
+    地球     & 6378.14 & 365.24 \\
+    \bottomrule
+    \end{tabular}%
+\end{table}
+
+\subsubsection{tabu宏包表格环境测试}
+如表\ref{tab:tabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与表\ref{tab:first_table_test}的命令相同，只是tabular环境改成了tabu环境。
+\begin{table}[htbp]
+	\centering
+	\caption{这是一个用tabu环境的测试用的表格}\label{tab:tabu_test_1}
+    \begin{tabu}{lrr}
+    \toprule
+    \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
+    \midrule
+    水星     & 2.439  & 87.9 \\
+    金星     & 6.1    & 224.682 \\
+    地球     & 6378.14 & 365.24 \\
+    \bottomrule
+    \end{tabu}%
+\end{table}
+
+表\ref{tab:tabu_test_2}对tabu to表格的x列模式进行测试。在表格导言区中设置为X[1]X[2]X[2]，表示这三列表格的列宽比值为1:2:2，总的表格宽度由tabu to环境设置，这里设置为0.6\textbackslash linewidth。相比于tabular环境，tabu环境的列宽设置方便许多。
+\begin{table}[htbp]
+	\centering
+	\caption{tabu环境测试表格---X列模式}\label{tab:tabu_test_2}
+    \begin{tabu} to 0.6\linewidth{X[1]X[2]X[2]}
+    \toprule
+    \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
+    \midrule
+    水星     & 2.439  & 87.9 \\
+    金星     & 6.1    & 224.682 \\
+    地球     & 6378.14 & 365.24 \\
+    \bottomrule
+    \end{tabu}%
+\end{table}
+
+如表\ref{tab:tabu_test_3}是longtabu环境测试表格。longtabu环境不能用在table浮动体环境中。根据GB/T 7713.1-2006规定：如果某个表需要转页接排，在随后的各页上应重复表的编号。编号后跟标题（可省略）和“（续）”，置于表上方。续表应重复表头。
+
+特别需要注意的是，longtabu是基于longtable宏包开发的，所以在zjuthesis.cls文件中已经插入了longtable宏包。longtable环境的所有功能都可以在longtabu中使用，如\textbackslash endhead，\textbackslash endfirsthead，\textbackslash endfoot，\textbackslash endlastfoot，和\textbackslash caption等。具体用法请参见longtable和tabu宏包的相应文档。
+\begin{longtabu}{lccc}
+\caption{材料弹性模量及泊松比}\label{tab:tabu_test_3}\\
+\toprule
+名  称   & 弹性模量E/Gpa & 切变模量G/Gpa & 泊松比$\mu$ \\
+\midrule%
+\endfirsthead
+\caption{材料弹性模量及泊松比（续）}\\
+\toprule
+名  称   & 弹性模量E/Gpa & 切变模量G/Gpa & 泊松比$\mu$ \\
+\midrule%
+\endhead
+\bottomrule%
+\endfoot
+镍铬钢、合金钢 & 206    & 79.38  & 0.3 \\
+碳　钢    &  196～206 & 79     & 0.3 \\
+铸　钢    &  172～202 &        & 0.3 \\
+球墨铸铁   &  140～154 &  73～76 & 0.3 \\
+灰铸铁、白口铸铁 &  113～157 & 44     &  0.23～0.27 \\
+冷拔纯铜   & 127    & 48     &   \\
+轧制磷青铜  & 113    & 41     &  0.32～0.35 \\
+轧制纯铜   & 108    & 39     &  0.31～0.34 \\
+轧制锰青铜  & 108    & 39     & 0.35 \\
+铸铝青铜   & 103    & 41     & 0.3 \\
+冷拔黄铜   &  89～97 &  34～36 &  0.32～0.42 \\
+轧制锌    & 82     & 31     & 0.27 \\
+硬铝合金   & 70     & 26     & 0.3 \\
+轧制铝    & 68     &  25～26 &  0.32～0.36 \\
+铅      & 17     & 7      & 0.42 \\
+玻璃     & 55     & 22     & 0.25 \\
+混凝土    &  14～39 &  439～15.7 &  0.1～0.18 \\
+纵纹木材   &  9.8～12 & 0.5    &   \\
+横纹木材   &  0.5～0.98 &  0.44～0.64 &   \\
+橡胶     & 0.00784 &        & 0.47 \\
+电木     &  1.96～2.94 &  0.69～2.06 &  0.35～0.38 \\
+赛璐珞    &  1.71～1.89 &  0.69～0.98 & 0.4 \\
+可锻铸铁   & 152    &        &  \\
+拔制铝线   & 69     &        &  \\
+大理石    & 55     &        &  \\
+花岗石    & 48     &        &  \\
+石灰石    & 41     &        &  \\
+尼龙1010 & 1.07   &        &  \\
+夹布酚醛塑料 &  4～8.8 &        &  \\
+石棉酚醛塑料 & 1.3    &        &  \\
+高压聚乙烯  &  0.15～0.25 &        &  \\
+低压聚乙烯  &  0.49～0.78 &        &  \\
+聚丙烯    &  1.32～1.42 &        &  \\
+硬聚氯乙烯  &  3.14～3.92 &        &  \\
+聚四氟乙烯  &  1.14～1.42 &        &  \\
+\end{longtabu}%

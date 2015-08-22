@@ -25,6 +25,8 @@
 \RequirePackage{graphicx}
 % 三线表
 \RequirePackage{booktabs}
+% 长表格宏包，tabu宏包longtabu环境需要。
+\RequirePackage{longtable}
 % 下划线
 \RequirePackage{ulem}
 % 表格处理必备宏包
