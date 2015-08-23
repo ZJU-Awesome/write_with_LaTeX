@@ -277,3 +277,16 @@
 		 & = 2(x^{2} + 2x +1)-1\\
 		 & = 2x^{2} + 4x + 1
 \end{align}
+
+\section{出现的问题}
+在这里发现一个问题，在下面的例子中可以发现，在中文中使用\textbackslash texttt\{\}命令时，前面的汉字与接下来的英文单词的空隙明显比接下来单词跟汉字的间隙要大，但是其它命令没有什么问题。
+
+\begin{center}
+\noindent 问题\texttt{问题}问题，问题\textbackslash\texttt{问题}问题。\\
+问题\texttt{ref} 问题，问题\texttt{\textbackslash ref} 问题。\\
+问题\textbf{ref}问题，问题\textbf{\textbackslash ref}问题。\\
+问题\textsf{ref}问题，问题\textsf{\textbackslash ref}问题。\\
+problem \texttt{ref} problem,problem \texttt{\textbackslash ref} problem.\\
+problem \textbf{ref} problem,problem \textbf{\textbackslash ref} problem.\\
+problem \textsf{ref} problem,problem \textsf{\textbackslash ref} problem.
+\end{center}
