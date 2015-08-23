@@ -251,3 +251,29 @@
 	\end{subfigure}
 	\caption{子图模式测试2:4张图}\label{fig:subfig_test2}
 \end{figure}
+
+\subsection{数学模式测试}
+数学模式测试，主要测试数学字体，编号和交叉引用。这里首先推荐使用\texttt{align}和\texttt{align*}数学模式环境，大多数行间数学模式只需要用这个环境就可以了。
+
+交叉引用测试，如交引用命令{\ttfamily \textbackslash eqref}和\texttt{\textbackslash ref}命令的区别。如公式\eqref{eq:test1}，公式\ref{eq:test1}显示，\texttt{\textbackslash eqref}命令比\texttt{\textbackslash ref}命令的应用结果多了个括号。
+
+如公式\eqref{eq:test3}是单行公式环境，查看公式\eqref{eq:test3}和\eqref{eq:test1}之间的区别，好像在单行公式中没什么区别。
+\begin{align}\label{eq:test3}
+	f(x) = 2(x + 1)^{2} - 1
+\end{align}
+
+\texttt{align}公式环境，用在单行中。
+\begin{align}\label{eq:test1}
+	f(x) = 2(x + 1)^{2} - 1
+\end{align}
+
+在这里，中间插入一些文字以形成段落，查看行间公式与上下文之间的间隙。
+\begin{align*}
+	f(x) = 2(x + 1)^{2} - 1
+\end{align*}
+在这里，中间插入一些文字以形成段落，查看行间公式与上下文之间的间隙。下一个公式\eqref{eq:test2}是一个公式组，它在“=”位置对齐。
+\begin{align}\label{eq:test2}
+	f(x) & = 2(x + 1)^{2} - 1\\
+		 & = 2(x^{2} + 2x +1)-1\\
+		 & = 2x^{2} + 4x + 1
+\end{align}
