@@ -2,8 +2,6 @@
 % !TEX builder = LATEXMK
 % !TEX program = xelatex
 \documentclass[doctor,oneside]{zjuthesis}
-% 制表宏包，推荐使用，不使用其他制表宏包。
-\usepackage{tabu}
 
 % 插图路径设置，图片放在figures 文件夹下。一般来说论文的插图比较多，通常按章节存
 % 放，因此可以在以下命令中在按章节添加存放图片的文件夹路径。如以下这个路径中 ./
@@ -73,14 +71,14 @@
 \eendefencedate{March 5, 225}
 
 \begin{document}
-% \maketitle
+\maketitle
 % \ZJUmakecover
 % \ZJUmakeCNtitlepage
 % \ZJUmakeENtitlepage
 \frontmatter
-% \include{contents/thanks}
-% \include{contents/abstract_chinese}
-% \include{contents/abstract_english}
+\include{contents/thanks}
+\include{contents/abstract_chinese}
+\include{contents/abstract_english}
 % 正文目录：
 \tableofcontents
 % 插图目录：
@@ -91,14 +89,14 @@
 \mainmatter
 \include{contents/intro}
 \include{contents/structure}
-% \include{contents/specification}
+\include{contents/specification}
 \backmatter
 \bibliography{reference_data_base/references}
 % \nocite{*} % to show the entire references, annotate it if need.
 \appendix
-% \chapter{我是第一个附录}
-% \section{我是第一个附录的第一节}
-% \subsection{我是第一个附录的第一节的第一个子节}
-% \subsubsection{我是第一个附录的第一节的第一个子节的第一个子子节}
-% \chapter{我是第二个附录}
+\chapter{我是第一个附录}
+\section{我是第一个附录的第一节}
+\subsection{我是第一个附录的第一节的第一个子节}
+\subsubsection{我是第一个附录的第一节的第一个子节的第一个子子节}
+\chapter{我是第二个附录}
 \end{document}

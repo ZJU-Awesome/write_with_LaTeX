@@ -1,7 +1,8 @@
 ﻿% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{zjuthesis}[2014/09/12 zjuthesis document class. Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
+\ProvidesClass{zjuthesis}[2015/08/23 zjuthesis document class.
+Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
@@ -31,6 +32,8 @@
 \RequirePackage{booktabs}
 % 长表格宏包，tabu宏包longtabu环境需要。
 \RequirePackage{longtable}
+% 制表宏包，推荐使用，不使用其他制表宏包。
+\RequirePackage{tabu}
 % 下划线
 \RequirePackage{ulem}
 % 表格处理必备宏包
@@ -59,7 +62,8 @@
 		pdftitle={\ZJU@title},%
 		pdfauthor={\ZJU@author},%
 		pdfkeywords={},%
-		pdfcreator={LaTeX with hyperref package, using ZJU LaTeX Thesis Template for Master and Doctor}
+		pdfcreator={LaTeX with hyperref package, using ZJU LaTeX Thesis Template
+		 for Master and Doctor}
 	}
 }
 \urlstyle{same}
@@ -75,51 +79,53 @@
 \RequirePackage[stable,perpage,symbol*]{footmisc}
 
 %---------- 全局命令定义 ----------
-\@namedef{ZJU@spaceChar}{\hspace{1em}}			% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
-\newcommand\ZJUspace{\protect\ZJU@spaceChar\protect\ZJU@spaceChar}		% 用以产生2个字符空格。
+% 修改原来CTEX@spaceChar为ZJU@spcaeChar，ctex2.0宏包已经没有CTEX@spaceChar命令。
+\@namedef{ZJU@spaceChar}{\hspace{1em}}
+% 用以产生2个字符空格。
+\newcommand\ZJUspace{\protect\ZJU@spaceChar\protect\ZJU@spaceChar}
 
 % 封面
-\renewcommand*\title[1]{\gdef\ZJU@title{#1}}							% 论文中文标题
-\newcommand*\englishtitle[1]{\long\gdef\ZJU@englishtitle{#1}}			% 论文英文标题
-\renewcommand*\author[1]{\gdef\ZJU@author{#1}}							% 作者姓名，也就是你的名字
-\newcommand*\classification[1]{\gdef\ZJU@classification{#1}}			% 分类号
-\newcommand*\serialnumber[1]{\gdef\ZJU@serialnumber{#1}}				% 单位代码
-\newcommand*\secretlevel[1]{\gdef\ZJU@secretlevel{#1}}					% 密级
-\newcommand*\studentnumber[1]{\gdef\ZJU@studentnumber{#1}}				% 学号
-\newcommand*\supervisor[1]{\gdef\ZJU@supervisor{#1}}					% 指导教师
-\newcommand*\cpsupervisor[1]{\gdef\ZJU@cpsupervisor{#1}}				% 合作导师
-\newcommand*\major[1]{\gdef\ZJU@major{#1}}								% 专业名称
-\newcommand*\research[1]{\gdef\ZJU@research{#1}}						% 研究方向
-\newcommand*\institute[1]{\gdef\ZJU@institute{#1}}						% 所在学院
-\newcommand*\submitdate[1]{\gdef\ZJU@submitdate{#1}}					% 提交日期
+\renewcommand*\title[1]{\gdef\ZJU@title{#1}}					% 论文中文标题
+\newcommand*\englishtitle[1]{\long\gdef\ZJU@englishtitle{#1}}	% 论文英文标题
+\renewcommand*\author[1]{\gdef\ZJU@author{#1}}					% 作者姓名
+\newcommand*\classification[1]{\gdef\ZJU@classification{#1}}	% 分类号
+\newcommand*\serialnumber[1]{\gdef\ZJU@serialnumber{#1}}		% 单位代码
+\newcommand*\secretlevel[1]{\gdef\ZJU@secretlevel{#1}}			% 密级
+\newcommand*\studentnumber[1]{\gdef\ZJU@studentnumber{#1}}		% 学号
+\newcommand*\supervisor[1]{\gdef\ZJU@supervisor{#1}}			% 指导教师
+\newcommand*\cpsupervisor[1]{\gdef\ZJU@cpsupervisor{#1}}		% 合作导师
+\newcommand*\major[1]{\gdef\ZJU@major{#1}}						% 专业名称
+\newcommand*\research[1]{\gdef\ZJU@research{#1}}				% 研究方向
+\newcommand*\institute[1]{\gdef\ZJU@institute{#1}}				% 所在学院
+\newcommand*\submitdate[1]{\gdef\ZJU@submitdate{#1}}			% 提交日期
 
 % 中文题名页
-\newcommand*\reviewerA[1]{\gdef\ZJU@reviewerA{#1}}						% 论文评阅人1
-\newcommand*\reviewerB[1]{\gdef\ZJU@reviewerB{#1}}						% 论文评阅人2
-\newcommand*\reviewerC[1]{\gdef\ZJU@reviewerC{#1}}						% 论文评阅人3
-\newcommand*\reviewerD[1]{\gdef\ZJU@reviewerD{#1}}						% 论文评阅人4
-\newcommand*\reviewerE[1]{\gdef\ZJU@reviewerE{#1}}						% 论文评阅人5
-\newcommand*\chairperson[1]{\gdef\ZJU@chairperson{#1}}					% 答辩委员会主席
-\newcommand*\commissionerA[1]{\gdef\ZJU@commissionerA{#1}}				% 委员1
-\newcommand*\commissionerB[1]{\gdef\ZJU@commissionerB{#1}}				% 委员2
-\newcommand*\commissionerC[1]{\gdef\ZJU@commissionerC{#1}}				% 委员3
-\newcommand*\commissionerD[1]{\gdef\ZJU@commissionerD{#1}}				% 委员4
-\newcommand*\commissionerE[1]{\gdef\ZJU@commissionerE{#1}}				% 委员5
-\newcommand*\defencedate[1]{\gdef\ZJU@defencedate{#1}}					% 答辩日期
+\newcommand*\reviewerA[1]{\gdef\ZJU@reviewerA{#1}}				% 论文评阅人1
+\newcommand*\reviewerB[1]{\gdef\ZJU@reviewerB{#1}}				% 论文评阅人2
+\newcommand*\reviewerC[1]{\gdef\ZJU@reviewerC{#1}}				% 论文评阅人3
+\newcommand*\reviewerD[1]{\gdef\ZJU@reviewerD{#1}}				% 论文评阅人4
+\newcommand*\reviewerE[1]{\gdef\ZJU@reviewerE{#1}}				% 论文评阅人5
+\newcommand*\chairperson[1]{\gdef\ZJU@chairperson{#1}}			% 答辩委员会主席
+\newcommand*\commissionerA[1]{\gdef\ZJU@commissionerA{#1}}		% 委员1
+\newcommand*\commissionerB[1]{\gdef\ZJU@commissionerB{#1}}		% 委员2
+\newcommand*\commissionerC[1]{\gdef\ZJU@commissionerC{#1}}		% 委员3
+\newcommand*\commissionerD[1]{\gdef\ZJU@commissionerD{#1}}		% 委员4
+\newcommand*\commissionerE[1]{\gdef\ZJU@commissionerE{#1}}		% 委员5
+\newcommand*\defencedate[1]{\gdef\ZJU@defencedate{#1}}			% 答辩日期
 
 % 英文题名页
-\newcommand*\enreviewerA[1]{\gdef\ZJU@enreviewerA{#1}}					% 论文评阅人1英文名
-\newcommand*\enreviewerB[1]{\gdef\ZJU@enreviewerB{#1}}					% 论文评阅人2英文名
-\newcommand*\enreviewerC[1]{\gdef\ZJU@enreviewerC{#1}}					% 论文评阅人3英文名
-\newcommand*\enreviewerD[1]{\gdef\ZJU@enreviewerD{#1}}					% 论文评阅人4英文名
-\newcommand*\enreviewerE[1]{\gdef\ZJU@enreviewerE{#1}}					% 论文评阅人5英文名
-\newcommand*\enchairperson[1]{\gdef\ZJU@enchairperson{#1}}				% 答辩委员会主席英文名
-\newcommand*\encommissionerA[1]{\gdef\ZJU@encommissionerA{#1}}			% 委员1英文名
-\newcommand*\encommissionerB[1]{\gdef\ZJU@encommissionerB{#1}}			% 委员2英文名
-\newcommand*\encommissionerC[1]{\gdef\ZJU@encommissionerC{#1}}			% 委员3英文名
-\newcommand*\encommissionerD[1]{\gdef\ZJU@encommissionerD{#1}}			% 委员4英文名
-\newcommand*\encommissionerE[1]{\gdef\ZJU@encommissionerE{#1}}			% 委员5英文名
-\newcommand*\eendefencedate[1]{\gdef\ZJU@eendefencedate{#1}}			% 答辩日期英文版
+\newcommand*\enreviewerA[1]{\gdef\ZJU@enreviewerA{#1}}			% 评阅人1英文名
+\newcommand*\enreviewerB[1]{\gdef\ZJU@enreviewerB{#1}}			% 评阅人2英文名
+\newcommand*\enreviewerC[1]{\gdef\ZJU@enreviewerC{#1}}			% 评阅人3英文名
+\newcommand*\enreviewerD[1]{\gdef\ZJU@enreviewerD{#1}}			% 评阅人4英文名
+\newcommand*\enreviewerE[1]{\gdef\ZJU@enreviewerE{#1}}			% 评阅人5英文名
+\newcommand*\enchairperson[1]{\gdef\ZJU@enchairperson{#1}}		% 委员会主席英文名
+\newcommand*\encommissionerA[1]{\gdef\ZJU@encommissionerA{#1}}	% 委员1英文名
+\newcommand*\encommissionerB[1]{\gdef\ZJU@encommissionerB{#1}}	% 委员2英文名
+\newcommand*\encommissionerC[1]{\gdef\ZJU@encommissionerC{#1}}	% 委员3英文名
+\newcommand*\encommissionerD[1]{\gdef\ZJU@encommissionerD{#1}}	% 委员4英文名
+\newcommand*\encommissionerE[1]{\gdef\ZJU@encommissionerE{#1}}	% 委员5英文名
+\newcommand*\eendefencedate[1]{\gdef\ZJU@eendefencedate{#1}}	% 答辩日期英文版
 
 % 正文部分文字的行距设置
 \renewcommand\baselinestretch{1.56}
@@ -246,9 +252,13 @@
 \setsansfont{TeX Gyre Heros}	%相当于MS Word中的Helvetica。
 \setmonofont{TeX Gyre Cursor}	%相当于MS Word中的Curier。
 \RequirePackage{xeCJK}
-\setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}		%设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
-% \setCJKsansfont{}				%中文无衬线字体，不知道怎么设置，待以后解决。
-\setCJKmonofont{YouYuan}		%由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以后更改。
+% 设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
+\setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}
+% 中文无衬线字体，不知道怎么设置，待以后解决。
+% \setCJKsansfont{}
+% 由于汉字都是等宽的，等宽字体通常应用在代码中，故这里选择用幼圆字体，具体有待以
+% 后更改。
+\setCJKmonofont{YouYuan}
 
 %---------% 封面及中英标题页 ----------
 % 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
@@ -301,7 +311,8 @@
 			{\begin{minipage}[t][61pt]{260pt}
 				\fontsize{16}{23}\bfseries
 				% 下面这条命令通过产生一个0宽度内容为下划线左对齐的盒子
-				% 来弥补\uline命令强制换行产生的第一行下划线右边空隙。原来\raisebox方法放弃。
+				% 来弥补\uline命令强制换行产生的第一行下划线右边空隙。
+				% 原来\raisebox方法放弃。
 				\makebox[0pt][l]{\ZJUunderline[260pt]{\hfill}}
 				\uline{\ZJU@englishtitle\hfill}
 			\end{minipage}}\\
@@ -318,7 +329,8 @@
 	\end{center}
 	\vfill
 	\begin{center}
-		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{\ZJU@submitdate}}
+		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{%
+		\ZJU@submitdate}}
 	\end{center}
 	%清空变量节省空间
 	\global\let\ZJU@classification\@empty
@@ -359,7 +371,8 @@
 	\end{center}
 	\vspace{8mm}
 	\begin{center}
-		{\zihao{3}\songti\bfseries 论文作者签名：\ZJUunderline[120pt]{\hfill}}\\[10mm]
+		{\zihao{3}\songti\bfseries 论文作者签名：\ZJUunderline[120pt]{\hfill}}%
+		\\[10mm]
 		{\zihao{3}\songti\bfseries 指导教师签名：\ZJUunderline[120pt]{\hfill}}
 	\end{center}
 	\vspace{8mm}
@@ -433,11 +446,11 @@
 	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{4}}r>{\zihao{4}}l}
-			External Reviewers: & \ZJUunderline[260pt]{\ZJU@enreviewerA}\\[2.5mm]
-								& \ZJUunderline[260pt]{\ZJU@enreviewerB}\\[2.5mm]
-								& \ZJUunderline[260pt]{\ZJU@enreviewerC}\\[2.5mm]
-								& \ZJUunderline[260pt]{\ZJU@enreviewerD}\\[2.5mm]
-								& \ZJUunderline[260pt]{\ZJU@enreviewerE}
+		External Reviewers: & \ZJUunderline[260pt]{\ZJU@enreviewerA}\\[2.5mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerB}\\[2.5mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerC}\\[2.5mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerD}\\[2.5mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerE}
 		\end{tabular}
 	\end{center}
 	\vspace{8mm}
@@ -455,8 +468,8 @@
 	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2.5mm]
 	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerE}\\
 	\vfill
-	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{\ZJU@eendefencedate}}
-	}
+	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{%
+	\ZJU@eendefencedate}}}
 		%清空变量节省空间
 	\global\let\ZJU@enreviewerA\@empty
 	\global\let\ZJU@enreviewerB\@empty
@@ -491,7 +504,8 @@
 	\cleardoublepage
 	\thispagestyle{ZJU@empty}
 	{
-		\newcommand\signature@date{签字日期：\hspace{8ex}年\hspace{4ex}月\hspace{4ex}日}
+		\newcommand\signature@date{签字日期：%
+			\hspace{8ex}年\hspace{4ex}月\hspace{4ex}日}
 		\linespread{1.7}			% 相当于word中的1.5倍行距。
 		\songti\zihao{-4}
 		\vspace*{1ex}
@@ -500,7 +514,11 @@
 		\end{center}
 		\vspace{20pt}
 
-		本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为获得{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。
+		本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果%
+		。除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过%
+		的研究成果，也不包含为获得{\kaishu\zihao{4}\bfseries\underline{~浙江大%
+		学~}}或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研%
+		究所做的任何贡献均已在论文中作了明确的说明并表示谢意。
 
 		\vspace{62pt}
 
@@ -512,7 +530,11 @@
 		\end{center}
 		\vspace{20pt}
 
-		本学位论文作者完全了解{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}有权保留并向国家有关部门或机构送交本论文的复印件和磁盘，允许论文被查阅和借阅。本人授权{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}可以将学位论文的全部或部分内容编入有关数据库进行检索和传播，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。
+		本学位论文作者完全了解{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}%
+		有权保留并向国家有关部门或机构送交本论文的复印件和磁盘，允许论文被查阅和%
+		借阅。本人授权{\kaishu\zihao{4}\bfseries\underline{~浙江大学~}}可以将学%
+		位论文的全部或部分内容编入有关数据库进行检索和传播，可以采用影印、缩印或%
+		扫描等复制手段保存、汇编学位论文。
 
 		（保密的学位论文在解密后适用本授权书）\\[20pt]
 		\begin{tabular}{p{0.5\textwidth}p{0.4\textwidth}}
@@ -853,10 +875,12 @@
 	\expandafter\gdef\csname @#1\endcsname##1{
 	\@for\reserved@a:=##1\do{
 		\expandafter\ifx\csname ZJU@#1\endcsname\@empty\else
-	    	\expandafter\g@addto@macro\csname ZJU@#1\endcsname{\ignorespaces\csname ZJU@#1@separator\endcsname}
+	    	\expandafter\g@addto@macro\csname ZJU@#1\endcsname{%
+	    	\ignorespaces\csname ZJU@#1@separator\endcsname}
 	  	\fi
 	  	\expandafter\expandafter\expandafter\g@addto@macro%
-	    \expandafter\csname ZJU@#1\expandafter\endcsname\expandafter{\reserved@a}}}}
+	    \expandafter\csname ZJU@#1\expandafter\endcsname%
+	    \expandafter{\reserved@a}}}}
 
 % 根据以上宏定义，以下命令分别产生\@ckeywords{} 和 \@ekeywords{} 两个读取关
 % 键词的宏，和加工后保存关键词的 \ZJU@ckeywords 和 \ZJU@ckeywords 的宏定义。
@@ -936,22 +960,22 @@
 % ---------- 缩写、符号清单、术语表 ----------
 % 以下尺寸详细说明见P33/112
 \newenvironment*{denotation}[1][2.5cm]{
-	\chapter{缩写、符号清单、术语表}
-	\noindent
-	\begin{list}{}{
-		\renewcommand\makelabel[1]{##1\hfil}
-		\setlength{\itemindent}{0cm} 				% 标签缩进量
-		\setlength{\labelsep}{1cm} 					% 标签与列表文本距离
-		\setlength{\labelwidth}{#1} 				% 标签盒子宽度，如有需要可以自行修改
-		\setlength{\listparindent}{0pt} 			% 同一\item 第二及以后段落缩进量
-		\setlength{\rightmargin}{0cm}
-		\setlength{\leftmargin}{\labelwidth}		% list环境整体向右推
-		\addtolength{\leftmargin}{\labelsep}		% \labelwidth + \labelsep 的距离
-		\setlength{\itemsep}{0pt plus2pt minus1pt}	% 标签间距
-		\setlength{\parsep}{\itemsep} 				% 段落间距
-		\setlength{\topsep}{0pt} 					% 标签与上文的间距
-		\setlength{\partopsep}{3pt plus2pt minus2pt}
-	}}{\end{list}}
+\chapter{缩写、符号清单、术语表}
+\noindent
+\begin{list}{}{
+	\renewcommand\makelabel[1]{##1\hfil}
+	\setlength{\itemindent}{0cm} 			% 标签缩进量
+	\setlength{\labelsep}{1cm} 				% 标签与列表文本距离
+	\setlength{\labelwidth}{#1} 			% 标签盒子宽度，如有需要可以自行修改
+	\setlength{\listparindent}{0pt} 		% 同一\item 第二及以后段落缩进量
+	\setlength{\rightmargin}{0cm}
+	\setlength{\leftmargin}{\labelwidth}		% list环境整体向右推
+	\addtolength{\leftmargin}{\labelsep}		% \labelwidth + \labelsep 的距离
+	\setlength{\itemsep}{0pt plus2pt minus1pt}	% 标签间距
+	\setlength{\parsep}{\itemsep} 				% 段落间距
+	\setlength{\topsep}{0pt} 					% 标签与上文的间距
+	\setlength{\partopsep}{3pt plus2pt minus2pt}
+}}{\end{list}}
 
 % ---------- 脚注样式 ----------
 % 使用footmisc宏包和pifont宏包设置符合 GB/T 7713.1-2006 规范的脚注样式。注意，由
