@@ -778,6 +778,15 @@
 % natbib宏包命令，参考文献上标设置。
 \setcitestyle{super,square,comma}
 
+% 重新定义 \ref 命令，使其前面自动加一个 ``~''。因为hyperref 宏包会通过 \AtBegin-
+% Document 修改 \ref 的定义，因此我们对 \ref 的修改也必须使用\AtBeginDocument 命
+% 令进行。同时我们需要修改 \eqref，使其括号前后不出现空隙。参考自njuthesis胡海星。
+\AtBeginDocument{%
+	\let\oldref\ref%
+	\renewcommand*{\ref}[1]{\thinspace\oldref{#1}}%
+	\renewcommand*{\eqref}[1]{(\oldref{#1})}
+}
+
 % ---------- 浮动体相关定义 ----------
 % 设置浮动环境标题的字体大小。根据学位论文格式要求，插图和表格标题字体需要比正文
 % 字体略小。
