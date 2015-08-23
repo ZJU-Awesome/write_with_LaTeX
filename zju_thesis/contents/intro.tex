@@ -201,3 +201,53 @@
 硬聚氯乙烯  &  3.14～3.92 &        &  \\
 聚四氟乙烯  &  1.14～1.42 &        &  \\
 \end{longtabu}%
+
+\subsection{子图}
+这里子图的排版推荐使用subcaption宏包，不再推荐使用subfig宏包，更不推荐使用subfigure宏包。值得注意的是，在zjuthesis.cls文件中已经写入了subcaption宏包，而且subcaption宏包与subfigure和subfig宏包是相互冲突的。因此，如果你还想使用subfig宏包而不想使用subcaption宏包，请自己到zjuthesis.cls文件的相关位置更改，具体的使用及修改方法参见相应的宏包说明文档。不过在这里还是不推荐直接去更改zjuthesis.cls文档，除非你对\LaTeX 的相关命令很清楚，知道自己在改什么，并且不会对其他格式产生影响。
+
+具体的subcaption宏包使用方法我这里不仔细介绍，以下只是对subcaption进行一些简单的测试，主要是格式调整和交叉引用。
+
+如图\ref{fig:subfig_test1}是有两张子图的模式，对子图进行交叉引用，如图\ref{subfig:1a}和图\ref{subfig:1b}。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter2.png}
+		\caption{书籍排版与普通排版}\label{subfig:1a}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter3.png}
+		\caption{\TeX 的控制系列}\label{subfig:1b}
+	\end{subfigure}
+	\caption{子图模式测试1:2张图}\label{fig:subfig_test1}
+\end{figure}
+
+如图\ref{fig:subfig_test2}是有四张子图的模式，对子图进行交叉引用，如图\ref{subfig:2a}、图\ref{subfig:2b}、图\ref{subfig:2c}和图\ref{subfig:2d}。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter4.png}
+		\caption{字体}\label{subfig:2a}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter5.png}
+		\caption{编组}\label{subfig:2b}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter6.png}
+		\caption{运行\TeX}\label{subfig:2c}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Chapter7.png}
+		\caption{\TeX 工作原理}\label{subfig:2d}
+	\end{subfigure}
+	\caption{子图模式测试2:4张图}\label{fig:subfig_test2}
+\end{figure}

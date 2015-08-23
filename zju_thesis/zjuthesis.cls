@@ -25,6 +25,8 @@
 \RequirePackage{graphicx}
 % 设置图片，表格头字体选项
 \RequirePackage{caption}
+% 并排图形。subfigure、subfig 已经不再推荐，并与新的 subcaption不兼容！！！
+\RequirePackage{subcaption}
 % 三线表
 \RequirePackage{booktabs}
 % 长表格宏包，tabu宏包longtabu环境需要。
