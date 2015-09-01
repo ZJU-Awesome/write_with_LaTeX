@@ -248,7 +248,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 %---------- 本机字体设置 ----------
 \RequirePackage{fontspec}
-\setmainfont{Times New Roman}	%MS Word中的Times New Roman。
+\setmainfont{TeX Gyre Termes}	%相当于MS Word中的Times New Roman。
 \setsansfont{TeX Gyre Heros}	%相当于MS Word中的Helvetica。
 \setmonofont{TeX Gyre Cursor}	%相当于MS Word中的Curier。
 \RequirePackage{xeCJK}
