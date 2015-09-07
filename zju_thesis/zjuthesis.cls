@@ -241,7 +241,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \markboth{\MakeUppercase{%
 \ifnum \c@secnumdepth >\m@ne
 	\if@mainmatter
-		\@chapapp. \ %
+		第\@chapapp 章 \quad%
 	\fi
 \fi
 #1}}{}}
