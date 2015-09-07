@@ -241,7 +241,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \markboth{\MakeUppercase{%
 \ifnum \c@secnumdepth >\m@ne
 	\if@mainmatter
-		第\@chapapp 章 \quad%
+		\@chapapp  \hskip1em%
 	\fi
 \fi
 #1}}{}}
@@ -547,7 +547,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 %---------- 层次标题格式设置 ----------
 \setcounter{secnumdepth}{4}		%设置为四级标题
-\renewcommand\@chapapp{\thechapter}%
+\renewcommand\@chapapp{第\thechapter 章}%
 
 % 以下对标题格式采用laTeX2e底层命令主要是为了防止ctex宏包升级改变导致的命令不兼
 % 容性，假如2.0之后宏包对1.02宏包命令不再支持，以后又要修改，不如一鼓作气。
@@ -583,7 +583,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\fangsong\zihao{-3} \bfseries
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
-			第 \@chapapp 章 \hskip1em%
+			\@chapapp \hskip1em%
 		\fi
 	\fi
 	\interlinepenalty\@M
