@@ -750,9 +750,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 面介绍的一样，\contentsline带有3个参数，第一个参数展开后形成\l@***的命令，然后
 % \l@***再展开，形成带有3个参数的\@dottedtocline{}{}{}，\@dottedtocline还需title
 % 和page两个参数，而\contentsline剩下的两个参数刚好是title和page。
-\renewcommand*\l@section{\@dottedtocline{1}{0\p@}{2.1em}}
-\renewcommand*\l@subsection{\@dottedtocline{2}{0\p@}{3em}}
-\renewcommand*\l@subsubsection{\@dottedtocline{3}{0\p@}{3.8em}}
+\renewcommand*\l@section{\@dottedtocline{1}{2em}{2.1em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{4em}{3em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{6em}{3.8em}}
 
 %% 图目录
 \renewcommand\listoffigures{%
