@@ -579,11 +579,11 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\@afterheading}		% 不知道这个\@afterheading有什么用，先放着。
 \def\@makechapterhead#1{%
 	\vspace*{20\p@}%
-	{\parindent \z@ \raggedright
+	{\parindent \z@ \centering
 	\fangsong\zihao{-3} \bfseries
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
-			\@chapapp \hskip1em%
+			第 \@chapapp 章 \hskip1em%
 		\fi
 	\fi
 	\interlinepenalty\@M
@@ -594,7 +594,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\@afterheading}
 \def\@makeschapterhead#1{%
 	\vspace*{20\p@}%
-	{\parindent \z@ \raggedright
+	{\parindent \z@ \centering
 	\fangsong \zihao{-3} \bfseries
 	\interlinepenalty\@M
 	#1\par\nobreak
