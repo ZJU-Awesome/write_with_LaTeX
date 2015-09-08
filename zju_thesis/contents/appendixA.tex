@@ -26,15 +26,15 @@
 \section{数学模式测试}
 这里用于测试附录部分的数学公式，诸如标号，交叉应用等。
 
-交叉引用测试，如交引用命令{\ttfamily \textbackslash eqref}和\texttt{\textbackslash ref}命令的区别。如公式\eqref{eq:test1}，公式\ref{eq:test1}显示，\texttt{\textbackslash eqref}命令比\texttt{\textbackslash ref}命令的应用结果多了个括号。
+交叉引用测试，如交引用命令{\ttfamily \textbackslash eqref}和\texttt{\textbackslash ref}命令的区别。如公式\eqref{eq:apptest1}，公式\ref{eq:apptest1}显示，\texttt{\textbackslash eqref}命令比\texttt{\textbackslash ref}命令的应用结果多了个括号。
 
-如公式\eqref{eq:test3}是单行公式环境，查看公式\eqref{eq:test3}和\eqref{eq:test1}之间的区别，好像在单行公式中没什么区别。
-\begin{align}\label{eq:test3}
+如公式\eqref{eq:apptest3}是单行公式环境，查看公式\eqref{eq:apptest3}和\eqref{eq:apptest1}之间的区别，好像在单行公式中没什么区别。
+\begin{align}\label{eq:apptest3}
 	f(x) = 2(x + 1)^{2} - 1
 \end{align}
 
 \texttt{align}公式环境，用在单行中。
-\begin{align}\label{eq:test1}
+\begin{align}\label{eq:apptest1}
 	f(x) = 2(x + 1)^{2} - 1
 \end{align}
 
@@ -42,8 +42,8 @@
 \begin{align*}
 	f(x) = 2(x + 1)^{2} - 1
 \end{align*}
-在这里，中间插入一些文字以形成段落，查看行间公式与上下文之间的间隙。下一个公式\eqref{eq:test2}是一个公式组，它在“=”位置对齐。
-\begin{align}\label{eq:test2}
+在这里，中间插入一些文字以形成段落，查看行间公式与上下文之间的间隙。下一个公式\eqref{eq:apptest2}是一个公式组，它在“=”位置对齐。
+\begin{align}\label{eq:apptest2}
 	f(x) & = 2(x + 1)^{2} - 1\\
 		 & = 2(x^{2} + 2x +1)-1\\
 		 & = 2x^{2} + 4x + 1
@@ -57,10 +57,10 @@
 以下节分别用来测试各种表格环境如，tabular，tabu，longtabu等，还有对caption格式的修改和测试。以下表格样式全部采用三线表。
 
 \subsection{array宏包tabular表格环境测试}
-如表\ref{tab:first_table_test}是对array宏包的tabular表格环境测试。
+如表\ref{tab:appfirst_table_test}是对array宏包的tabular表格环境测试。
 \begin{table}[htbp]
 	\centering
-	\caption{这是一个用tabular环境的测试用的表格}\label{tab:first_table_test}
+	\caption{这是一个用tabular环境的测试用的表格}\label{tab:appfirst_table_test}
     \begin{tabular}{lrr}
     \toprule
     \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
@@ -73,10 +73,10 @@
 \end{table}
 
 \subsection{tabu宏包表格环境测试}
-如表\ref{tab:tabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与表\ref{tab:first_table_test}的命令相同，只是tabular环境改成了tabu环境。
+如表\ref{tab:apptabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与表\ref{tab:appfirst_table_test}的命令相同，只是tabular环境改成了tabu环境。
 \begin{table}[htbp]
 	\centering
-	\caption{这是一个用tabu环境的测试用的表格}\label{tab:tabu_test_1}
+	\caption{这是一个用tabu环境的测试用的表格}\label{tab:apptabu_test_1}
     \begin{tabu}{lrr}
     \toprule
     \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
@@ -89,12 +89,12 @@
 \end{table}
 
 \section{插图测试}
-如图\ref{fig:first_image_tset}是对此模版的第一张插图测试。
+如图\ref{fig:appfirst_image_tset}是对此模版的第一张插图测试。
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width = 0.5\linewidth]{Chapter8.png}
-	\caption{附录页第一张插图测试}\label{fig:first_image_tset}
+	\caption{附录页第一张插图测试}\label{fig:appfirst_image_tset}
 \end{figure}
 
 \section{我是第一个附录的第五节}
