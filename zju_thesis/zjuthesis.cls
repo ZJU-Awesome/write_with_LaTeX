@@ -4,9 +4,6 @@
 \ProvidesClass{zjuthesis}[2015/08/23 zjuthesis document class.
 Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger]
 
-% 增加一个appendixmatter部分，类似于mainmatter。
-\newif\if@appendixmatter \@appendixmatterfalse
-
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
 \newif\if@doctor
@@ -245,9 +242,6 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \ifnum \c@secnumdepth >\m@ne
 	\if@mainmatter
 		\@chapapp  \hskip1em%
-	\else\if@appendixmatter
-			\@chapapp  \hskip1em%
-		\fi
 	\fi
 \fi
 #1}}{}}
@@ -571,12 +565,8 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\if@mainmatter
 			\refstepcounter{chapter}%
 			\addcontentsline{toc}{chapter}{\protect\numberline{\@chapapp}#1}
-		\else\if@appendixmatter
-				\stepcounter{chapter}%
-				\addcontentsline{toc}{chapter}{\protect\numberline{\@chapapp}#1}
-			\else
-				\addcontentsline{toc}{chapter}{#1}%
-			\fi
+		\else
+			\addcontentsline{toc}{chapter}{#1}%
 		\fi
 	\else
 		\addcontentsline{toc}{chapter}{#1}%
@@ -594,9 +584,6 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
 			\@chapapp \hskip1em%
-		\else\if@appendixmatter
-				\@chapapp \hskip1em%
-			\fi
 		\fi
 	\fi
 	\interlinepenalty\@M
@@ -628,12 +615,8 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\if@mainmatter
 			\refstepcounter{chapter}%计数器不变
 			\addcontentsline{toc}{nopagechapter}{\protect\numberline{\@chapapp}#1}
-		\else\if@appendixmatter
-				\stepcounter{chapter}%
-				\addcontentsline{toc}{nopagechapter}{\protect\numberline{\@chapapp}#1}
-			\else
-				\addcontentsline{toc}{nopagechapter}{#1}%
-			\fi
+		\else
+			\addcontentsline{toc}{nopagechapter}{#1}%
 		\fi
 	\else
 		\addcontentsline{toc}{chapter}{#1}%
@@ -681,19 +664,22 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\if@openright\cleardoublepage\else\clearpage\fi%
 	\@mainmatterfalse}
 
-% 原来的命令不好，对mainmatter的判断对以及新加了个\if@appendixinbackmatter感觉多
-% 余。因为附录在这个文类里是最后一部分，所以还不如直接在原来的\appendix上增加个
-% \@mainmattertrue来的简单。
-% 发现问题，如果采用上面提到的\@mainmattertrue方法，页面显示正常，但是书签栏中附
-% 录页标题的跳转就会发生错误，因此这里不用\@mainmattertrue方法，新建了一个类似于
-% \@mainmatter的新部分，\@appendixmatter。
-\renewcommand\appendix{\par
-	\@mainmatterfalse
-	\@appendixmattertrue
-	\setcounter{chapter}{0}%
-	\setcounter{section}{0}%
-	\renewcommand\@chapapp{附录~\thechapter}%
-	\gdef\thechapter{\@Alph\c@chapter}}
+% 对\appendix进行重新定义，使之可以在\backmatter之后产生章节标题序号，且在书签栏
+% 和目录上点击后可以正常跳转到相应的标题项。放弃原来对 \appendix的修改，在前部加
+% 上\mainmattertrue会导致书签和目录项跳转产生问题。
+\let\OLDappendix\appendix
+\newif\if@appendixinbackmatter
+\renewcommand\appendix{
+	\if@mainmatter
+		\@appendixinbackmatterfalse
+		\OLDappendix
+	\else
+		\@appendixinbackmattertrue
+		\@mainmattertrue
+		\OLDappendix
+		\renewcommand\@chapapp{附录~\thechapter}
+		\gdef\thechapter{\@Alph\c@chapter}
+	\fi}
 
 %---------- 目录（目次） ----------
 \renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名。
