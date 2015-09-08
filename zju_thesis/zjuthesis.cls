@@ -870,7 +870,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % ---------- 中英文摘要及关键词 ----------
 % 中文摘要环境
 \newenvironment{cabstract}{%
-	\chapter{摘要}}{}
+	\chapter{摘\ZJUspace 要}}{}
 \newenvironment{eabstract}{%
 	\chapter{Abstract}}{}
 
