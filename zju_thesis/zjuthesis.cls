@@ -562,7 +562,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \renewcommand\chapter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
 	\phantomsection			% hyperref宏包的命令，超链接用。
-	\thispagestyle{empty}%
+	\thispagestyle{ZJU@plain}%
 	\global\@topnum\z@%
 	\@afterindenttrue%
 	\secdef\@chapter\@schapter}
@@ -619,7 +619,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \newcommand\npchapter{
 	\if@openright\cleardoublepage\else\clearpage\fi%
 	\phantomsection			% hyperref宏包的命令，超链接用。
-	\thispagestyle{empty}%
+	\thispagestyle{ZJU@plain}%
 	\global\@topnum\z@%
 	\@afterindenttrue%
 	\secdef\@npchapter\@schapter}
