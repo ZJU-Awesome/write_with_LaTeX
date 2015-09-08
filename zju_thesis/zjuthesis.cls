@@ -245,6 +245,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \ifnum \c@secnumdepth >\m@ne
 	\if@mainmatter
 		\@chapapp  \hskip1em%
+	\else\if@appendixmatter
+			\@chapapp  \hskip1em%
+		\fi
 	\fi
 \fi
 #1}}{}}
