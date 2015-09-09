@@ -307,14 +307,14 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\renewcommand{\ULthickness}{0.8\p@}
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
-			{\begin{minipage}[t][60][t]{\titleulwidth@cover}
+			{\begin{minipage}[t][60pt][t]{\titleulwidth@cover}
 				\newlength{\ctitlelength}
 				\zihao{-2} \fangsong\bfseries
 				\settowidth{\ctitlelength}{\ZJU@title}
 				\uline{\ZJU@title\hfill}
 			\end{minipage}} \\%[20pt]
 			\rule{0pt}{10mm}英文论文题目: &
-			{\begin{minipage}[t][60][t]{\titleulwidth@cover}
+			{\begin{minipage}[t][60pt][t]{\titleulwidth@cover}
 				\newlength{\etitlelength}
 				\fontsize{16}{23}\bfseries
 				\settowidth{\etitlelength}{\ZJU@englishtitle}
