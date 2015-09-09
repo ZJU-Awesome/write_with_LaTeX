@@ -262,7 +262,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 %---------% 封面及中英标题页 ----------
 % 定义封面及标题页设置中常用的下划线命令（默认宽度90pt）
-\renewcommand\ULthickness{0.7pt}			% 重新定义下划线的厚度
+\renewcommand\ULthickness{0.8pt}			% 重新定义下划线的厚度
 \newcommand\ZJUunderline[2][90pt]{\uline{\hbox to #1{\hss#2\hss}}\hskip3pt}
 % 重新定义\maketitle命令
 \renewcommand\maketitle{
@@ -304,7 +304,6 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\newlength{\titleulwidth@cover}
 	\addtolength{\titleulwidth@cover}{260pt}
 	\begin{center}
-		\renewcommand{\ULthickness}{0.8\p@}
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
 			{\begin{minipage}[t][60pt][t]{\titleulwidth@cover}
