@@ -1,4 +1,4 @@
-﻿% !Mode:: "TeX:UTF-8"
+% !Mode:: "TeX:UTF-8"
 % !TEX root = main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{zjuthesis}[2015/08/23 zjuthesis document class.
@@ -300,18 +300,21 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
 	\vspace{6mm}
+	% 新建一个长度寄存器，存放封面标题下划线宽度值
+	\newlength{\titleulwidth@cover}
+	\addtolength{\titleulwidth@cover}{260pt}
 	\begin{center}
 		\renewcommand{\ULthickness}{0.8\p@}
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
-			{\begin{minipage}[t][61pt]{260pt}
+			{\begin{minipage}[t][60][t]{\titleulwidth@cover}
 				\newlength{\ctitlelength}
 				\zihao{-2} \fangsong\bfseries
 				\settowidth{\ctitlelength}{\ZJU@title}
 				\uline{\ZJU@title\hfill}
 			\end{minipage}} \\%[20pt]
-			\rule{0pt}{8mm}英文论文题目: &
-			{\begin{minipage}[t][61pt]{260pt}
+			\rule{0pt}{10mm}英文论文题目: &
+			{\begin{minipage}[t][60][t]{\titleulwidth@cover}
 				\newlength{\etitlelength}
 				\fontsize{16}{23}\bfseries
 				\settowidth{\etitlelength}{\ZJU@englishtitle}
@@ -320,21 +323,19 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 不过行数可以根据需要扩展，只要符合页面格式的美观即可。不过论文编写规则中提到：
 % 英文标题翻译应简短准确，一般不应超过150个字母，必要时可以加副标题。
 				\ZJU@englishtitle\\*
-				\ifdim\etitlelength<260pt
-					\raisebox{31pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
-					\rule{260pt}{0.8pt}}}
-					\else\ifdim\etitlelength<520pt
-							\raisebox{67pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
-							\rule{260pt}{0.8pt}\\*
-							\rule{260pt}{0.8pt}}}
-						\else\ifdim\etitlelength<780pt
-								\raisebox{103pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
-								\rule{260pt}{0.8pt}\\*
-								\rule{260pt}{0.8pt}\\*
-								\rule{260pt}{0.8pt}}}
-						\fi
-					\fi
-				\fi
+				\ifdim\etitlelength<\titleulwidth@cover
+					\raisebox{31pt}[0pt][0pt]{\parbox[t][][t]{\titleulwidth@cover}{
+					\rule{\titleulwidth@cover}{\ULthickness}}}
+				\else\ifdim\etitlelength<2\titleulwidth@cover
+						\raisebox{67pt}[0pt][0pt]{\parbox[t][][t]{\titleulwidth@cover}{
+						\rule{\titleulwidth@cover}{\ULthickness}\\*
+						\rule{\titleulwidth@cover}{\ULthickness}}}
+				\else\ifdim\etitlelength<3\titleulwidth@cover
+						\raisebox{103pt}[0pt][0pt]{\parbox[t][][t]{\titleulwidth@cover}{
+						\rule{\titleulwidth@cover}{\ULthickness}\\*
+						\rule{\titleulwidth@cover}{\ULthickness}\\*
+						\rule{\titleulwidth@cover}{\ULthickness}}}
+				\fi\fi\fi
 			\end{minipage}}\\*
 		\end{tabular}
 		\vfill
