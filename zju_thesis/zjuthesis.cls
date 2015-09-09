@@ -296,28 +296,46 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 				{\songti \zihao{-1}硕士学位论文}
 			\fi
 		}\par
-		\vspace{4mm}
+		\vspace{6mm}
 		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
-	\vspace{8mm}
+	\vspace{6mm}
 	\begin{center}
+		\renewcommand{\ULthickness}{0.8\p@}
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
 				\zihao{-2} \fangsong\bfseries
 				\uline{\ZJU@title\hfill}
 			\end{minipage}} \\%[20pt]
-			英文论文题目: &
+			\rule{0pt}{8mm}英文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
+				\newlength{\etitlelength}
 				\fontsize{16}{23}\bfseries
-				% 下面这条命令通过产生一个0宽度内容为下划线左对齐的盒子
-				% 来弥补\uline命令强制换行产生的第一行下划线右边空隙。
-				% 原来\raisebox方法放弃。
-				\makebox[0pt][l]{\ZJUunderline[260pt]{\hfill}}
-				\uline{\ZJU@englishtitle\hfill}
-			\end{minipage}}\\
+				\settowidth{\etitlelength}{\ZJU@englishtitle}
+% 使封面英文标题下划线数量能够适应因英文标题内容长短变化而引起的英文标题行数变化
+% 而引起的下划线行数变化，下划线行数就是英文标题行数。目前最大的支持行数为3行，
+% 不过行数可以根据需要扩展，只要符合页面格式的美观即可。不过论文编写规则中提到：
+% 英文标题翻译应简短准确，一般不应超过150个字母，必要时可以加副标题。
+				\ZJU@englishtitle\\*
+				\ifdim\etitlelength<260pt
+					\raisebox{31pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
+					\rule{260pt}{0.8pt}}}
+					\else\ifdim\etitlelength<520pt
+							\raisebox{67pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
+							\rule{260pt}{0.8pt}\\*
+							\rule{260pt}{0.8pt}}}
+						\else\ifdim\etitlelength<780pt
+								\raisebox{103pt}[0pt][0pt]{\parbox[t][][t]{260pt}{
+								\rule{260pt}{0.8pt}\\*
+								\rule{260pt}{0.8pt}\\*
+								\rule{260pt}{0.8pt}}}
+						\fi
+					\fi
+				\fi
+			\end{minipage}}\\*
 		\end{tabular}
-		\vskip 6mm
+		\vfill
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
 			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
 			指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor} \\[3mm]
@@ -327,7 +345,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 			所在学院: & \ZJUunderline[200pt]{\ZJU@institute}
 		\end{tabular}
 	\end{center}
-	\vfill
+	\vskip 17mm
 	\begin{center}
 		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{%
 		\ZJU@submitdate}}
