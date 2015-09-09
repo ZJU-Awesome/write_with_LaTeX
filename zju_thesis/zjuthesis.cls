@@ -305,7 +305,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
 			{\begin{minipage}[t][61pt]{260pt}
+				\newlength{\ctitlelength}
 				\zihao{-2} \fangsong\bfseries
+				\settowidth{\ctitlelength}{\ZJU@title}
 				\uline{\ZJU@title\hfill}
 			\end{minipage}} \\%[20pt]
 			\rule{0pt}{8mm}英文论文题目: &
@@ -380,14 +382,36 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
+	\vspace*{8mm}
 	\begin{center}
-		\zihao{-2}\fangsong\bfseries\ZJUunderline[400pt]{\ZJU@title}
+		% 新建一个长度寄存器，存放中文题名页标题宽度值
+		\newlength{\ctitle@width}
+		\addtolength{\ctitle@width}{300pt}
+		\begin{minipage}[b][50pt][b]{\ctitle@width}
+			\centering
+			\zihao{-2}\fangsong\bfseries
+			\settowidth{\ctitlelength}{\ZJU@title}
+			\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
+			% 因为根据规定，中文标题字符数不超过50个字，所以只设置两级。
+			\ifdim\ctitlelength<\ctitle@width
+				\addtolength{\ctitlelength}{30pt}
+				\raisebox{23pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
+				\centering
+				\rule{\ctitlelength}{\ULthickness}}}
+			\else\ifdim\ctitlelength<2\ctitle@width
+					\addtolength{\ctitlelength}{-\ctitle@width}
+					\addtolength{\ctitlelength}{50pt}
+					\raisebox{52pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
+					\centering
+					\rule{\ctitle@width}{\ULthickness}\\*
+					\rule{\ctitlelength}{\ULthickness}}}
+			\fi\fi
+		\end{minipage}
 	\end{center}
-	\vspace{12mm}
 	\begin{center}
 		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
-	\vspace{8mm}
+	\vspace{6mm}
 	\begin{center}
 		{\zihao{3}\songti\bfseries 论文作者签名：\ZJUunderline[120pt]{\hfill}}%
 		\\[10mm]
@@ -447,14 +471,43 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
+	\vspace*{8mm}
 	\begin{center}
-		\fontsize{16}{23}\bfseries\ZJUunderline[400pt]{\ZJU@englishtitle}
+		% 新建一个长度寄存器，存放英文题名页标题宽度值
+		\newlength{\etitle@width}
+		\addtolength{\etitle@width}{300pt}
+		\begin{minipage}[b][50pt][b]{\etitle@width}
+			\centering
+			\fontsize{16}{23}\bfseries
+			\settowidth{\etitlelength}{\ZJU@englishtitle}
+			\ZJU@englishtitle\\*	% 这个就是英文标题，隐藏的也很深。
+			\ifdim\etitlelength<\etitle@width
+				\addtolength{\etitlelength}{30pt}
+				\raisebox{25pt}[0pt][0pt]{\parbox[t][][t]{\etitle@width}{
+				\centering
+				\rule{\etitlelength}{\ULthickness}}}
+			\else\ifdim\etitlelength<2\etitle@width
+					\addtolength{\etitlelength}{-\etitle@width}
+					\addtolength{\etitlelength}{40pt}
+					\raisebox{55pt}[0pt][0pt]{\parbox[t][][t]{\etitle@width}{
+					\centering
+					\rule{\etitle@width}{\ULthickness}\\*
+					\rule{\etitlelength}{\ULthickness}}}
+			\else\ifdim\etitlelength<3\etitle@width
+					\addtolength{\etitlelength}{-2\etitle@width}
+					\addtolength{\etitlelength}{60pt}
+					\raisebox{85pt}[0pt][0pt]{\parbox[t][][t]{\etitle@width}{
+					\centering
+					\rule{\etitle@width}{\ULthickness}\\*
+					\rule{\etitle@width}{\ULthickness}\\*
+					\rule{\etitlelength}{\ULthickness}}}
+			\fi\fi\fi
+		\end{minipage}
 	\end{center}
-	\vspace{12mm}
 	\begin{center}
 		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
 	\end{center}
-	\vspace{5mm}
+	\vspace{6mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{3}\bfseries}rl}
 			Author's signature: & \ZJUunderline[120pt]{\hfill}\\[10mm]
@@ -464,10 +517,10 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\vspace{8mm}
 	\begin{center}
 		\begin{tabular}{>{\zihao{4}}r>{\zihao{4}}l}
-		External Reviewers: & \ZJUunderline[260pt]{\ZJU@enreviewerA}\\[2.5mm]
-							& \ZJUunderline[260pt]{\ZJU@enreviewerB}\\[2.5mm]
-							& \ZJUunderline[260pt]{\ZJU@enreviewerC}\\[2.5mm]
-							& \ZJUunderline[260pt]{\ZJU@enreviewerD}\\[2.5mm]
+		External Reviewers: & \ZJUunderline[260pt]{\ZJU@enreviewerA}\\[2mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerB}\\[2mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerC}\\[2mm]
+							& \ZJUunderline[260pt]{\ZJU@enreviewerD}\\[2mm]
 							& \ZJUunderline[260pt]{\ZJU@enreviewerE}
 		\end{tabular}
 	\end{center}
@@ -475,15 +528,15 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	% 以下水平间距的命令用于跟上面对齐
 	% 第一个水平间距命令采用LaTeX的\hspace命令
 	% 若采用之后的TeX原始间距命令则水平间距无法产生，原因未知
-	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2.5mm]
+	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2mm]
 	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
 	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2.5mm]
-	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerB}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerC}\\[2.5mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2.5mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2mm]
+	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerB}\\[2mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerC}\\[2mm]
+	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2mm]
 	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerE}\\
 	\vfill
 	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{%
