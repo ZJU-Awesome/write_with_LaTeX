@@ -175,20 +175,27 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \addtolength\topmargin{-\footskip}
 \addtolength\topmargin{-.5\topmargin}
 
+% 双面打印时空白页中间显示文本
+\newcommand*{\ZJU@blankpage}{%
+	\par\vspace*{\fill}%
+	\centerline{This page is intentionally left blank.}\par
+	\vspace{\fill}}
 % 重新定义cleardouble，其原始定义在
 \def\cleardoublepage{%
-  \clearpage
-  \if@twoside
-    \ifodd
-      \c@page
-    \else
-      \thispagestyle{ZJU@empty}%
-      \hbox{}\newpage
-      \if@twocolumn
-        \hbox{}\newpage
-      \fi
-    \fi
-  \fi
+	\clearpage
+	\if@twoside
+	    \ifodd
+			\c@page
+		\else
+		% 下面这个命令，如果不需要强调这是空白页，或者学校不允许，则可将其注释掉。
+			\ZJU@blankpage
+			\thispagestyle{ZJU@empty}%
+			\hbox{}\newpage
+			\if@twocolumn
+				\hbox{}\newpage
+			\fi
+		\fi
+	\fi
 }
 
 %---------- 页眉页脚 ----------
