@@ -314,9 +314,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\begin{tabular}[t]{>{\zihao{3}\bfseries}rl}
 			中文论文题目: &
 			{\begin{minipage}[t][60pt][t]{\titleulwidth@cover}
-				\newlength{\ctitlelength}
 				\zihao{-2} \fangsong\bfseries
-				\settowidth{\ctitlelength}{\ZJU@title}
 				\uline{\ZJU@title\hfill}
 			\end{minipage}} \\%[20pt]
 			\rule{0pt}{10mm}英文论文题目: &
@@ -391,29 +389,61 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\linespread{1.3}
 	\vspace*{8mm}
 	\begin{center}
+		\newlength{\ctitlelength}
+		\newlength{\bk@ctitlelength}
+		\settowidth{\ctitlelength}{\zihao{-2}\ZJU@title}
+		\settowidth{\bk@ctitlelength}{\zihao{-2}\ZJU@title}
 		% 新建一个长度寄存器，存放中文题名页标题宽度值
 		\newlength{\ctitle@width}
-		\addtolength{\ctitle@width}{300pt}
-		\begin{minipage}[b][50pt][b]{\ctitle@width}
-			\centering
-			\zihao{-2}\fangsong\bfseries
-			\settowidth{\ctitlelength}{\ZJU@title}
-			\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
-			% 因为根据规定，中文标题字符数不超过50个字，所以只设置两级。
-			\ifdim\ctitlelength<\ctitle@width
-				\addtolength{\ctitlelength}{30pt}
+		\setlength{\ctitle@width}{300pt}
+		% 因为根据规定，中文标题字符数不超过50个字，这里最多为28字，严格适配50字
+		% 将
+		\ifdim\ctitlelength>2\titleulwidth@cover
+			\ClassError{zjuthesis}{%
+				Your Chinese title name is too long, please \MessageBreak
+				make it a bit shorter. It must be less than \MessageBreak
+				28 characters.
+			}{%
+				Oh dear! If your ctitle is still too long, \MessageBreak
+				You must send me an email to report the need. \MessageBreak
+				My email is niyayuan@outlook.com. o(∩_∩)o
+			}
+		\else\ifdim\ctitlelength<\ctitle@width
+			\addtolength{\ctitlelength}{30pt}
+			\begin{minipage}[b][50pt][b]{\ctitle@width}
+				\centering
+				\zihao{-2}\fangsong\bfseries
+				\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
 				\raisebox{23pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
 				\centering
 				\rule{\ctitlelength}{\ULthickness}}}
+			\end{minipage}
 			\else\ifdim\ctitlelength<2\ctitle@width
-					\addtolength{\ctitlelength}{-\ctitle@width}
-					\addtolength{\ctitlelength}{50pt}
-					\raisebox{52pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
-					\centering
-					\rule{\ctitle@width}{\ULthickness}\\*
-					\rule{\ctitlelength}{\ULthickness}}}
-			\fi\fi
-		\end{minipage}
+				\addtolength{\ctitlelength}{-\ctitle@width}
+				% 这里尺寸是控制换行后第二行字数的，若小于4个，则不换行。
+				\ifdim\ctitlelength<4em
+					\addtolength{\bk@ctitlelength}{30pt}
+					\begin{minipage}[b][50pt][b]{\bk@ctitlelength}
+						\centering
+						\zihao{-2}\fangsong\bfseries
+						\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
+						\raisebox{23pt}[0pt][0pt]{\parbox[t][][t]{\bk@ctitlelength}{
+						\centering
+						\rule{\bk@ctitlelength}{\ULthickness}}}
+					\end{minipage}
+				\else
+					\begin{minipage}[b][50pt][b]{\ctitle@width}
+						\centering
+						\zihao{-2}\fangsong\bfseries
+						\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
+						\addtolength{\ctitlelength}{30pt}
+						\raisebox{52pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
+						\centering
+						\rule{\ctitle@width}{\ULthickness}\\*
+						\rule{\ctitlelength}{\ULthickness}}}
+					\end{minipage}
+				\fi
+		\fi\fi\fi
 	\end{center}
 	\begin{center}
 		\includegraphics[width=22.8mm]{./logo/QSY.pdf}
