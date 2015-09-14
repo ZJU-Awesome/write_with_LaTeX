@@ -436,7 +436,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 						\centering
 						\zihao{-2}\fangsong\bfseries
 						\ZJU@title\\*	% 这个就是中文标题，隐藏的很深。
-						\addtolength{\ctitlelength}{30pt}
+						\addtolength{\ctitlelength}{40pt}
 						\raisebox{52pt}[0pt][0pt]{\parbox[t][][t]{\ctitle@width}{
 						\centering
 						\rule{\ctitle@width}{\ULthickness}\\*
@@ -532,7 +532,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 					\rule{\etitlelength}{\ULthickness}}}
 			\else\ifdim\etitlelength<3\etitle@width
 					\addtolength{\etitlelength}{-2\etitle@width}
-					\addtolength{\etitlelength}{60pt}
+					\addtolength{\etitlelength}{80pt}
 					\raisebox{85pt}[0pt][0pt]{\parbox[t][][t]{\etitle@width}{
 					\centering
 					\rule{\etitle@width}{\ULthickness}\\*
