@@ -40,6 +40,10 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \RequirePackage{array}
 % hyperref 宏包可根据交叉引用生成超链接，同时生成 PDF 文档的书签。
 \RequirePackage{hyperref}
+
+\renewcommand\figureautorefname{图}
+\renewcommand\tableautorefname{表}
+
 \AtEndOfClass{
 	\hypersetup{
 		unicode,

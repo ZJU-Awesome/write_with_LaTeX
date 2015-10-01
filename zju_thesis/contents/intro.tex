@@ -81,7 +81,7 @@
 
 \section{浮动体测试}
 \subsection{插图测试}
-如图\ref{fig:first_image_tset}是对此模版的第一张插图测试。
+如\autoref{fig:first_image_tset}是对此模版的第一张插图测试。
 
 \begin{figure}[htbp]
 	\centering
@@ -103,7 +103,7 @@
 以下节分别用来测试各种表格环境如，tabular，tabu，longtabu等，还有对caption格式的修改和测试。以下表格样式全部采用三线表。
 
 \subsubsection{array宏包tabular表格环境测试}
-如表\ref{tab:first_table_test}是对array宏包的tabular表格环境测试。
+如\autoref{tab:first_table_test}是对array宏包的tabular表格环境测试。
 \begin{table}[htbp]
 	\centering
 	\caption{这是一个用tabular环境的测试用的表格}\label{tab:first_table_test}
@@ -119,7 +119,7 @@
 \end{table}
 
 \subsubsection{tabu宏包表格环境测试}
-如表\ref{tab:tabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与表\ref{tab:first_table_test}的命令相同，只是tabular环境改成了tabu环境。
+如\autoref{tab:tabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与\autoref{tab:first_table_test}的命令相同，只是tabular环境改成了tabu环境。
 \begin{table}[htbp]
 	\centering
 	\caption{这是一个用tabu环境的测试用的表格}\label{tab:tabu_test_1}
@@ -134,7 +134,7 @@
     \end{tabu}%
 \end{table}
 
-表\ref{tab:tabu_test_2}对tabu to表格的x列模式进行测试。在表格导言区中设置为X[1]X[2]X[2]，表示这三列表格的列宽比值为1:2:2，总的表格宽度由tabu to环境设置，这里设置为0.6\textbackslash linewidth。相比于tabular环境，tabu环境的列宽设置方便许多。
+\autoref{tab:tabu_test_2}对tabu to表格的x列模式进行测试。在表格导言区中设置为X[1]X[2]X[2]，表示这三列表格的列宽比值为1:2:2，总的表格宽度由tabu to环境设置，这里设置为0.6\textbackslash linewidth。相比于tabular环境，tabu环境的列宽设置方便许多。
 \begin{table}[htbp]
 	\centering
 	\caption{tabu环境测试表格---X列模式}\label{tab:tabu_test_2}
@@ -149,7 +149,7 @@
     \end{tabu}%
 \end{table}
 
-如表\ref{tab:tabu_test_3}是longtabu环境测试表格。longtabu环境不能用在table浮动体环境中。根据GB/T 7713.1-2006规定：如果某个表需要转页接排，在随后的各页上应重复表的编号。编号后跟标题（可省略）和“（续）”，置于表上方。续表应重复表头。
+如\autoref{tab:tabu_test_3}是longtabu环境测试表格。longtabu环境不能用在table浮动体环境中。根据GB/T 7713.1-2006规定：如果某个表需要转页接排，在随后的各页上应重复表的编号。编号后跟标题（可省略）和“（续）”，置于表上方。续表应重复表头。
 
 特别需要注意的是，longtabu是基于longtable宏包开发的，所以在zjuthesis.cls文件中已经插入了longtable宏包。longtable环境的所有功能都可以在longtabu中使用，如\textbackslash endhead，\textbackslash endfirsthead，\textbackslash endfoot，\textbackslash endlastfoot，和\textbackslash caption等。具体用法请参见longtable和tabu宏包的相应文档。
 \begin{longtabu}{lccc}
@@ -207,7 +207,7 @@
 
 具体的subcaption宏包使用方法我这里不仔细介绍，以下只是对subcaption进行一些简单的测试，主要是格式调整和交叉引用。
 
-如图\ref{fig:subfig_test1}是有两张子图的模式，对子图进行交叉引用，如图\ref{subfig:1a}和图\ref{subfig:1b}。
+如\autoref{fig:subfig_test1}是有两张子图的模式，对子图进行交叉引用，如\autoref{subfig:1a}和\autoref{subfig:1b}。
 
 \begin{figure}[htbp]
 	\centering
@@ -225,7 +225,7 @@
 	\caption{子图模式测试1:2张图}\label{fig:subfig_test1}
 \end{figure}
 
-如图\ref{fig:subfig_test2}是有四张子图的模式，对子图进行交叉引用，如图\ref{subfig:2a}、图\ref{subfig:2b}、图\ref{subfig:2c}和图\ref{subfig:2d}。
+如\autoref{fig:subfig_test2}是有四张子图的模式，对子图进行交叉引用，如\autoref{subfig:2a}、\autoref{subfig:2b}、\autoref{subfig:2c}和\autoref{subfig:2d}。
 
 \begin{figure}[htbp]
 	\centering
@@ -277,6 +277,10 @@
 		 & = 2(x^{2} + 2x +1)-1\\
 		 & = 2x^{2} + 4x + 1
 \end{align}
+
+
+\section{关于引用}
+图表的引用通过{\ttfamily \textbackslash autoref} 命令即可，使用ST LaTeXTools 插件还能自动补全。如果要修改前缀，那么就用{\ttfamily \textbackslash recnewcommand \textbackslash figureautorefname\{好图\}}即可，详见hyperref宏包说明。
 
 \section{出现的问题}
 \subsection{\textbackslash texttt}
