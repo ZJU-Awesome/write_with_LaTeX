@@ -289,6 +289,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 封面
 \newcommand\ZJUmakecover{
 	\cleardoublepage
+	\pdfbookmark[0]{封 面}{anchor_cover}
 	\thispagestyle{ZJU@empty}
 	分类号：\ZJUunderline[90pt]{\ZJU@classification}
 	\hfill
@@ -388,6 +389,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 中文题名页
 \newcommand\ZJUmakeCNtitlepage{
 	\cleardoublepage
+	\pdfbookmark[0]{中文题名页}{anchor_cntitle}
 	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
@@ -509,6 +511,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 英文题名页
 \newcommand\ZJUmakeENtitlepage{
 	\cleardoublepage
+	\pdfbookmark[0]{英文题名页}{anchor_entitle}
 	\thispagestyle{ZJU@empty}
 	{
 	\linespread{1.3}
@@ -614,6 +617,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 独创声明与版权协议转让页
 \newcommand\makeOSpage{%
 	\cleardoublepage
+	\pdfbookmark[0]{独创性声明}{anchor_os}
 	\thispagestyle{ZJU@empty}
 	{
 		\newcommand\signature@date{签字日期：%
