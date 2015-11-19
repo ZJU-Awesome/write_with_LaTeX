@@ -1,7 +1,7 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX builder = LATEXMK
 % !TEX program = xelatex
-\documentclass[doctor,twoside]{zjuthesis}
+\documentclass[doctor,twoside,nocpsupervisor]{zjuthesis}
 
 % 插图路径设置，图片放在figures 文件夹下。一般来说论文的插图比较多，通常按章节存
 % 放，因此可以在以下命令中在按章节添加存放图片的文件夹路径。如以下这个路径中 ./
@@ -29,7 +29,7 @@
 \studentnumber{12312345}
 % 指导教师
 \supervisor{诸葛亮}
-% 合作导师
+% 合作导师，如果没有合作导师，就在\documentclass选项栏中加上"nocpsupervisor"。
 \cpsupervisor{庞统}
 % 专业名称
 \major{武器制造}

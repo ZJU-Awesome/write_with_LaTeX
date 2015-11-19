@@ -7,8 +7,10 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
 \newif\if@doctor
+\newif\if@cpsupervisor\@cpsupervisortrue
 \DeclareOption{doctor}{\@doctortrue}
 \DeclareOption{master}{\@doctorfalse}
+\DeclareOption{nocpsupervisor}{\@cpsupervisorfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 \LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}
@@ -351,7 +353,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
 			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
 			指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor} \\[3mm]
-			合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor} \\[3mm]
+			\if@cpsupervisor
+				合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor} \\[3mm]
+			\else
 			专业名称: & \ZJUunderline[200pt]{\ZJU@major} \\[3mm]
 			研究方向: & \ZJUunderline[200pt]{\ZJU@research} \\[3mm]
 			所在学院: & \ZJUunderline[200pt]{\ZJU@institute}

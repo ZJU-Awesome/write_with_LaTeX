@@ -37,3 +37,4 @@
 !/zju_thesis/figures/**/*.pdf
 !/zju_thesis/contents/**/*.pdf
 *.fls
+~*.doc
