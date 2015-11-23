@@ -7,7 +7,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 %---------- Option ----------
 % 博士、硕士可选参数，用于区别格式
 \newif\if@doctor
-\newif\if@cpsupervisor\@cpsupervisortrue
+\newif\if@cpsupervisor
 \DeclareOption{doctor}{\@doctortrue}
 \DeclareOption{master}{\@doctorfalse}
 \DeclareOption{nocpsupervisor}{\@cpsupervisorfalse}
