@@ -576,16 +576,16 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	% 以下水平间距的命令用于跟上面对齐
 	% 第一个水平间距命令采用LaTeX的\hspace命令
 	% 若采用之后的TeX原始间距命令则水平间距无法产生，原因未知
-	\hspace{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2mm]
+	\hspace*{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2mm]
 	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
 	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2mm]
-	\hb@xt@ 6.3ex{}		{\zihao{4} Examining Committee Members:}\\[2mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerB}\\[2mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerC}\\[2mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2mm]
-	\hb@xt@ 30.2ex{} 	\ZJUunderline[260pt]{\ZJU@encommissionerE}\\
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2mm]
+	\hspace*{6.3ex}	{\zihao{4} Examining Committee Members:}\\[2mm]
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2mm]
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerB}\\[2mm]
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerC}\\[2mm]
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerD}\\[2mm]
+	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerE}\\
 	\vfill
 	\hfill{\zihao{4} Date of oral defence：\ZJUunderline[150pt]{%
 	\ZJU@eendefencedate}}}
