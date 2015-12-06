@@ -291,7 +291,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 封面
 \newcommand\ZJUmakecover{
 	\cleardoublepage
-	\pdfbookmark[0]{封 面}{anchor_cover}
+	\pdfbookmark[0]{封面}{anchor_cover}
 	\thispagestyle{ZJU@empty}
 	分类号：\ZJUunderline[90pt]{\ZJU@classification}
 	\hfill
@@ -802,9 +802,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\fi}
 
 %---------- 目录（目次） ----------
-\renewcommand{\contentsname}{目\ZJUspace 次}				% 重命名章节目录名。
-\renewcommand{\listfigurename}{插\ZJUspace 图}				% 重命名插图目录名。
-\renewcommand{\listtablename}{表\ZJUspace 格}				% 重命名表目录名。
+\renewcommand{\contentsname}{目\texorpdfstring{\ZJUspace}{}次}				% 重命名章节目录名。
+\renewcommand{\listfigurename}{插\texorpdfstring{\ZJUspace}{}图}			% 重命名插图目录名。
+\renewcommand{\listtablename}{表\texorpdfstring{\ZJUspace}{}格}				% 重命名表目录名。
 
 % 下一条命令作用：在toc目录文件中插入‘\let\CTEX@spaceChar\relax’字符，用以删除目
 % 录中的空格字符，其空格字符由\CTEX@spaceChar定义。
@@ -990,7 +990,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % ---------- 中英文摘要及关键词 ----------
 % 中文摘要环境
 \newenvironment{cabstract}{%
-	\chapter{摘\ZJUspace 要}}{}
+	\chapter{摘\texorpdfstring{\ZJUspace}{}要}}{}
 \newenvironment{eabstract}{%
 	\chapter{Abstract}}{}
 
