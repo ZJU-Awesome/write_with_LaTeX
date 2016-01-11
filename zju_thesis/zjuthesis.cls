@@ -792,6 +792,11 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{-4}}}
 
+\newcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+									{3.25ex \@plus1ex \@minus.2ex}%
+									{-1em}%
+									{\normalfont\normalsize\bfseries}}
+
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
