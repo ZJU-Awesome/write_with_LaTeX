@@ -12,8 +12,22 @@
 ## 2、编译方法
 
 __windows__:
+首先在环境变量里设置```$HOME```，一般是```C:\Users\XXX```。
 
-运行 make.bat，并按提示选择所需。
+
+添加或修改 .latexmkrc，请做好备份。
+
+    $ cp latexmkrc_win [_your\_home\_dir_]\.latexmkrc
+
+使用latexmk 命令进行编译。
+
+	$ cd zju_thesis
+	$ latexmk main
+
+如果不想设置环境变量，可以这样：
+
+	$ mkdir C:\latexmk
+	$ cp latexmkrc_win C:\latexmk\LatexMK
 
 __Linux__:
 
@@ -36,6 +50,14 @@ __Mac__:
 
 	$ cd zju_thesis
 	$ latexmk main
+
+__清理临时文件__:
+一般使用
+	
+	$ latexmk -c
+即可。如果要清理```synctex``以及```pdf```
+
+	$ latexmk -C
 
 ## 3、完成情况
 - [x] 主题框架
