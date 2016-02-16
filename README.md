@@ -12,12 +12,13 @@
 ## 2、编译方法
 
 __windows__:
+
 首先在环境变量里设置```$HOME```，一般是```C:\Users\XXX```。
 
 
 添加或修改 .latexmkrc，请做好备份。
 
-    $ cp latexmkrc_win [_your\_home\_dir_]\.latexmkrc
+    $ cp latexmkrc_win [your_home_dir]\.latexmkrc
 
 使用latexmk 命令进行编译。
 
@@ -52,10 +53,11 @@ __Mac__:
 	$ latexmk main
 
 __清理临时文件__:
+
 一般使用
 	
 	$ latexmk -c
-即可。如果要清理```synctex``以及```pdf```
+即可。如果要清理```synctex```以及```pdf```
 
 	$ latexmk -C
 
