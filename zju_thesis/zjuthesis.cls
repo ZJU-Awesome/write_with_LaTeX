@@ -265,6 +265,28 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \setsansfont{TeX Gyre Heros}	%相当于MS Word中的Helvetica。
 \setmonofont{TeX Gyre Cursor}	%相当于MS Word中的Curier。
 \RequirePackage{xeCJK}
+
+
+% xeCJK 环境初始化
+\xeCJKsetup{xeCJKactive=true}
+
+% 打开/关闭CJK文字之间的空格，tex 源码中汉字间的换行符和空格都会被编译成空格 
+% 作者编写论文 tex 源码时一般写到一个逗号就换行再写 这样能最大限度的保证清晰
+% 如不符合您的需求请自行解注释
+%\xeCJKsetup{CJKspace=true}
+
+\xeCJKsetup{CheckSingle=true} % 避免单个CJK字符独占一行
+
+% 非简体中文常用字处理(生僻字、繁体字、日本汉字)
+% 发现实际排版时此类字框会相对于行内上移一个微小的单位
+% 故当封面作者名称含此类字时，只能预留相应的字框宽度，待后期补上
+%\xeCJKDeclareCharClass{Ext-B}{ "20000 -> "2A6DF } % 看XeLaTeX文档写的 没软用
+%\xeCJKsetup{AutoFallBack=true} % 如果不加这句 非简体中文汉字在章节标题和论文标题上显示异常
+
+% 标点处理格式 行末半角 所有标点占一个汉字宽度 行首行末对齐
+\xeCJKEditPunctStyle{hangmobanjiao}{enabled-global-setting = false}
+
+
 % 设置中文正文字体为仿宋，加粗为黑体，斜体为楷体
 \setCJKmainfont[BoldFont={SimHei}, ItalicFont={KaiTi}]{FangSong}
 % 中文无衬线字体，不知道怎么设置，待以后解决。
@@ -657,9 +679,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		扫描等复制手段保存、汇编学位论文。
 
 		（保密的学位论文在解密后适用本授权书）\\[20pt]
-		\begin{tabular}{p{0.5\textwidth}p{0.4\textwidth}}
-			\CTEXindent 学位论文作者签名：	&  导师签名：\\[20pt]
-			\CTEXindent \signature@date 	&  \signature@date
+		\begin{tabular}{p{0.5\textwidth}p{0.5\textwidth}}
+			学位论文作者签名：	&  导师签名：\\[20pt]
+			signature@date 	        &  \signature@date
 		\end{tabular}
 
 	}
