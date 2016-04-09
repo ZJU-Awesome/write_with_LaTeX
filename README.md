@@ -38,6 +38,7 @@ __windows__ （仅在[TexLive2015](http://mirrors.ustc.edu.cn/CTAN/systems/texli
 
 使用latexmk 命令进行编译。
 如果您遇到编译错误，请检查是否正确安装以上字体包。
+
 	$ latexmk main
 
 __Linux__ (TeXLive2015):
@@ -48,6 +49,7 @@ __Linux__ (TeXLive2015):
 
 然后使用latexmk 命令进行编译。
 如果您遇到编译错误，请检查是否正确安装以上字体包。
+
 	$ latexmk main
 
 windows和Linxu 皆使用 TeXLive 2015 安装
