@@ -1,8 +1,8 @@
 ## 浙江大学软件学院硕士研究生学位论文LaTeX模板
-模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)</br>
-模板改造者：  [Kwen](stralipch@gmail.com)
+模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)
 [Monster](http://github.com/skychan)、
-[Hamburger](https://github.com/githamburger)
+[Hamburger](https://github.com/githamburger)<br>
+模板改造者：  [Kwen](stralipch@gmail.com)
 
 ## 1、简介
 
@@ -15,21 +15,10 @@
 
 ## 2、编译方法
 
-确保系统安装了以下字体：
-- TeX Gyre Termes
-- TeX Gyre Cursor
-- TeX Gyre Heros
-- Adobe Fangsong Std
-- Adobe Heiti Std
-- Adobe Kaiti Std
-- Adobe Song Std
-
 - [字体包下载-百度盘](http://pan.baidu.com/s/1hrXDO5A)
 - [字体包下载-Google Drive](https://drive.google.com/open?id=0ByPSg5LzlAjAcThjQ3pEUGstcGc)
 
-__Mac__:
-
-（目前仅测试过 [MacTeX 2015](https://tug.org/mactex/)）
+__Mac__ （目前仅测试过 [MacTeX 2015](https://tug.org/mactex/)）
 
 论文编译时间通常在20秒以上，
 为减少论文修改时的查错成本，
@@ -45,13 +34,13 @@ __Mac__:
    若不信任此应用，请参照之后方法自行解决。
    安装完成后，在 Sync 设置处打开 Check for file Changes。
 
-现在撰写论文源码前，可以在 main.tex 的路径下输入命令
+现在修改论文源码前，可以在 main.tex 的路径下输入命令
 ```
     $ latexmk -pdf -pvc -xelatex main
 ```
 为简化需要在终端输入的命令，可以在日常设定的 rc 文件中自行加入一个 alias
 
-如果仅仅编译一次论文，则在 main.tex 的路径下输入命令
+如果仅仅编译一次论文，则在论文根目录下输入命令
 ```
     $ latexmk main
 ```
