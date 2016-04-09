@@ -1,5 +1,5 @@
 ## 浙江大学软件学院硕士研究生学位论文LaTeX模板
-模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)的
+模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)<br>
 模板改造者：  [Kwen](mailto:stralipch@gmail.com)
 
 ## 1、简介
