@@ -66,14 +66,21 @@ windows和Linxu 皆使用 TeXLive 2015 安装
 安装完成后，在 Sync 设置处打开 Check for file Changes。
 
 现在修改论文源码前，可以在 main.tex 的路径下输入命令
+
     $ latexmk -pdf -pvc -xelatex main
+
 为简化需要在终端输入的命令，可以在日常设定的 rc 文件中自行加入一个 alias
 
 如果仅仅编译一次论文，则在论文根目录下输入命令
+
     $ latexmk main
+
 若出现连续几次编译错误并且确信论文源码并无语法错误，则可以尝试清空临时文件的命令再编译
+
     $ latexmk -c && latexmk main
+
 有洁癖的极端处女座，可以输入以下内容保证每次实时编译都清理临时文件：
+
     $ echo "$clean_ext = 'synctex.gz synctex.gz(busy) acn acr alg aux bbl bcf blg brf dvi fdb_latexmk glg glo gls idx ilg ind ist lof log lot lox out paux pdfsync run.xml toc';">>~/.latexmkrc
 
 
