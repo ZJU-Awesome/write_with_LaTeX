@@ -1,6 +1,6 @@
 ## 浙江大学软件学院硕士研究生学位论文LaTeX模板
+模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)</br>
 模板改造者：  [Kwen](stralipch@gmail.com)
-模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX):
 [Monster](http://github.com/skychan)、
 [Hamburger](https://github.com/githamburger)
 
@@ -17,16 +17,16 @@
 
 确保系统安装了以下字体：
 
-TeX Gyre Termes;
-TeX Gyre Cursor;
-TeX Gyre Heros;
-Adobe Fangsong Std;
-Adobe Heiti Std;
-Adobe Kaiti Std;
-Adobe Song Std;
+- TeX Gyre Termes;
+- TeX Gyre Cursor;
+- TeX Gyre Heros;
+- Adobe Fangsong Std;
+- Adobe Heiti Std;
+- Adobe Kaiti Std;
+- Adobe Song Std;
 
-[字体包下载-百度盘](http://pan.baidu.com/s/1hrXDO5A)
-[字体包下载-Google Drive](https://drive.google.com/open?id=0ByPSg5LzlAjAcThjQ3pEUGstcGc)
+- [字体包下载-百度盘](http://pan.baidu.com/s/1hrXDO5A)
+- [字体包下载-Google Drive](https://drive.google.com/open?id=0ByPSg5LzlAjAcThjQ3pEUGstcGc)
 
 __Mac__:
 
