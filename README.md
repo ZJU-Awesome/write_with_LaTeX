@@ -1,86 +1,129 @@
-## 浙江大学研究生硕士(博士)学位论文LaTeX模板
-作者:
-[Monster](http://github.com/skychan)、
-[Hamburger](https://github.com/githamburger)
+## 浙江大学软件学院硕士研究生学位论文LaTeX模板
+模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)<br>
+模板改造者：  [Kwen](mailto:stralipch@gmail.com)
 
 ## 1、简介
 
-为了方便学位论文的排版，让作者专心于内容，根据[《浙江大学研究生学位论文编写规则》](http://grs.zju.edu.cn/UserFiles/File/xkjsc/xwglb/wenjian/%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%A6%E4%BD%8D%E8%AE%BA%E6%96%87%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.doc)，并结合实际要求，设计相应的LaTeX模版。
+为了方便学位论文的排版，让作者专心于内容，
+根据[《浙江大学软件学院论文格式要求》](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030109379.doc)
+,[《浙江大学软件学院论文模板》](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030251470.doc)
+以及[《浙江大学研究生学位论文编写规则》](http://grs.zju.edu.cn/UserFiles/File/xkjsc/xwglb/wenjian/%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%A6%E4%BD%8D%E8%AE%BA%E6%96%87%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.doc)，并结合实际，改造设计了相应的LaTeX模版。
 
-目前主要以机械学院的要求为主，由于不同学院有各自不同的要求，所以之后会通过参数选择的方式，进行学院间的要求切换，大致就是这样吧。
+**本模板建议软件学院同学使用**。
 
 ## 2、编译方法
 
-__windows__:
+- [字体包下载-百度盘](http://pan.baidu.com/s/1hrXDO5A)
+- [字体包下载-Google Drive](https://drive.google.com/open?id=0ByPSg5LzlAjAcThjQ3pEUGstcGc)
 
-首先在环境变量里设置```$HOME```，一般是```C:\Users\XXX```。
+__OS X__ （[MacTeX 2015](https://tug.org/mactex/) on OS X Yosemite and EL Capitan）
 
+拷贝 .latexmkrc 到家目录
+
+    $ cp latexmkrc_mac ~/.latexmkrc
+
+使用latexmk 命令进行编译。
+如果您遇到编译错误，请检查是否正确安装以上字体包。
+
+	$ latexmk main
+
+
+__windows__ （仅在[TexLive2015](http://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2015.iso) on windows10 测试）:
+
+首先在环境变量里设置```$HOME```，一般是```C:\Users\username```
 
 添加或修改 .latexmkrc，请做好备份。
 
-    $ cp latexmkrc_win [your_home_dir]\.latexmkrc
+    $ copy latexmkrc_win %HOME%\.latexmkrc
 
-使用latexmk 命令进行编译。
+一样使用 latexmk 命令进行编译。
+如果您遇到编译错误，请检查是否正确安装以上字体包。
 
-	$ cd zju_thesis
-	$ latexmk main
-
-如果不想设置环境变量，可以这样：
-
-	$ mkdir C:\latexmk
-	$ cp latexmkrc_win C:\latexmk\LatexMK
-
-__Linux__:
+__Linux__ (TeXLive2015):
 
 首先添加或修改 .latexmkrc，请做好备份。
 
     $ cp latexmkrc_linux ~/.latexmkrc
 
-然后使用latexmk 命令进行编译。
+然后使用 latexmk 命令进行编译。
+如果您遇到编译错误，请检查是否正确安装以上字体包。
 
-	$ cd zju_thesis
-	$ latexmk main
+windows和Linxu 皆使用 TeXLive 2015 安装
+[TeXLive 2015 中文文档](https://www.tug.org/texlive/doc/texlive-zh-cn/texlive-zh-cn.pdf)
 
-__Mac__:
+### 开启实时编译(OS X)
 
-首先添加或修改 .latexmkrc，请做好备份。
+论文编译时间通常在20秒以上，
+为减少论文修改时的查错成本，
+所以强烈建议设置**实时编译**。
+方案如下：
 
-    $ cp latexmkrc_mac ~/.latexmkrc
+由于 OS X 默认的 Preview 不支持自动刷新，
+所以不得不安装 [skim](https://sourceforge.net/projects/skim-app/) pdf 阅读器，
+若不信任此应用，请参照之后方法自行解决。
+安装完成后，在 Sync 设置处打开 Check for file Changes。
 
-然后使用latexmk 命令进行编译。
+现在修改论文源码前，可以在 main.tex 的路径下输入命令
 
-	$ cd zju_thesis
-	$ latexmk main
+    $ latexmk -pdf -pvc -xelatex main
 
-__清理临时文件__:
+为简化需要在终端输入的命令，可以在日常设定的 rc 文件中自行加入一个 alias
 
-一般使用
-	
-	$ latexmk -c
-即可。如果要清理```synctex```以及```pdf```
+如果仅仅编译一次论文，则在论文根目录下输入命令
 
-	$ latexmk -C
+    $ latexmk main
 
-## 3、完成情况
-- [x] 主题框架
-- [x] 页面设置
-- [x] 章节标题设置
-- [ ] 公式、图表样式
-- [ ] 定理环境
-- [ ] 抄录环境
-- [ ] 参考文献样式设计
-- [x] 封面设置
-- [x] 题目页面
-- [ ] 勘误页面
-- [x] 单双页设置
-- [x] 缩写、符号清单、术语表页面
+若出现连续几次编译错误并且确信论文源码并无语法错误，则可以尝试清空临时文件的命令再编译
 
-## 4、欢迎参与
+    $ latexmk -c && latexmk main
 
-目前该项目基本雏形已成，至少算是能用了吧，一些细节需要完善，欢迎大家fork~
+有洁癖的极端处女座，可以输入以下内容保证每次实时编译都清理临时文件：
 
-## 5、注意事项
+    $ echo "$clean_ext = 'synctex.gz synctex.gz(busy) acn acr alg aux bbl bcf blg brf dvi fdb_latexmk glg glo gls idx ilg ind ist lof log lot lox out paux pdfsync run.xml toc';">>~/.latexmkrc
 
-由于时间和能力有限，故该模板可能与学院要求的格式不尽相同。
-建议使用TeXLive，并采用XeLaTeX进行编译。
-作者不对使用该模板所造成的任何后果负责，但欢迎提供修改意见，以帮助我们完善该模。
+
+## 3、相关资源文件说明
+```tex
+├── clean.bat % windows的清理批处理
+├── contents  % 被引用的内容 不可嵌套引用
+│   ├── abstract_chinese.tex
+│   ├── abstract_english.tex
+│   ├── intro.tex
+│   ├── whyla.tex
+│   ├── elem.tex
+│   ├── sum.tex
+│   └── thanks.tex
+├── main.tex % 论文主源码（通过 include 以上文件来组成论文内容）
+├── figures  % 引用图片目录
+│   ├── ...
+│   ├── ...
+│   └── ...
+├── gbt7714-2005.bst   % 参考文献样式（胡海星）
+├── logo
+│   ├── QSY.pdf
+│   └── ZJDX.pdf
+├── references % 论文引文数据库 自行维护
+│   └── test.bib
+├── zjuthesis.cls       % 论文全书样式 小心查看和修改 避免手残
+└── ...
+```
+
+通过 `latexmk main` 将论文编译出来后，请检视内容尝试理解本论文模板。
+
+## 4、注意事项
+
+建议使用TeXLive 2015发行版，并采用XeLaTeX进行编译。
+论文模板属于学习交流性质，
+暂无任何官方机构为本模板合法性背书。
+另请**妥善维护**自己的论文资料，
+对论文排版过程中造成的不可预见的意外本人概不负责。
+
+目前已知的一个难解问题在于生僻字的排印问题：
+如果在论文段落以外的区域排版生僻字，将高于当前行基线一个微小的单位。
+本人提供一个不得已为之的解法：为此生僻字预留一个em框（可能涉及更动论文模板，请参照修改），
+在论文输出后利用OS X 的 Preview 提供的编辑功能补上该生僻字的文本框。
+
+## 5、许可权和贡献
+
+**MIT** 
+欢迎 issue 和 PR

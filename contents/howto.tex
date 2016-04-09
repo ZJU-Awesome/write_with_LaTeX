@@ -1,0 +1,714 @@
+% !TEX root = ../main.tex
+\chapter{页面交互和动画性能分析}
+
+在页面加载完成或页面元素可交互之后，
+用户通过操作各种人机接口（鼠标、键盘、触摸屏等）来完成业务，
+其中感知的体验流畅度即是交互性能。
+另外，为吸引用户注意力而设计的页面动画元素，
+动画效果展现的视觉流畅度即是动画性能。
+这两部分，常常为一般讲述web性能的资料\cite{}所忽略。
+
+本文确立页面交互和动画也是web前端性能的组成部分。
+对于一个离线的本地窗口程序来讨论性能问题，
+肯定要研究它如何响应用户每一次交互的过程。
+有赖于现代浏览器对web前端各项新标准支持度不断提升，
+今日的web页面甚至说是web应用，
+在各方面都越来越接近本地窗口应用程序。
+用户是不会去在意服务是通过何种技术实现的，
+所以，以用户为中心考量性能问题。
+工程人员绝不可轻视web页面的交互和动画性能。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{页面交互性能分析}
+
+用户与页面的交互的行为包括
+滚屏、悬浮、点击、托拽、按键等。
+在每一次交互前，用户都会对交互后的呈现有所预期，
+提高页面交互性能的首要目标就是要通过各种手段缩小实际展现和
+用户心理预期的差距。
+
+为达到这一目标，
+首先要考虑的是提高交互流畅感，
+所谓``流畅''其实是过于主观的概念，
+本章将以``每秒帧数''作为``流畅''的第一量化指标。
+其次，由于客观原因无法保证流畅时，
+必须提供一种预告机制，防止用户认定服务不可用而离开页面。
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{每秒60帧的目标}
+在用户认为页面加载完成后，
+一个最有可能的交互行为就是滚动页面。
+滚动页面看起来和性能分析毫无关系，实则不然。
+即使没有编写绑定了滚动事件(\texttt{scroll})的回调函数。
+浏览器的渲染也需要监听到这个事件，
+以重新渲染当前页面。
+用户滚动屏幕期望看到当前可视区域范围外的内容
+出现在当前可视区域内，
+这需要渲染模块更新页面内每个渲染框相对浏览器可视区域的几何属性，
+如此，滚动事件信号的释放需要一个较短的周期以让浏览器尽可能快的重新绘制可视区域内的画面。
+
+通过在仅有文本内容的测试页面上触发滚动，
+观测时间线活动图\autoref{fig:16.6ms-scroll} 可以发现
+浏览器窗口每隔$16.67ms$左右释放一个\texttt{scroll}事件信号，
+而每此触发此事件后，如\autoref{fig:16.6ms-scroll} 所示，
+都将快速进行一次样式计算和绘图。
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.9\linewidth]{16.6ms-scroll}
+	\caption{滚屏时的渲染帧}\label{fig:16.6ms-scroll}
+\end{figure}
+
+在老旧的CRT显示器时代，
+电子枪需要周期性地扫描整个屏幕以保持画面的显示，
+这个周期即是$1/60$ 秒 ，换句话说，
+刷新的频率是60Hz，如果由于其他原因导致刷新频率下降，
+人眼就会觉得不适应。
+虽然当今普遍使用的LCD显示器并不需要以某个频率不断地扫描刷新屏幕，
+但1秒内呈现60张画面以保证流畅的任务还普遍存在
+于所有以图形界面展示为主要内容的场景中。
+浏览器自然也不例外。
+
+在用户与浏览器交互时，
+绘图模块每此完成一次绘图（包括计算样式、重排、重绘和合并图层）的时间段
+称为一帧（Frames）。
+一秒内完成绘图的次数即为每秒帧数（FPS）或帧率，
+60 FPS的目标刚好是每16.67毫秒完成绘图。
+所以在没有其他脚本执行压力的情况下，
+上述随意滚动页面下的活动时间线基本是以16.67毫秒作为分割的。
+如果一帧的渲染时间是$\tau$ ms，那么通常会表述为此时每秒帧数$\frac{1}{\tau}$ FPS。
+
+理想情况下，在用户交互过程中，
+不应该出现过多低于30 FPS的渲染帧，
+否则会明显的察觉到页面``卡顿''和不适感\cite{gandy2010experiences}，
+如果低于10 FPS，则会造成``假死感''，
+部分用户会判定页面不可用而离开页面。
+这对web服务提供商来说是不能容忍的。
+另外，每秒帧数不稳定的情况下，
+也会在不同程度的影响视觉观感。
+
+在响应用户交互时，浏览器需要渲染新的画面，
+在渲染一帧画面的时候，通常可能经过以下几种步骤。
+如果浏览器可视区域内的渲染框的几何属性（宽高、位置等），
+那么浏览器会依此检查被改动的DOM节点影响的所有节点的几何属性，
+这个过程称为重排（Reflow）。
+重排之后，
+再去完成绘制合成的过程，
+如\autoref{fig:frame-timeline1} 所示。
+
+如果仅渲染框的背景颜色（图片）、边框和文字颜色、阴影等像素绘图信息被更动了，
+则不需要经过``布局''这一过程，渲染引擎在完成样式计算后，
+就进入到绘制合成的过程。如\autoref{fig:frame-timeline2} 所示。
+
+如果试图跳过``绘制''过程实现像\autoref{fig:frame-timeline3} 那样的渲染流程，
+则需要保证渲染框的样式只在少数属性如\texttt{transform}属性和\texttt{opacity}属性上调整。
+后文实验中\ref{sec:no-repaint}将看到这样的例子。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = .85\textwidth]{frame-timeline1}
+		\caption{渲染一帧的完全活动}\label{fig:frame-timeline1}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = .85\textwidth]{frame-timeline2}
+        \caption{不需要布局的渲染帧}\label{fig:frame-timeline2}
+	\end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = .85\textwidth]{frame-timeline3}
+        \caption{不需要重绘的渲染帧}\label{fig:frame-timeline3}
+	\end{subfigure}
+	\caption{渲染一帧的活动}\label{fig:frame-timeline}
+\end{figure}
+
+本文认为提高页面交互性能，
+除了尽可能的减少整个渲染流程的步骤，
+还可以减少其中每一步的耗时来实现。
+渲染绘制流程的三阶段——重排、重绘、合成中，
+根据实验可以发现，重排工作的耗时最长。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.9\linewidth]{dom-rendertree}
+	\caption{从DOM树到渲染树}\label{fig:dom-rendertree}
+\end{figure}
+
+\autoref{fig:dom-rendertree} 反映了从DOM树模型开始的渲染流程\cite{webkit2014}，
+渲染树是DOM树的可见部分绑定了对应的样式规则的数据结构，
+通过阅读 webkit 渲染引擎源代码，
+渲染树上的节点都继承自\texttt{RenderObject}基类，
+根据渲染框的差异，分别派生了
+\texttt{RenderBlock})(块级框)、
+\texttt{RenderInline}（行内框）等类，
+每个节点描述了自己的样式属性，
+但没有描述渲染框相对当前可视区具体的坐标和占位。
+计算这些坐标和占位的过程就是布局。
+根据W3C规范的基于流的布局模型，
+渲染器总是递归的根据文档描述顺序，
+从左至右、从上到下的放置渲染框并根据样式描述调整坐标和占位。
+在编写CSS样式代码的时候，
+经常会使用定位和浮动等布局相关属性，
+这些样式往往会影响到一系列元素的布局信息。
+所以，包括 webkit 在内的诸多渲染器，
+都会将共享同一个定位环境的渲染框（在webkit中即为\texttt{RenderObject}对象）
+合并到一起作为一个渲染层（RenderLayer）来进行布局。
+
+为了尽可能的减少对其他元素的布局影响，
+有资料\cite{docfrag}推荐使用DOM API——DocumentFragment进行插入新元素的操作，
+以减少对渲染树构建和布局的影响。
+为验证这一说法，本章编写了简单的页面进行测试。
+实验分别使用如下两种方法测试插入新元素的性能差异：
+\begin{enumerate}
+    \item DocumentFragment收集新节点最后将其并入\texttt{body}节点
+    \item 不断创建新节点并马上插入到\texttt{body}节点
+\end{enumerate}
+通过监测在页面里触发两种不同方法插入节点的活动时间线，
+结果如\autoref{fig:with-without-docfrag} 所示，DocumentFragment在
+性能上并没有取得突破。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{docfrag1}
+		\caption{}\label{}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{docfrag2}
+		\caption{}\label{}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{docfrag3}
+		\caption{}\label{}
+	\end{subfigure}
+	\begin{subfigure}[b]{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{docfrag4}
+		\caption{}\label{}
+	\end{subfigure}
+	\caption{DocumentFragment测试}\label{fig:with-without-docfrag}
+\end{figure}
+
+对于DocumentFragment API不能优化布局时间的事实，
+本文作如下分析，
+进入布局计算流程时，渲染树早已建立完成，
+无论使用何种方式更动DOM节点，
+此时仍旧需要计算每个渲染框的坐标和占位信息。
+这个实验还反映了一个与其宣称不符的是，
+使用此API，脚本程序的执行效率反而变慢了。
+为此，本文又使用\texttt{jsperf.com}提供的基准测试环境对比测试了50次用例，
+使用 DocumentFragment 比不使用竟然慢24\%。
+DocumentFragment的性能改善模式其实是在几年前的浏览器中，
+防止在DOM被更新之后立即重排。
+而现代浏览器基本已经将重排操作尽可能的延迟了。
+所以在做性能优化时，不能期望使用此API来改善重排性能。
+
+对于减少布局的时间消耗，最早的实践其实是``表格式布局''的废除，
+在本世纪初的网页大都使用表格布局，
+表格中任意一个元素的几何属性改变即会触发整个表格的布局检查工作。
+虽然现在早已难见表格布局的页面，但关于布局方法对重排性能的影响，
+必须时刻保持关注。在webkit中，会触发创建渲染层的情况有以下几种：
+\begin{enumerate}
+    \item 根元素（\#document）
+    \item 有定位属性的元素（position 属性不为 static）
+    \item 设置了alpha透明通道的元素
+    \item 设置了内容溢出规则的元素（overflow属性）
+    \item Canvas 2D 和 WebGL 以及 Video 元素
+\end{enumerate}
+
+如果布局活动仅发生在一个渲染层内，
+那么此渲染层不会影响外部的渲染层。
+这个规则可以用于指导前端工程合理的选用布局手段，
+缩小布局活动发生时的范围。
+通过观测布局时的活动时间线，
+也可以得知与一次布局活动耗时相关的要素在于布局的范围（Layout Root）和
+布局影响的节点两个方面。
+而影响此要素的关键在于元素样式的编写以及交互时应用样式的方法上。
+在对测试页面中使用浮动布局(\texttt{float})和弹性盒布局（\texttt{flex}）进行测试的过程中，
+发现排列1300个元素时，使用浮动布局需要14毫秒的时间完成布局，
+而使用弹性盒布局仅需3.5毫秒。
+可惜弹性盒布局的标准在浏览器间支持程度有限，
+也缺乏现成的模拟方法可以使用，
+导致这种布局的使用度仍旧比较受限。
+
+回到渲染流程，每个RenderLayer布局之后会被栅格化（Rasterization）绘图，
+在开启GPU加速的模式下，
+这些位图将作为纹理（texture）传输至GPU里进行合成\cite{duda2013gpu}，
+最终生成屏幕图像呈现出来。
+如果无法利用GPU，
+webkit将此时绘制的RenderLayer所有重叠部分的相关区域的渲染框
+在z轴上从后向前重绘一遍。
+关于绘图和合成对页面动画的影响，将在下一节分析动画性能时阐述。
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{提早渲染的实践}
+
+在浏览器响应用户交互后，
+在某一个时刻，要么在进行渲染绘图，
+要么在进行运算，
+除非使用WebWorker等技术，
+否则绝无并行执行的可能。
+
+此处先研究使用定时器函数对渲染流程影响的情况。
+\autoref{code:settimeout} 给出了一个样例页面。
+页面在脚本中放置了一个大概执行3秒的耗时函数\texttt{timeConsuming()}。
+点击页面中的按钮会触发一个使用了这个耗时函数的回调。
+
+\begin{lstlisting}[numbers=left,numberstyle=\tiny,label=code:settimeout,xleftmargin=2em,aboveskip=1em]
+<body>
+  <button id="with-timer">
+    click to calculate
+  </button>
+  <button id="without-timer">
+    click to calculate
+  </button>
+  <h2 id="status"></h2>
+  <script>
+document.getElementById('with-timer').addEventListener('click', function(){
+   document.getElementById('status').innerText = 'Caculating......';
+   setTimeout(timeConsuming, 0);
+});
+document.getElementById('without-timer').addEventListener('click', function(){
+   document.getElementById('status').innerText = 'Caculating......';
+   timeConsuming();
+});
+function timeConsuming() {
+  for(var i=0, a=[]; i<634567; i++) {
+    a[i] = Math.random()*634567
+  }
+  a.sort();
+  document.getElementById('status').innerText = 'Caculation Done'
+}
+  </script>
+</body>
+\end{lstlisting}
+
+注意代码中，
+第二个按钮绑定的点击事件回调中，
+没有将耗时函数放入setTimeout定时器的回调中。
+这导致了点击第二个按钮时，下方没有显示``Calculating......''，
+而且点击按钮一直处于激活状态，直到耗时函数运算完成，
+显示了``Caculation Done''。
+
+通过活动时间线面板，观察到在第一个按钮被点击，
+在释放\texttt{click}事件之后，在执行耗时的点击回调函数之前，
+绘图渲染模块迅速完成了样式计算、绘图等操作，
+如\autoref{fig:with-timer} 可见。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.9\linewidth]{with-timer}
+	\caption{第一个按钮按下之后的活动时间图}\label{fig:with-timer}
+\end{figure}
+
+在JavaScript的事件模型里，存在一条函数执行队列，
+放置了由定时器触发、DOM事件、HTTP化脚本的回调函数，
+在浏览器的事件循环模型（Event Loop）下，
+响应事件的回调函数会不断的被插入到这个队列中，
+可即使是在队首的回调函数也将等待当前其他浏览器任务的完成后才执行。
+
+在第二个按钮的点击回调中，
+虽然代码第x行也更改了DOM节点的属性值，
+但这个修改在执行耗时函数前，
+并没有机会为渲染绘图线程所使用。
+所以在在脚本程序的编写过程中，
+不可把对DOM的读写和页面渲染框的内容在一时对应起来。
+
+虽然这两个按钮绑定的点击回调都执行了一个耗时很长的脚本程序，
+从一帧的时间上看都是严重超时的。
+但是第一个案例要比第二个案例好，
+因为从交互原则上，对于明显耗时的任务，
+需要在响应用户操作后有所提示(比如进度条)，
+以提供心理预期，放置用户判定业务已经不可用。
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{脚本程序的执行性能}
+
+在由JavaScript程序承载的交互任务上，
+页面渲染一帧的第一步通常就是执行脚本程序。
+
+前文已经叙述过，对于JavaScript脚本程序的解释执行，
+无论在服务端还是浏览器，除非初次加载时，
+都只能在单线程下，通过监听事件来执行，
+并且，在浏览器中，脚本程序的执行还与解析和渲染的线程互为阻塞。
+所以，在浏览器渲染一帧的时间中，
+必须尽可能的减少脚本程序的执行时间，
+让出足够的时间来渲染这一帧的画面，
+在下一节在讨论执行时机时会分析这个问题。
+
+Chrome 浏览器使用的V8解释器、
+Firefox 浏览器使用的SpiderMonkey解释器，
+相比其他的脚本解释器体现出极大的优越性。
+这有赖于它们使用的即时编译技术（JIT）和高效的垃圾回收及快速的属性访问。
+对于web服务提供商而言，
+没有办法限定用户必须使用何种浏览器，
+所以脚本程序的编写必须尽可能的适应于不同的终端环境，
+对于落后的平台要尽可能的规避其中的性能陷阱，
+对于优秀的平台如Chrome浏览器提供的V8解释环境，
+应尽可能的适应它的优化规则，
+避免触发V8的优化回滚机制。
+在浏览器开发者工具提供的Profile面板，
+也详细的提供了CPU的工作时间以及脚本生成对象占用内存堆区的情况。
+对于单页web应用来说，由于用户几乎没有机会刷新页面，
+所以内存泄露是一个重点检查对象。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{页面动画性能分析}
+
+本文讨论的页面动画不是指页面内嵌的视频多媒体元素，
+而是指页面元素在一段时间内连续地变更自己的渲染属性，
+利用人眼视觉暂留机制而感受到动画效果的渲染行为。
+
+十年前页面的动画效果主要依赖 Flash 技术实现，然而，
+由于Flash 技术的高耗能和复杂的安全性问题，
+通过Flash设计精美的动画效果的实践已经渐渐淡出人们的视线。
+根据\texttt{httparchive.org}统计数据，从2010年11月到2016年1月，
+在1000万张网页中，至少发出一个Flash资源请求的网页占比从 49\%已经跌落至19\%，
+注意此处的统计结果含有页面引用的第三方广告服务的Flash资源，
+所以，页面主体内容使用Flash的比例必远小于19\%。
+
+\subsection{基于脚本程序的动画}
+
+浏览器模型提供的\texttt{setTimeout}和\texttt{setTimeinterval}
+定时器API是一直以来是使用脚本程序实现动画的基本手段。
+即是通过定时器手动地划分每帧的渲染间隔时间（不是每帧的时间），
+让脚本程序在每一帧的时间内修改相应的渲染样式，
+循环往复，以展现动画效果的方法。
+
+比如网页中的轮播图（Carousel）是较常用的动画元素。
+在网页信息架构中通常起着表达页面焦点信息的作用；
+在页面加载策略中，首屏的轮播图也可以起着吸引用户注意力数秒，
+趁此时间空隙尽量加载余下内容的作用。
+
+使用JavaScript脚本程序实现的轮播图组件，
+通常把轮播的过程制作成一个每隔数十毫秒更新DOM节点布局信息的函数，
+这种能控制函数每隔一段时间执行的函数就是\texttt{window.setTimeout}，
+浏览器定时器是在Flash时代设计出来的的浏览器API，
+其意图本并不是为设计页面动画而用。
+本文认为使用定时器实现页面动画只能是一种不得已而为之的手段。
+根据前述小节描述，
+\texttt{setTimeout(callback, time)} 其实是把
+回调函数\texttt{callback}延时\texttt{time}毫秒插入到一个公共的
+执行队列里，
+并且即便是队首的回调函数也要等待当前的同步函数或渲染线程执行执行完毕。
+通过仔细研读W3C相关规范\cite{settimeout}，
+得知定时器函数需依赖系统时钟的更新精度。
+在不同的操作系统和不同的能耗环境下，这个值从4ms到15.625ms之间变动\cite{lowet2009co}。
+所以这对脚本程序把握绘制帧的时机上带来挑战，
+绘制失序在屏幕上呈现的效果就是丢帧，即完成了渲染所需的计算但无法呈现。
+另外，使用定时器实现的动画，即使用户不在浏览当前页面也将不断执行，
+对移动端来说又是一个不必要的能耗。
+
+使用定时器实现动画的常规方法就是递归调用setTimeout设定的回调函数，
+如\autoref{code:settimeout} 所示。
+\begin{lstlisting}[caption=setTimeout的常规使用,label=code:settimeout]
+(function draw() {
+    var delay = 16.67;
+    /* 计算每一帧变化的代码 */
+    var timer = setTimeout(draw, delay);
+    if( /* 停止条件成立 */ ) {
+        clearTimeout(timer);
+    }
+})();
+\end{lstlisting}
+
+本文通过如上编写动画的模式测试动画中
+描述每一帧变化的代码耗时与渲染帧率的关系。
+结果如\autoref{fig:jstime-fps} 所示，
+因此为达到接近60 FPS的目标，
+使用如上方式实现的动画元素，
+动画循环内的代码耗时应该尽量控制在6毫秒以内，
+这还包括脚本引擎不定期触发的垃圾回收活动。
+(复杂的垃圾回收活动也将消耗2~3毫秒的时间)
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.8\linewidth]{jstime-fps}
+	\caption{动画循环内耗时与帧率的关系}\label{fig:jstime-fps}
+\end{figure}
+
+且不论6毫秒的执行时间是否过于严苛，另外
+定时器设定固定延迟造成的潜在性能危机在于
+它无法感知每一帧动画变化函数的耗时。
+
+如果脚本程序的耗时增加$\delta$ ms，
+那么定时器设定延迟就应该相应的减少$\delta$ ms，
+以保持一帧16.67毫秒的目标。
+基于此假设，
+本文通过包装定时器函数到一个绘制帧的函数\texttt{drawFrame}。
+如\autoref{code:betterSettimeout} 所示。
+\begin{lstlisting}[numbers=left, numberstyle=\tiny, label=code:betterSettimeout]
+(function() {
+    var lastTime = 0;
+    if (!window.drawFrame) {
+        window.drawFrame = function(callback, element) {
+            var current = new Date().getTime(),
+                delay = Math.max(0, 1000/60 - (current-lastTime)),
+                timer = window.setTimeout(function() { callback(current+delay); }
+                                          , delay);
+            lastTime = current + delay;
+            return timer;
+        };
+     }
+}());
+\end{lstlisting}
+使用\autoref{code:betterSettimeout} 提供的drawFrame函数替换setTimeout来更新渲染框，
+可以尽最大可能消除由于其他同步活动阻塞回调函数执行队列带来的延迟。
+两种使用定时器API实现动画的时间活动图如\autoref{fig:fix-delay-timeout} 所示。
+可以清楚得看到使用\autoref{code:betterSettimeout} 后延迟时间随循环内脚本时间的增加而减少了。
+\begin{figure}[htbp]
+	\centering
+    \begin{subfigure}[b]{.45\textwidth}
+        \centering
+	    \includegraphics[width=\linewidth]{fix-delay-timeout-1}
+        \caption{固定延迟计时器动画}\label{fig:gpu-or-not-1}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+        \centering
+	    \includegraphics[width=\linewidth]{fix-delay-timeout-2}
+        \caption{动态延迟计时器动画}\label{fig:gpu-or-not-2}
+    \end{subfigure}
+    \caption{包装setTimeout的优化}\label{fig:fix-delay-timeout}
+\end{figure}
+
+
+除了在绘制时机的把握方面。
+本文发现如果在修改样式时的代码引发的重排操作对
+页面每秒帧数也会造成很大影响。
+为此，本文设计实验对比如下两种更新动画的方法。
+下面分别列出了在动画每帧循环内的语句。
+\begin{lstlisting}
+//访问DOM节点的offsetTop触发了重排
+mover.style.left = ((Math.sin(mover.offsetTop + timestamp/1000)+1) * 500) + 'px';
+\end{lstlisting}
+\begin{lstlisting}
+//避免了重排
+mover.style.left = ((Math.sin(i*20 + timestamp/1000)+1) * 500) + 'px';
+\end{lstlisting}
+经测试，在同样环境下，随着绘制元素的增多，
+页面每秒帧数的变化如\autoref{fig:relayout} 所示。
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.7\linewidth]{relayout}
+	\caption{是否触发重排对动画性能的影响}\label{fig:relayout}
+\end{figure}
+
+为此，本文总结了读取何种样式属性会触发重排的DOM API，列举如下。
+现代浏览器本会把几次重排操作插入队列延迟执行，
+但以下只读属性的读取会迫使浏览器刷新队列，
+立即执行重排。
+在编写页面动画时需要防止从此类接口读取数据。
+\begin{enumerate}
+    \item offset系列：计算渲染框边界相对与父级渲染框边界的距离（前述样例就是使用了其中的offsetTop）
+    \item client系列：计算渲染框可视区域内的距离和边框距离
+    \item scroll系列：计算带有滚动条区域的各种距离 (以上三种距离都是只读属性)
+    \item 获取焦点focus()：带来两次重排
+\end{enumerate}
+
+新的浏览器API提供了\texttt{window.requestAnimatioinFrame}被认为可取代定时器模式，
+该接口甚至可以动态调整合适的帧率，另外还可以监测动画不在可视区时降低帧率。
+可是为兼容IE10以下的浏览器（在中国市场仍有约30\%的占有率），
+使用setTimeout的脚本程序实现动画手段还是广泛存在的。
+本文对比了在大部分普通场景下，经包装过的动态定时器动画与\texttt{window.requestAnimatioinFrame}
+相差无几。
+
+令人振奋的是，鉴于页面动画需求的膨胀，
+W3C在最近正在加紧开发一套通用的 Web Animation API，
+但由于仍旧处于实验阶段，目前绝大多数浏览器还不支持。
+
+\subsection{基于CSS的动画}\label{sec:no-repaint}
+
+使用JavaScript脚本程序实现动画，
+从它本身应当承载的功能（语义）来看，
+都不是一个特别贴切的做法。
+于是，CSS3动画是另一个选择。
+借助GPU加速，
+其渲染效率远超使用脚本程序实现的动画。
+并且不用担心脚本引擎在执行长时间动画后进行的垃圾回收干扰到动画的渲染流程。
+
+所有能使用连续值（相对的类型是``离散值''）的样式属性都可以支持CSS动画。
+为一个元素实现动画的最简方法仅需为它添加一个\texttt{transition}属性，
+如果需要控制复杂动画的关键帧，可以为动画创建一个\texttt{animation}规则，
+这个动画规可被应用于不同的需要被动画修饰的样式属性中去。
+除此之外，CSS3还提供一套\texttt{transform}属性提供了包括位移、旋转、缩放等的变形规则，
+当这套变形规则作用于渲染层z轴时还可以呈现3D效果的体验。
+
+在上一节所述渲染过程模型中，
+浏览器对渲染框重排结束后将进入重绘阶段。
+如果滥用CSS动画关键帧的属性，
+将导致主线程上的大量重绘，
+也足以使画面产生割裂感\cite{garaizar2014presentation}。
+如\autoref{code:repaint-keyframe} 的设置，
+在活动时间线面板监测其渲染活动耗时，
+如\autoref{fig:repaint-keyframe} 所示，
+可以看到，动画元素对\texttt{top}和\texttt{left}的频繁更新，
+产生了许多不必要的渲染工作。
+\begin{lstlisting}[label=code:repaint-keyframe, caption=频繁触发重绘的样例]
+.ball-running {
+  animation: run-around 4s infinite;
+}
+@keyframes run-around {
+  0%: { top: 0; left: 0; }
+  25% { top: 0; left: 200px; }
+  50% { top: 200px; left: 200px; } 
+  75% { top: 200px; left: 0; }
+}
+\end{lstlisting}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.9\linewidth]{repaint-keyframe}
+	\caption{触发多次不必要的重绘的CSS动画}\label{fig:repaint-keyframe}
+\end{figure}
+
+在CSS3提供的变形规则中有在x轴和y轴的位移变换，
+现将关键帧用以下代码重写。
+\begin{lstlisting}[label=code:no-repaint-keyframe, caption=通过创建新的合成层来避免重绘]
+@keyframes run-around {
+    0%: { transform: translate(0, 0); }
+    25%: { transform: translate(200px, 0); }
+    50%: { transform: translate(200px, 200px); }
+    75%: { transform: translate(0, 200px); }
+}
+\end{lstlisting}
+此时再次检查活动时间线，
+如\autoref{fig:no-repaint-keyframe} 所示，
+此时在主线程中已经没有任何活动，
+由于浏览器不用完成重绘的操作，
+在现代浏览器默认开启GPU加速的情况下，
+合成图层的任务完全交给了GPU完成。
+实验结果得到了完美的帧率表现。
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.9\linewidth]{no-repaint-keyframe}
+	\caption{避免了主线程重绘的CSS动画}\label{fig:no-repaint-keyframe}
+\end{figure}
+
+通过继续研读webkit源码和Chromium计划文档\cite{}，
+为布局而编写的RenderLayer并不是渲染层模型的终点，
+为渲染流程中最后一步合成的需要，
+webkit 设定了GraphicsLayer类作为交付GPU合成的模型。
+触发浏览器创建合成层的有以下几种类型：
+\begin{enumerate}
+    \item 所有使用\texttt{animation}和\texttt{transition}在透明度和变形规则产生动画的渲染框
+    \item 堆叠环境(\texttt{z-index})之上的渲染框也是合成层（Composite Layer）的情况
+    \item 嵌入多媒体（video, canvas 等）
+\end{enumerate}
+创建独立合成层可以最小化重绘的代价，
+前文实验已经验证了这一点。
+
+现代浏览器合成层的线程和主线程是独立状态，
+所谓利用GPU加速，也就是将绘图合成工作转移到擅长并行运算的GPU上。
+本文将以上两个实验的具体流程使用
+\autoref{fig:gpu-or-not} 表达如下。
+\begin{figure}[htbp]
+	\centering
+    \begin{subfigure}[b]{.45\textwidth}
+        \centering
+	    \includegraphics[width=\linewidth]{gpu-or-not-1}
+        \caption{\autoref{code:repaint-keyframe} 的执行流程}\label{fig:gpu-or-not-1}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+        \centering
+	    \includegraphics[width=\linewidth]{gpu-or-not-2}
+        \caption{\autoref{code:no-repaint-keyframe} 的执行流程}\label{fig:gpu-or-not-2}
+    \end{subfigure}
+    \caption{是否利用GPU加速对渲染流程的影响}\label{fig:gpu-or-not}
+\end{figure}
+
+现在总结从DOM树构建完成开始的渲染流程，
+DOM节点将样式规则信息附加到自身上形成渲染树（webkit使用\texttt{attach}方法完成），
+在形成渲染树的同时，根据样式编写的布局信息创建RenderLayer树，
+并计算每个RenderLayer树的当前坐标和占位等几何信息。
+如果元素样式属性触发了GPU加速，webkit会为其创建GraphicsLayer，
+并在其属性值变化时，通过GPU直接渲染其合成层的位图(纹理)来实现更新。
+每当DOM树改变后，webkit会重复执行以上渲染过程。
+
+使用CSS3实现动画的劣势在于无法最大程度的自定义动画效果。
+
+\section{实现高性能页面元素}
+
+\subsection{重排和重绘实验分析}
+
+根据前述章节分析，本文认为影响页面动画性能的关键瓶颈在于重排。
+无论何种JavaScript脚本解析器，均未将浏览器DOM API纳入其内部，
+所以，当脚本程序试图通过DOM编程接口读取或写入DOM模型时，
+不可避免的需要一系列复杂的机制维持它的运行\cite{}。
+由于前端开发人员的无意识，
+很容易在编写页面动画时为脚本解释器联系DOM模型带来过大的压力。
+
+为此，本文实现了一种异步更新DOM信息的方法——KuikDOM。
+KuikDOM将所有更动DOM的操作添加到队列
+并利用\texttt{window.requestAnimatioinFrame}转移到下一帧。
+KuikDOM设计成了单例模式，所以当任何模块需要使用时都可以保持一致性。
+异步存取DOM带来的潜在隐患在于当执行时机到时DOM节点可能已经无法获取。
+针对这种情况，KuikDOM提供了一个catch接口用以捕获这样的异常。
+
+现在，为了论证异步更新DOM的优越性。
+设计如下实验。
+在测试页面中引入 $N$ 个通过绝对定位(避免相互影响)布局的小球，
+小球在水平方向上按各自y轴坐标的正弦函数来回运动。
+动画循环每一次更新小球布局信息时，
+都需要读取DOM节点样式(y轴坐标)，并写入样式到DOM。
+在读取中，本实验设定三种读取方法：
+\begin{enumerate}
+    \item 读取了触发重排的样式属性（同步更新）
+    \item 通过KuikDOM实现异步读写
+    \item 不读取DOM节点样式信息
+\end{enumerate}
+在写入方法的实现上，区分两种写入方法：
+\begin{enumerate}
+    \item 不触发GPU加速
+    \item 通过\texttt{transform}的位移触发GPU加速
+\end{enumerate}
+
+如此，依据三种读取DOM模型的方法，
+调整页面内小球个数，监测页面稳定的FPS值，
+可得结果如\autoref{fig:relayout-repaint} 所示。
+
+\begin{figure}[htbp]
+	\begin{subfigure}[b]{.5\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{relayout-repaint-1}
+		\caption{同步更新}\label{}
+	\end{subfigure}
+	\begin{subfigure}[b]{.5\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{relayout-repaint-2}
+		\caption{异步更新（KuikDOM）}\label{}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = .6\textwidth]{relayout-repaint-3}
+		\caption{不读只写DOM}\label{}
+	\end{subfigure}
+	\caption{重排重绘实验结果}\label{fig:relayout-repaint}
+\end{figure}
+
+
+本实验在Google Chrome Canary 51.0.2690.0 on OS X 10.10.5下的
+处理器2.7GHz Intel Core i5，图形处理器 Intel Iris Graphics 6100(1536MB)
+的电池供电环境MacBook Pro中完成。
+
+从图示可以看出，除了使用同步更新方法时，
+是否通过GPU加速避免一定的重绘工作并不会对整体的帧率有太大的影响。
+而通过对读写DOM的方法的调整甚至避免访问DOM，
+才是最大程度的保证动画渲染性能的手段。
+
+%\subsection{样式布局信息对页面动画的影响}
+
+\section{本章小结}
+页面交互和动画亦是web前端性能的重要组成。
+缩小页面实际展现结果和用户心理预期主要通过提高页面渲染帧率实现，
+通过本章分析和实验结果发现，
+避免和减小渲染流程的重排活动是提高页面渲染帧率最重要的手段，
+并提供了一种异步更新DOM模型的方法来实现减小重排对页面交互和动画性能的影响。
