@@ -2,7 +2,7 @@
 模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)的
 [Monster](http://github.com/skychan)和
 [Hamburger](https://github.com/githamburger)<br>
-模板改造者：  [Kwen](stralipch@gmail.com)
+模板改造者：  [Kwen](mailto:stralipch@gmail.com)
 
 ## 1、简介
 
