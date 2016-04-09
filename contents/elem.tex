@@ -101,6 +101,7 @@
 图片引用路径在\texttt{zjuthesis.cls}里定义的\texttt{graphicspath}里，
 默认情况下\\\texttt{$\backslash$includegraphics}命令从论文源码根目录搜索引用的图片，
 如果先在根目录里匹配到文件名，则不再前往定义路径搜索，
+当引擎无法找到您指定的图片资源时，会导致编译错误。
 注意引用的文件名包括文件后缀。
 
 % 现在你可以随意更动此插图代码的位置来感受一下浮动体布局的规则
@@ -462,6 +463,17 @@ http://haixing-hu.github.io/nju-thesis/
     \item 一篇学位论文\cite{a4-1} 
     \item 其他资料：手册\cite{ipad}报纸\cite{renminribao}网页\cite{dubash2010}
 \end{itemize}
+
+在论文中设置了一个错误或丢失的引用不会引起编译错误，
+引擎会在引用标记中设一个问号。
+手动编译论文的顺序一般为：
+\begin{verbatim}
+xelatex main
+bibtex main  // 生成参考文献
+xelatex main
+xelatex main
+\end{verbatim}
+latexmk 自动化地执行了这些步骤，所以编译时间才需要20余秒之久。
 
 \section{本章小结}
 
