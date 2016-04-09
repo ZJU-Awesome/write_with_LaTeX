@@ -1,6 +1,6 @@
 ## 浙江大学软件学院硕士研究生学位论文LaTeX模板
-模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)
-[Monster](http://github.com/skychan)、
+模板上游：[ZJU-Awesome](https://github.com/ZJU-Awesome/write_with_LaTeX)的
+[Monster](http://github.com/skychan)和
 [Hamburger](https://github.com/githamburger)<br>
 模板改造者：  [Kwen](stralipch@gmail.com)
 
