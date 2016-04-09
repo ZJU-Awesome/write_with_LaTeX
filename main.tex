@@ -1,0 +1,108 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX builder = LATEXMK
+% !TEX program = xelatex
+\documentclass[master,oneside]{zjuthesis} % 如果你的论文不满80页，还是单面印刷吧
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 开始填写前置部分使用的变量
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 样式设定在 zjuthesis.cls 下, 人类可读，爱请查阅
+
+% 这里写这么鬼畜是为了测试多几个字会不会造成溢出
+\title{某某某某某科学的浙江大学软件学院硕士论文模板} % 封面和题名页使用
+\englishtitle{Toaru Kagaku no Template of Software Engineering Thesis in \LaTeX } % 封面和题名页使用
+% 如果您的标题用字过多，请自行调节 zjuthesis.cls 里的 ZJUmakecover 里的各项距离。
+
+%\author{伊藤春希}          % 申请人姓名 封面使用
+\author{君之名}
+
+\classification{TP311.1}    % 封面头使用
+\serialnumber{10335}        % 封面头使用
+\secretlevel{无}            % 封面头使用
+\studentnumber{21x51xxx}    % 封面头使用
+
+%\supervisor{御坂美琴}       % 导师 封面使用
+\supervisor{师之名}
+%\spvtitle{电击使}           % 职称 封面使用
+\spvtitle{职称}              % 职称 封面使用
+
+%\cpsupervisor{桂和纱}       % 合作导师，如果没有合作导师，就在此文件第 4 行\documentclass选项栏中加上"nocpsupervisor"。
+\cpsupervisor{师之名}
+\cspvtitle{职称}             % 合作导师职称
+
+% 从机械工程学院改来，保留设定变量命名
+%\major{船舶工程}            % 专业学位类别栏 填 工程硕士
+\major{工程硕士}
+%\research{白学}             % 专业学位领域栏 填 软件工程
+\research{软件工程}
+\institute{软件学院}         % 所在学位栏 填 软件学院
+
+\submitdate{2333年2月33日}   % 论文提交日期 栏
+
+% 题名页的评阅人及答辩席
+% 归档时候填写
+% 论文评阅人1 2 3 4 5
+\reviewerA{} \enreviewerA{}
+\reviewerB{} \enreviewerB{}
+\reviewerC{} \enreviewerC{}
+\reviewerD{} \enreviewerD{}
+\reviewerE{} \enreviewerE{}
+
+% 答辩委员会主席
+\chairperson{} \enchairperson{}
+
+% 答辩委员 1 2 3 4 5
+\commissionerA{} \encommissionerA{}
+\commissionerB{} \encommissionerB{}
+\commissionerC{} \encommissionerC{}
+\commissionerD{} \encommissionerD{}
+\commissionerE{} \encommissionerE{}
+
+% 答辩日期
+\defencedate{} \eendefencedate{}  % 因为endefencedate 命名被占用
+
+% 论文前置部分变量填写完毕 开始全书排版
+\begin{document}
+
+% 封面、中文题名页、英文题名页、独创声明和版权使用书 无页码
+\maketitle
+
+% 摘要部分
+\abstractmatter
+\include{contents/abstract_chinese}
+\include{contents/abstract_english}
+
+% 目录和术语表
+\frontmatter
+\tableofcontents % 正文目录
+\listoffigures   % 图目录
+\listoftables    % 表目录
+% 术语及缩略词表(需要则开)
+%\include{contents/denotation}
+
+% 正文排版开始 建议一章一文件 （好像无法嵌套 include） 
+\mainmatter
+\include{contents/intro} % 绪论
+\include{contents/whyla}
+\include{contents/elem}
+\include{contents/sum}  % 总结和展望
+
+% 结尾部分排版
+\backmatter
+
+% 引用参考文献数据库
+\bibliography{references/test.bib}
+
+% 附录部分
+%\appendix
+%\include{contents/appendixA}
+
+% 作者简历
+\include{contents/self}
+
+% 致谢
+% 致谢不必感谢在下，
+% 但请一定感谢清华大学薛瑞尼、
+% 机械工程学院陈九历
+\include{contents/thanks}
+
+\end{document}

@@ -1,5 +1,8 @@
 $pdflatex = "xelatex -synctex=1 %O %S";
+$preview_continuous_mode  = 1;
 $pdf_mode = 1;
 $preview_mode = 1;
 $postscript_mode = $dvi_mode = 0;
-$pdf_previewer = 'open -a Preview';
+$pdf_previewer = 'open -a /Applications/Skim.app %O %S';
+ = 'synctex.gz synctex.gz(busy) acn acr alg aux bbl bcf blg brf dvi fdb_latexmk glg glo gls idx ilg ind ist lof log lot lox out paux pdfsync run.xml toc';
+
