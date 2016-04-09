@@ -22,6 +22,10 @@ __Mac__ （[MacTeX 2015](https://tug.org/mactex/) on OS X Yosemite and EL Capita
 ```
     $ cp latexmkrc_mac ~/.latexmkrc
 ```
+使用latexmk 命令进行编译。
+
+	$ latexmk main
+
 
 __windows__ （仅在[TexLive2015](http://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2015.iso) on windows10 测试）:
 
