@@ -23,6 +23,7 @@ __Mac__ （[MacTeX 2015](https://tug.org/mactex/) on OS X Yosemite and EL Capita
     $ cp latexmkrc_mac ~/.latexmkrc
 ```
 使用latexmk 命令进行编译。
+如果您遇到编译错误，请检查是否正确安装以上字体包。
 
 	$ latexmk main
 
@@ -36,7 +37,7 @@ __windows__ （仅在[TexLive2015](http://mirrors.ustc.edu.cn/CTAN/systems/texli
     $ copy latexmkrc_win %HOME%\.latexmkrc
 
 使用latexmk 命令进行编译。
-
+如果您遇到编译错误，请检查是否正确安装以上字体包。
 	$ latexmk main
 
 __Linux__ (TeXLive2015):
@@ -46,7 +47,7 @@ __Linux__ (TeXLive2015):
     $ cp latexmkrc_linux ~/.latexmkrc
 
 然后使用latexmk 命令进行编译。
-
+如果您遇到编译错误，请检查是否正确安装以上字体包。
 	$ latexmk main
 
 windows和Linxu 皆使用 TeXLive 2015 安装
