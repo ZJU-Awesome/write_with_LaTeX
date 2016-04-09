@@ -8,22 +8,21 @@
 
 为了方便学位论文的排版，让作者专心于内容，
 根据[《浙江大学软件学院论文格式要求》](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030109379.doc)
-，[《浙江大学软件学院论文模板》(doc)](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030251470.doc)
-以及[《浙江大学研究生学位论文编写规则》](http://grs.zju.edu.cn/UserFiles/File/xkjsc/xwglb/wenjian/%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%A6%E4%BD%8D%E8%AE%BA%E6%96%87%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.doc)，并结合实际要求，改造设计了相应的LaTeX模版。
+,[《浙江大学软件学院论文模板》](httk://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030251470.doc)
+以及[《浙江大学研究生学位论文编写规则》](http://grs.zju.edu.cn/UserFiles/File/xkjsc/xwglb/wenjian/%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%A6%E4%BD%8D%E8%AE%BA%E6%96%87%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.doc)，并结合实际，改造设计了相应的LaTeX模版。
 
 **本模板建议软件学院同学使用**。
 
 ## 2、编译方法
 
 确保系统安装了以下字体：
-
-- TeX Gyre Termes;
-- TeX Gyre Cursor;
-- TeX Gyre Heros;
-- Adobe Fangsong Std;
-- Adobe Heiti Std;
-- Adobe Kaiti Std;
-- Adobe Song Std;
+- TeX Gyre Termes
+- TeX Gyre Cursor
+- TeX Gyre Heros
+- Adobe Fangsong Std
+- Adobe Heiti Std
+- Adobe Kaiti Std
+- Adobe Song Std
 
 - [字体包下载-百度盘](http://pan.baidu.com/s/1hrXDO5A)
 - [字体包下载-Google Drive](https://drive.google.com/open?id=0ByPSg5LzlAjAcThjQ3pEUGstcGc)
@@ -37,26 +36,26 @@ __Mac__:
 所以强烈建议设置**实时编译**。
 方案如下：
 
-1. 拷贝 .latexmkrc 到家目录。
+拷贝 .latexmkrc 到家目录。
 ```
     $ cp latexmkrc_mac ~/.latexmkrc
 ```
-2. 由于 OS X 默认的 Preview 不支持自动刷新，
+由于 OS X 默认的 Preview 不支持自动刷新，
    所以不得不安装 [skim](https://sourceforge.net/projects/skim-app/) pdf 阅读器，
    若不信任此应用，请参照之后方法自行解决。
    安装完成后，在 Sync 设置处打开 Check for file Changes。
 
-3. 现在撰写论文源码前，可以在 main.tex 的路径下输入命令
+现在撰写论文源码前，可以在 main.tex 的路径下输入命令
 ```
     $ latexmk -pdf -pvc -xelatex main
 ```
 为简化需要在终端输入的命令，可以在日常设定的 rc 文件中自行加入一个 alias
 
-4. 如果仅仅编译一次论文，则在 main.tex 的路径下输入命令
+如果仅仅编译一次论文，则在 main.tex 的路径下输入命令
 ```
     $ latexmk main
 ```
-5. 若出现连续几次编译错误并且确信论文源码并无语法错误，则可以尝试清空临时文件的命令再编译
+若出现连续几次编译错误并且确信论文源码并无语法错误，则可以尝试清空临时文件的命令再编译
 ```
     $ latexmk -c && latexmk main
 ```
