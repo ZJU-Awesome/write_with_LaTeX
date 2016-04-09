@@ -19,7 +19,9 @@
 __Mac__ （[MacTeX 2015](https://tug.org/mactex/) on OS X Yosemite and EL Capitan）
 
 拷贝 .latexmkrc 到家目录
+
     $ cp latexmkrc_mac ~/.latexmkrc
+
 使用latexmk 命令进行编译。
 如果您遇到编译错误，请检查是否正确安装以上字体包。
 
