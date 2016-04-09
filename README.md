@@ -28,9 +28,9 @@ __Mac__ （目前仅测试过 [MacTeX 2015](https://tug.org/mactex/)）
     $ cp latexmkrc_mac ~/.latexmkrc
 ```
 由于 OS X 默认的 Preview 不支持自动刷新，
-   所以不得不安装 [skim](https://sourceforge.net/projects/skim-app/) pdf 阅读器，
-   若不信任此应用，请参照之后方法自行解决。
-   安装完成后，在 Sync 设置处打开 Check for file Changes。
+所以不得不安装 [skim](https://sourceforge.net/projects/skim-app/) pdf 阅读器，
+若不信任此应用，请参照之后方法自行解决。
+安装完成后，在 Sync 设置处打开 Check for file Changes。
 
 现在修改论文源码前，可以在 main.tex 的路径下输入命令
 ```
@@ -51,39 +51,28 @@ __Mac__ （目前仅测试过 [MacTeX 2015](https://tug.org/mactex/)）
     $ echo "$clean_ext = 'synctex.gz synctex.gz(busy) acn acr alg aux bbl bcf blg brf dvi fdb_latexmk glg glo gls idx ilg ind ist lof log lot lox out paux pdfsync run.xml toc';">>~/.latexmkrc
 ```
 
-__windows__:
-(暂未测试)
-
 [TeXLive 2015 科大源](http://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2015.iso)
+[TeXLive 2015 中文文档](https://www.tug.org/texlive/doc/texlive-zh-cn/texlive-zh-cn.pdf)
 
+__windows__ （仅在TexLive2015 on windows10 测试）:
 
-
-首先在环境变量里设置```$HOME```，一般是```C:\Users\XXX```。
-
+首先在环境变量里设置```$HOME```，一般是```C:\Users\username```
 
 添加或修改 .latexmkrc，请做好备份。
 
-    $ cp latexmkrc_win [your_home_dir]\.latexmkrc
+    $ copy latexmkrc_win %HOME%\.latexmkrc
 
 使用latexmk 命令进行编译。
 
-	$ cd zju_thesis
 	$ latexmk main
 
-如果不想设置环境变量，可以这样：
-
-	$ mkdir C:\latexmk
-	$ cp latexmkrc_win C:\latexmk\LatexMK
-
-__Linux__:
+__Linux__ (TeXLive2015):
 
 首先添加或修改 .latexmkrc，请做好备份。
 
     $ cp latexmkrc_linux ~/.latexmkrc
 
 然后使用latexmk 命令进行编译。
-
-	$ cd zju_thesis
 
 	$ latexmk main
 
