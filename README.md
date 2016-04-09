@@ -8,7 +8,7 @@
 
 为了方便学位论文的排版，让作者专心于内容，
 根据[《浙江大学软件学院论文格式要求》](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030109379.doc)
-,[《浙江大学软件学院论文模板》](httk://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030251470.doc)
+,[《浙江大学软件学院论文模板》](http://www.cst.zju.edu.cn/uploadfile/2012/1015/20121015030251470.doc)
 以及[《浙江大学研究生学位论文编写规则》](http://grs.zju.edu.cn/UserFiles/File/xkjsc/xwglb/wenjian/%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%A6%E4%BD%8D%E8%AE%BA%E6%96%87%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.doc)，并结合实际，改造设计了相应的LaTeX模版。
 
 **本模板建议软件学院同学使用**。
