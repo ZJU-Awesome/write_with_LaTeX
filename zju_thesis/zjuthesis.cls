@@ -271,7 +271,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % xeCJK 环境初始化
 \xeCJKsetup{xeCJKactive=true}
 
-% 打开/关闭CJK文字之间的空格，tex 源码中汉字间的换行符和空格都会被编译成空格 
+% 打开/关闭CJK文字之间的空格，tex 源码中汉字间的换行符和空格都会被编译成空格
 % 作者编写论文 tex 源码时一般写到一个逗号就换行再写 这样能最大限度的保证清晰
 % 如不符合您的需求请自行解注释
 %\xeCJKsetup{CJKspace=true}
@@ -600,8 +600,6 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	% 第一个水平间距命令采用LaTeX的\hspace命令
 	% 若采用之后的TeX原始间距命令则水平间距无法产生，原因未知
 	\hspace*{6.3ex}		{\zihao{4} Examining Committee Chairperson:}\\[2mm]
-	% 以下间距命令采用TeX命令，\hb@xt@ 即为 \hbox to 的宏
-	% 这里若采用\hspace命令，这水平间距无法产生，原因未知
 	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@enchairperson}\\[2mm]
 	\hspace*{6.3ex}	{\zihao{4} Examining Committee Members:}\\[2mm]
 	\hspace*{30.2ex} 	\ZJUunderline[260pt]{\ZJU@encommissionerA}\\[2mm]
@@ -682,7 +680,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		（保密的学位论文在解密后适用本授权书）\\[20pt]
 		\begin{tabular}{p{0.5\textwidth}p{0.5\textwidth}}
 			学位论文作者签名：	&  导师签名：\\[20pt]
-			signature@date 	        &  \signature@date
+			\signature@date 	&  \signature@date
 		\end{tabular}
 
 	}
