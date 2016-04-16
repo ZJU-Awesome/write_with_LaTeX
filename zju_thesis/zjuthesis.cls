@@ -45,6 +45,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 \renewcommand\figureautorefname{图}
 \renewcommand\tableautorefname{表}
+\renewcommand\equationautorefname{公式}
 
 \AtEndOfClass{
 	\hypersetup{
@@ -270,7 +271,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % xeCJK 环境初始化
 \xeCJKsetup{xeCJKactive=true}
 
-% 打开/关闭CJK文字之间的空格，tex 源码中汉字间的换行符和空格都会被编译成空格 
+% 打开/关闭CJK文字之间的空格，tex 源码中汉字间的换行符和空格都会被编译成空格
 % 作者编写论文 tex 源码时一般写到一个逗号就换行再写 这样能最大限度的保证清晰
 % 如不符合您的需求请自行解注释
 %\xeCJKsetup{CJKspace=true}
@@ -689,7 +690,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		（保密的学位论文在解密后适用本授权书）\\[20pt]
 		\begin{tabular}{p{0.5\textwidth}p{0.5\textwidth}}
 			学位论文作者签名：	&  导师签名：\\[20pt]
-			signature@date 	        &  \signature@date
+			\signature@date 	&  \signature@date
 		\end{tabular}
 
 	}
@@ -780,24 +781,25 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 %%一级节标题格式设置----四号仿宋加黑
 \renewcommand\section{\@startsection{section}{1}{\z@}%
-									{3.5ex \@plus 1ex \@minus .2ex}%
-									{2.3ex \@plus.2ex}%
+									{2ex \@plus .2ex \@minus .2ex}%
+									{1.8ex \@plus.2ex}%
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{4}\bfseries}}
 
 %%二级节标题格式设置----小四号仿宋
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-									{3.25ex \@plus 1ex \@minus .2ex}%
-									{1.5ex \@plus.2ex}%
+									{1.6ex \@plus 0.4ex \@minus .2ex}%
+									{1ex \@plus.2ex}%
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{-4}}}
 
 %%三级节标题格式设置----小四号仿宋
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-									{3.25ex \@plus 1ex \@minus .2ex}%
-									{1.5ex \@plus.2ex}%
+									{1.4ex \@plus 0.3ex \@minus .2ex}%
+									{0.9ex \@plus.2ex}%
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{-4}}}
+
 
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
@@ -982,20 +984,20 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 
 %% 以下为设置浮动对象和文字之间的距离。
 % 版心顶部或者版心底部浮动体之间的垂直距离，默认为12pt plus 2pt minus 2pt。
-\setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
+\setlength{\floatsep}{10bp \@plus2pt \@minus1pt}
 
 % 文本行之间浮动体（使用h位置选项）与上下文之间的距离，默认为12pt plus 2pt minus
 % 2pt。
-\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\intextsep}{12bp \@plus2pt \@minus1pt}
 
 % 版心顶部或底部的浮动体与文本之间的距离，默认为12pt plus 2pt minus 2pt。
-\setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\textfloatsep}{12bp \@plus2pt \@minus1pt}
 
 % 浮动页中，版心顶部的浮动体与版心顶边之间的距离，默认为0pt plus 1fil。
 \setlength{\@fptop}{0bp \@plus1.0fil}
 
 % 浮动页中浮动体直接的距离，默认为8pt plus 2fil。
-\setlength{\@fpsep}{12bp \@plus2.0fil}
+\setlength{\@fpsep}{8bp \@plus2.0fil}
 
 % 浮动页中，版心底部的浮动体与版心底边之间的距离，默认为0pt plus 1fil。
 \setlength{\@fpbot}{0bp \@plus1.0fil}
