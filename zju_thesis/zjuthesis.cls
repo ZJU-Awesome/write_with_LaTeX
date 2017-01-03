@@ -30,6 +30,8 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \RequirePackage{caption}
 % 并排图形。subfigure、subfig 已经不再推荐，并与新的 subcaption不兼容！！！
 \RequirePackage{subcaption}
+% 中英文caption
+\RequirePackage{bicaption}
 % 三线表
 \RequirePackage{booktabs}
 % 长表格宏包，tabu宏包longtabu环境需要。
@@ -976,11 +978,24 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	labelsep=quad,		% 去掉图表号后的冒号。图序与图名文字之间空一个汉字宽度。
 	skip=10pt,			% 标题与图标之间空10pt距离。
 	font=small,			% 标题字体比正文小一号，这里取small。
-	width=.75\textwidth}% 标题最大宽度为0.75倍正文宽度。
+	% width=0.75\textwidth 	% 标题最大宽度为0.75倍正文宽度。
+%TODO:width影响bi-second居中
+	}
 
 % 根据学位论文格式要求，表格的标题必须位于表格上方，插图的标题必须位于插图下方。
 \captionsetup[table]{position=above}
 \captionsetup[figure]{position=below}
+
+% 中英文双语bicaption定义
+\captionsetup[bi-first]{bi-first}
+\captionsetup[bi-second]{bi-second, list=off}
+
+\DeclareCaptionOption{bi-first}[]{%
+  \def\tablename{表}%
+  \def\figurename{图}}
+\DeclareCaptionOption{bi-second}[]{%
+  \def\tablename{Tab}%
+  \def\figurename{Fig}}
 
 %% 以下为设置浮动对象和文字之间的距离。
 % 版心顶部或者版心底部浮动体之间的垂直距离，默认为12pt plus 2pt minus 2pt。

@@ -86,7 +86,8 @@
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width = 0.5\linewidth]{Chapter1.png}
-	\caption{第一张插图测试}\label{fig:first_image_tset}
+	\bicaption{第一张插图测试}{The first picture test}
+	\label{fig:first_image_tset}
 \end{figure}
 
 以下是一段对这些插图来历的介绍，引用自知乎专栏All about TeXnique中夏晓昊的文章\href{http://zhuanlan.zhihu.com/LaTeX/19669122}{《The TeXbook导读：从那头（多图杀猫的）狮子说起》}。
@@ -106,7 +107,7 @@
 如\autoref{tab:first_table_test}是对array宏包的tabular表格环境测试。
 \begin{table}[htbp]
 	\centering
-	\caption{这是一个用tabular环境的测试用的表格}\label{tab:first_table_test}
+	\bicaption{这是一个用tabular环境的测试用的表格}{The first table}\label{tab:first_table_test}
     \begin{tabular}{lrr}
     \toprule
     \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
@@ -122,7 +123,7 @@
 如\autoref{tab:tabu_test_1}是对tabu宏包的tabu表格环境测试。在这里表格命令与\autoref{tab:first_table_test}的命令相同，只是tabular环境改成了tabu环境。
 \begin{table}[htbp]
 	\centering
-	\caption{这是一个用tabu环境的测试用的表格}\label{tab:tabu_test_1}
+	\bicaption{这是一个用tabu环境的测试用的表格}{bicaption in tabu enviroment}\label{tab:tabu_test_1}
     \begin{tabu}{lrr}
     \toprule
     \textbf{行星}     & \textbf{赤道半径}km & \textbf{公转周期}d \\
@@ -153,7 +154,7 @@
 
 特别需要注意的是，longtabu是基于longtable宏包开发的，所以在zjuthesis.cls文件中已经插入了longtable宏包。longtable环境的所有功能都可以在longtabu中使用，如\textbackslash endhead，\textbackslash endfirsthead，\textbackslash endfoot，\textbackslash endlastfoot，和\textbackslash caption等。具体用法请参见longtable和tabu宏包的相应文档。
 \begin{longtabu}{lccc}
-\caption{材料弹性模量及泊松比}\label{tab:tabu_test_3}\\
+\bicaption{材料弹性模量及泊松比}{bicaption in longtable}\label{tab:tabu_test_3}\\
 \toprule
 名  称   & 弹性模量E/Gpa & 切变模量G/Gpa & 泊松比$\mu$ \\
 \midrule%
@@ -214,7 +215,7 @@
 	\begin{subfigure}[b]{.4\textwidth}
 		\centering
 		\includegraphics[width = \textwidth]{Chapter2.png}
-		\caption{书籍排版与普通排版}\label{subfig:1a}
+		\bisubcaption{书籍排版与普通排版}{bicaption in subcaption}\label{subfig:1a}
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[b]{.4\textwidth}
@@ -222,7 +223,7 @@
 		\includegraphics[width = \textwidth]{Chapter3.png}
 		\caption{\TeX 的控制系列}\label{subfig:1b}
 	\end{subfigure}
-	\caption{子图模式测试1:2张图}\label{fig:subfig_test1}
+	\bicaption{子图模式测试1:2张图}{bicaption in subfigure}\label{fig:subfig_test1}
 \end{figure}
 
 如\autoref{fig:subfig_test2}是有四张子图的模式，对子图进行交叉引用，如\autoref{subfig:2a}、\autoref{subfig:2b}、\autoref{subfig:2c}和\autoref{subfig:2d}。
