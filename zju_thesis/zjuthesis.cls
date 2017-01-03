@@ -31,7 +31,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 并排图形。subfigure、subfig 已经不再推荐，并与新的 subcaption不兼容！！！
 \RequirePackage{subcaption}
 % 中英文caption
-\RequirePackage{bicaption}
+\RequirePackage{bicaption}		% 请更新到最新版本，旧版本不在longtable环境产生作用
 % 三线表
 \RequirePackage{booktabs}
 % 长表格宏包，tabu宏包longtabu环境需要。
