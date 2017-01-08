@@ -78,6 +78,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \urlstyle{same}
 % 参考文献正文上标样式设置
 \RequirePackage[sort&compress,numbers]{natbib}
+% 解决在caption中用\cite，导致文献引用顺序混乱的问题
+% 参考自BibTEX Tips and FAQ（btxFAQ.pdf）Question 18
+\usepackage{notoccite}
 % hypernat 可以让hyperref 和natbib 混合使用，但它需要放在这两者之后。
 \RequirePackage{hypernat}
 % 修复图表超链接不准的问题
