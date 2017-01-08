@@ -227,8 +227,14 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \def\ps@ZJU@plain{%
 	\let\@oddhead\@empty%
 	\let\@evenhead\@empty%
-	\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}%
-	\let\@evenfoot=\@oddfoot}
+	\if@twoside
+        \def\@oddfoot{\hfil\zihao{-5}\thepage}%
+        \def\@evenfoot{\zihao{-5}\thepage\hfil}%
+    \else
+        \def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
+        \let\@evenfoot=\@oddfoot
+    \fi
+}
 
 % 文章主样式：分单双面打印样式
 \if@twoside
@@ -239,8 +245,9 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\def\@evenhead{\vbox to\headheight{%
 			\hb@xt@\textwidth{\zihao{-5}\songti\leftmark\hfill\ZJU@D@M@thesis}%
 			\vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
-		\def\@oddfoot{\hfil\zihao{-5}\thepage\hfil}
-		\let\@evenfoot=\@oddfoot
+		\def\@oddfoot{\hfil\zihao{-5}\thepage}
+        \def\@evenfoot{\zihao{-5}\thepage\hfil}
+		% \let\@evenfoot=\@oddfoot
 		\let\@mkboth\markboth}
 \else
 	\def\ps@ZJU@headings{%
