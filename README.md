@@ -84,7 +84,8 @@ __清理临时文件__:
 
 **请升级到最新版的Texlive，经反映有生成的文档复制出现乱码的错误，新版引擎修复了这个错误**
 
-** 中文编译到 eu1lmr.fd 出现很久的停顿，请尝试下面的解决办法：**
+**中文编译到 eu1lmr.fd 出现很久的停顿，请尝试下面的解决办法：**
+
 1. 清理```texlive\2016\texmf-var\fonts\cache``` 中所有文件
 2. 执行```fc-cache -fsv```(管理员权限cmd)
 3. 参考[XeLaTeX runs slow on Windows machine](http://tex.stackexchange.com/questions/325278/xelatex-runs-slow-on-windows-machine/329243)
