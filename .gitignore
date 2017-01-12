@@ -36,5 +36,6 @@
 !/zju_thesis/logo/**/*.pdf
 !/zju_thesis/figures/**/*.pdf
 !/zju_thesis/contents/**/*.pdf
+!浙江大学研究生学位论文编写规则.pdf
 *.fls
 ~*.doc
