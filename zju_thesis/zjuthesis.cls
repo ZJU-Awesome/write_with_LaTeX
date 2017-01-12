@@ -8,9 +8,11 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 % 博士、硕士可选参数，用于区别格式
 \newif\if@doctor
 \newif\if@cpsupervisor\@cpsupervisortrue
+\newif\if@anon\@anonfalse
 \DeclareOption{doctor}{\@doctortrue}
 \DeclareOption{master}{\@doctorfalse}
 \DeclareOption{nocpsupervisor}{\@cpsupervisorfalse}
+\DeclareOption{anon}{\@anontrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 \LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}
@@ -333,7 +335,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	单位代码：\ZJUunderline[60pt]{\ZJU@serialnumber} \par
 	密\quad 级：\ZJUunderline[90pt]{\ZJU@secretlevel}
 	\hfill
-	学\ZJUspace 号：\ZJUunderline[60pt]{\ZJU@studentnumber} \par
+	学\ZJUspace 号：\ZJUunderline[60pt]{\if@anon\else\ZJU@studentnumber\fi} \par
 	\vspace{10mm}
 	\begin{center}
 		\includegraphics[width=60mm]{./logo/ZJDX.pdf}\par
@@ -386,10 +388,10 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 		\end{tabular}
 		\vfill
 		\begin{tabular}{>{\zihao{4}\songti}r>{\zihao{4}\fangsong}l}
-			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author} \\[3mm]
-			指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor} \\[3mm]
+			申请人姓名: & \ZJUunderline[200pt]{\if@anon\else\ZJU@author\fi} \\[3mm]
+			指导教师: & \ZJUunderline[200pt]{\if@anon\else\ZJU@supervisor\fi} \\[3mm]
 			\if@cpsupervisor
-				合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor} \\[3mm]
+				合作导师: & \ZJUunderline[200pt]{\if@anon\else\ZJU@cpsupervisor\fi} \\[3mm]
 			\fi
 			专业名称: & \ZJUunderline[200pt]{\ZJU@major} \\[3mm]
 			研究方向: & \ZJUunderline[200pt]{\ZJU@research} \\[3mm]
@@ -399,7 +401,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\vskip 17mm
 	\begin{center}
 		{\zihao{-3}\songti\bfseries 论文提交日期\ZJUunderline[150pt]{%
-		\ZJU@submitdate}}
+		\if@anon\else\ZJU@submitdate\fi}}
 	\end{center}
 	%清空变量节省空间
 	\global\let\ZJU@classification\@empty
