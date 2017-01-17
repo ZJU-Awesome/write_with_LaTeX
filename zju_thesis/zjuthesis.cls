@@ -744,7 +744,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\@afterheading}		% 不知道这个\@afterheading有什么用，先放着。
 \def\@makechapterhead#1{%
 	\vspace*{20\p@}%
-	{\parindent \z@ \raggedright
+	{\parindent \z@ \if@frontmatter\centering\else\raggedright\fi
 	\fangsong\zihao{-3} \bfseries
 	\ifnum \c@secnumdepth >\m@ne
 		\if@mainmatter
@@ -814,20 +814,23 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 									{\parindent \z@ \raggedright
 									 \fangsong\zihao{-4}}}
 
-
+\newif\if@frontmatter\@frontmatterfalse
 % \frontmatter,\mainmatter,\backmatter重定义。
 \renewcommand\frontmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
+	\@frontmattertrue
 	\@mainmatterfalse
 	\pagenumbering{Roman}
 	\pagestyle{ZJU@headings}}
 \renewcommand\mainmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
+	\@frontmatterfalse
 	\@mainmattertrue
 	\pagenumbering{arabic}
 	\pagestyle{ZJU@headings}}
 \renewcommand\backmatter{%
 	\if@openright\cleardoublepage\else\clearpage\fi%
+	\@frontmatterfalse
 	\@mainmatterfalse}
 
 % 对\appendix进行重新定义，使之可以在\backmatter之后产生章节标题序号，且在书签栏
