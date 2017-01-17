@@ -759,7 +759,7 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 	\@afterheading}
 \def\@makeschapterhead#1{%
 	\vspace*{20\p@}%
-	{\parindent \z@ \centering
+	{\parindent \z@ \raggedright
 	\fangsong \zihao{-3} \bfseries
 	\interlinepenalty\@M
 	#1\par\nobreak
