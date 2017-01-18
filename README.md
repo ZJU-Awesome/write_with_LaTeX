@@ -91,6 +91,20 @@ __清理临时文件__:
 3. 参考[XeLaTeX runs slow on Windows machine](http://tex.stackexchange.com/questions/325278/xelatex-runs-slow-on-windows-machine/329243)
 
 
+**中文加粗的问题**
+如果有部分同学和我一样，出现了该加粗的字体没有加粗，并伴随相关警告，有一个临时的解决办法，但是我仍旧没有搞清楚原因，希望知道的同学告诉我。
+
+方法：将fontset 文件夹下的对应配置文件替换```texmf-dist/tex/latex/ctex/fontset``` 中的配置文件，当然注意备份原文件。然后就好了。
+
+- win7 及以后：windowsnew
+- win7 以前： windowsold
+- mac :  mac
+- linux : fandol
+
+中文加粗，是个很奇怪的要求，包括MS Word 实际上用的也是伪加粗，除非有对应的粗字体文件。所以目前的解决办法就是通过配置文件让他们伪加粗。
+
+当然，也可能和我texlive 的环境有关。
+
 由于时间和能力有限，故该模板可能与学院要求的格式不尽相同。
 建议使用TeXLive，并采用XeLaTeX进行编译。
 
