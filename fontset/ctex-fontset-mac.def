@@ -39,10 +39,10 @@
         \setCJKmainfont [ AutoFakeBold={true} , ItalicFont = STKaiti ]  { STSong }
         \setCJKsansfont [ BoldFont = STHeiti ] { STXihei }
         \setCJKmonofont [ AutoFakeBold = {true}] { STFangsong }
-        \setCJKfamilyfont { zhsong } { STSong }
-        \setCJKfamilyfont { zhhei }  { STHeiti }
-        \setCJKfamilyfont { zhfs }   { STFangsong }
-        \setCJKfamilyfont { zhkai }  { STKaiti }
+        \setCJKfamilyfont { zhsong }[ AutoFakeBold = {true}] { STSong }
+        \setCJKfamilyfont { zhhei } [ AutoFakeBold = {true}] { STHeiti }
+        \setCJKfamilyfont { zhfs }  [ AutoFakeBold = {true}] { STFangsong }
+        \setCJKfamilyfont { zhkai } [ AutoFakeBold = {true}] { STKaiti }
       }
   }
 \NewDocumentCommand \songti   { } { \CJKfamily { zhsong } }
