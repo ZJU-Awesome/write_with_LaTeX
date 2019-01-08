@@ -40,3 +40,5 @@
 !浙江大学研究生学位论文编写规则.pdf
 *.fls
 ~*.doc
+*.bak
+.DS_Store

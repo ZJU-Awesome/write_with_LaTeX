@@ -15,11 +15,12 @@ Created: 2014.09.15 by Sky and Hamburger, Last Modified: 2014.09.12 by Hamburger
 \DeclareOption{anon}{\@anontrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
-\LoadClass[cs4size,fancyhdr,fntef,openright,cap]{ctexbook}
+\LoadClass[zihao=-4,openright,scheme=chinese]{ctexbook}
 
 %---------- 加载宏包 ----------
 % 数学公式
 \RequirePackage{amsmath,amssymb}
+\RequirePackage{fancyhdr}
 % 公式中的粗体
 \RequirePackage{bm}
 % 公式中的括号，例如subnumcases环境
